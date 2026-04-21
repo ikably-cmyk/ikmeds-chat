@@ -1088,11 +1088,15 @@ async function submitQuery(userMessage, opts = {}) {
   }
 
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 90000);
     const r = await fetch(N8N_CHAT_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
+      signal: controller.signal,
     });
+    clearTimeout(timeoutId);
 
     if (r.status === 403) {
       state.credits = 0;
@@ -1230,7 +1234,7 @@ function buildInitialMessage() {
   if (f.medicamento) lines.push(`Medicamento: ${f.medicamento}`);
   if (f.condicion) lines.push(`Condición: ${f.condicion}`);
   if (f.area_tratamiento) lines.push(`Área: ${f.area_tratamiento}`);
-  return lines.join('\n') || 'Análisis de expediente clínico';
+  return lines.join('\n');
 }
 
 /* -------- Init -------- */
