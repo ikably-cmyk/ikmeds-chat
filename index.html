@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#4A1528" />
+<title>ikmeds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --color-primary: #4A1528;
+    --color-secondary: #9C6B7A;
+    --color-light: #F5F0EC;
+    --color-bg: #FFFFFF;
+    --color-text: #2D1B22;
+    --color-text-soft: #6B5560;
+    --color-border: #E8DDD8;
+    --color-chip-bg: #F5F0EC;
+    --color-chip-active: #4A1528;
+    --color-chip-active-text: #FFFFFF;
+    --color-danger: #B33A3A;
+    --color-success: #2E7D4F;
+    --shadow-sm: 0 1px 2px rgba(74, 21, 40, 0.05);
+    --shadow-md: 0 4px 12px rgba(74, 21, 40, 0.08);
+    --radius: 12px;
+    --radius-lg: 16px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: 'DM Mono', ui-monospace, monospace; letter-spacing: -0.01em; }
+
+  .app {
+    max-width: 780px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px 32px;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 20px;
+    gap: 12px;
+  }
+  .logo {
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--color-primary);
+    letter-spacing: -0.02em;
+  }
+  .logo-dot { color: var(--color-secondary); }
+  .header-right { display: flex; align-items: center; gap: 8px; }
+
+  .credits-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--color-chip-bg);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+  .credits-pill.low { background: #FDECEC; color: var(--color-danger); }
+
+  .lang-select {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    color: var(--color-text);
+    padding: 6px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  /* Home */
+  .welcome {
+    padding: 8px 0 20px;
+  }
+  .welcome h1 {
+    font-size: 26px;
+    margin: 0 0 6px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+  }
+  .welcome p { margin: 0; color: var(--color-text-soft); }
+
+  .modules {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 520px) {
+    .modules { grid-template-columns: 1fr; }
+  }
+  .module-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 16px;
+    cursor: pointer;
+    background: var(--color-bg);
+    transition: all .15s ease;
+    text-align: left;
+    font-family: inherit;
+  }
+  .module-card:hover {
+    border-color: var(--color-secondary);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+  .module-card .ico {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--color-secondary);
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+  .module-card h3 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+  .module-card p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--color-text-soft);
+  }
+
+  /* Forms */
+  .module-view { display: none; }
+  .module-view.active { display: block; }
+
+  .back-btn {
+    background: none;
+    border: none;
+    color: var(--color-secondary);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 4px 0;
+    margin-bottom: 10px;
+  }
+  .back-btn:hover { color: var(--color-primary); }
+
+  .form-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0 0 4px;
+    letter-spacing: -0.02em;
+  }
+  .form-sub {
+    color: var(--color-text-soft);
+    font-size: 13px;
+    margin: 0 0 18px;
+  }
+
+  .field { margin-bottom: 14px; }
+  .field label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--color-primary);
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .field input,
+  .field textarea,
+  .field select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    background: var(--color-bg);
+    color: var(--color-text);
+    transition: border-color .15s ease;
+  }
+  .field textarea { min-height: 90px; resize: vertical; }
+  .field input:focus,
+  .field textarea:focus,
+  .field select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    background: var(--color-primary);
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background .15s ease;
+    width: 100%;
+  }
+  .btn:hover { background: #5f1e36; }
+  .btn:disabled { background: var(--color-secondary); cursor: not-allowed; opacity: .7; }
+  .btn-secondary {
+    background: var(--color-chip-bg);
+    color: var(--color-primary);
+  }
+  .btn-secondary:hover { background: #EADFD9; }
+
+  /* Response area */
+  .response-wrap { margin-top: 24px; }
+  .response {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 18px;
+    background: var(--color-light);
+  }
+  .response h1,
+  .response h2,
+  .response h3 {
+    color: var(--color-primary);
+    margin: 18px 0 8px;
+    font-weight: 700;
+  }
+  .response h1 { font-size: 18px; }
+  .response h2 { font-size: 16px; }
+  .response h3 { font-size: 14px; }
+  .response p { margin: 8px 0; }
+  .response ul, .response ol { margin: 8px 0; padding-left: 20px; }
+  .response li { margin: 4px 0; }
+  .response strong { color: var(--color-primary); }
+  .response code {
+    background: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    border: 1px solid var(--color-border);
+  }
+  .response table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 13px;
+  }
+  .response th, .response td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+  }
+  .response th {
+    background: #fff;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  /* Loading */
+  .loading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px;
+    color: var(--color-text-soft);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+  }
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--color-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Follow-up chat */
+  .followup {
+    margin-top: 20px;
+    border-top: 1px solid var(--color-border);
+    padding-top: 20px;
+  }
+  .followup-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0 0 12px;
+  }
+  .chat-history {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 14px;
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  .chat-msg {
+    padding: 10px 14px;
+    border-radius: 12px;
+    max-width: 90%;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .chat-msg.user {
+    align-self: flex-end;
+    background: var(--color-primary);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+  .chat-msg.assistant {
+    align-self: flex-start;
+    background: var(--color-light);
+    color: var(--color-text);
+    border-bottom-left-radius: 4px;
+  }
+  .chat-input-row {
+    display: flex;
+    gap: 8px;
+  }
+  .chat-input-row textarea {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    resize: none;
+    min-height: 42px;
+    max-height: 120px;
+  }
+  .chat-input-row textarea:focus { outline: none; border-color: var(--color-primary); }
+  .chat-input-row .btn {
+    width: auto;
+    padding: 0 16px;
+    font-size: 13px;
+  }
+
+  /* Upgrade card */
+  .upgrade {
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    background: linear-gradient(180deg, #FFFFFF, var(--color-light));
+    margin: 16px 0;
+  }
+  .upgrade h3 {
+    margin: 0 0 6px;
+    color: var(--color-primary);
+    font-size: 18px;
+  }
+  .upgrade p { margin: 0 0 14px; color: var(--color-text-soft); font-size: 14px; }
+  .upgrade-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  @media (max-width: 480px) {
+    .upgrade-grid { grid-template-columns: 1fr; }
+  }
+  .pay-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 13px;
+    transition: all .15s ease;
+  }
+  .pay-btn:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+  .pay-btn .flag { font-size: 16px; margin-bottom: 2px; }
+  .pay-btn .price {
+    font-family: 'DM Mono', monospace;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .pay-btn .label { color: var(--color-text-soft); font-size: 12px; }
+
+  /* Error banner */
+  .error-banner {
+    background: #FDECEC;
+    color: var(--color-danger);
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    margin: 10px 0;
+  }
+
+  /* Radio group for laser_pbm */
+  .radio-group { display: flex; gap: 8px; }
+  .radio-group label {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--color-text);
+    margin: 0;
+  }
+  .radio-group input[type="radio"] { display: none; }
+  .radio-group input[type="radio"]:checked + span {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+  .radio-group label:has(input:checked) {
+    border-color: var(--color-primary);
+    background: var(--color-chip-bg);
+  }
+
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <header class="header">
+    <div class="logo">ikmeds<span class="logo-dot">.</span></div>
+    <div class="header-right">
+      <span id="credits-pill" class="credits-pill mono">— credits</span>
+      <select id="lang-select" class="lang-select">
+        <option value="es">ES 🇲🇽</option>
+        <option value="en">EN 🌍</option>
+        <option value="pt">PT 🇧🇷</option>
+        <option value="ja">JA 🇯🇵</option>
+        <option value="ko">KO 🇰🇷</option>
+      </select>
+    </div>
+  </header>
+
+  <!-- HOME -->
+  <section id="view-home" class="view">
+    <div class="welcome">
+      <h1 id="welcome-title">Hola 👋</h1>
+      <p id="welcome-sub">Elige un módulo para comenzar.</p>
+    </div>
+
+    <div id="upgrade-home" class="hidden"></div>
+
+    <div id="modules" class="modules"></div>
+  </section>
+
+  <!-- MODULE -->
+  <section id="view-module" class="view hidden">
+    <button id="back-btn" class="back-btn">← <span id="back-label">Volver</span></button>
+    <h2 id="module-title" class="form-title"></h2>
+    <p id="module-sub" class="form-sub"></p>
+
+    <div id="form-container"></div>
+
+    <button id="submit-btn" class="btn"><span id="submit-label">Consultar</span></button>
+
+    <div id="error-box"></div>
+
+    <div id="response-wrap" class="response-wrap hidden">
+      <div id="response" class="response"></div>
+
+      <div id="followup" class="followup hidden">
+        <div class="followup-title" id="followup-title">¿Tienes alguna duda sobre este reporte?</div>
+        <div id="chat-history" class="chat-history"></div>
+        <div class="chat-input-row">
+          <textarea id="chat-input" placeholder="Escribe tu pregunta..."></textarea>
+          <button id="chat-send" class="btn"><span id="chat-send-label">Enviar</span></button>
+        </div>
+      </div>
+    </div>
+
+    <div id="upgrade-module" class="hidden"></div>
+  </section>
+
+</div>
+
+<script>
+/* ============================================================
+ * ikmeds v2 (chat) — GitHub Pages
+ * ============================================================ */
+
+const N8N_CHAT_URL = 'https://laserai.app.n8n.cloud/webhook/ikmeds-chat';
+const N8N_PROFILE_URL = 'https://laserai.app.n8n.cloud/webhook/ikmeds-get-profile';
+
+const STRIPE_LINKS = {
+  initial_mxn: 'https://buy.stripe.com/dRmeV538XgHwfaq5YXdIA0x',
+  initial_usd: 'https://buy.stripe.com/6oU9AL10Pcrg8M2evtdIA0y',
+  topup10_mxn: 'https://buy.stripe.com/dRm28j7pd2QG7HYcnldIA0z',
+  topup10_usd: 'https://buy.stripe.com/28EfZ9bFt3UKgeu9b9dIA0A',
+  topup25_mxn: 'https://buy.stripe.com/8x24gr24T9f45zQ9b9dIA0B',
+  topup25_usd: 'https://buy.stripe.com/7sY28j10P1MC6DUevtdIA0C',
+};
+
+/* -------- i18n -------- */
+const I18N = {
+  es: {
+    hello: 'Hola',
+    choose_module: 'Elige un módulo para comenzar.',
+    credits: 'consultas',
+    back: 'Volver',
+    consult: 'Consultar',
+    send: 'Enviar',
+    followup_title: '¿Tienes alguna duda sobre este reporte?',
+    followup_placeholder: 'Escribe tu pregunta...',
+    out_of_credits_title: '🔒 Consultas agotadas',
+    out_of_credits_body: 'Para continuar, recarga tu cuenta:',
+    initial_label: 'Acceso inicial · 10 consultas',
+    topup10_label: 'Recarga · 10 consultas',
+    topup25_label: 'Recarga · 25 consultas',
+    error_generic: 'Hubo un error. Intenta de nuevo.',
+    error_network: 'Error de conexión. Verifica tu internet.',
+    loading: 'Analizando...',
+    modules: {
+      consulta: { title: 'Consulta Rápida', desc: 'Interacción farmacológica puntual', ico: 'QUICK' },
+      expediente: { title: 'Expediente', desc: 'Reporte completo con historial clínico', ico: 'FULL' },
+      interconsulta: { title: 'Interconsulta', desc: 'Referencia a especialista', ico: 'REFER' },
+      calculadora: { title: 'Calculadora', desc: 'Cálculo de dosis', ico: 'CALC' },
+      pbm: { title: 'PBM', desc: 'Protocolos de fotobiomodulación', ico: 'PBM' },
+    },
+    fields: {
+      nombre_paciente: 'Nombre del paciente',
+      query: 'Consulta',
+      query_ph: 'Ej: ¿Puedo dar Augmentin si el paciente toma Lipitor?',
+      HistClin: 'Historia clínica relevante',
+      procedimiento: 'Procedimiento',
+      anestesia: 'Anestésico a usar',
+      medstomando: 'Medicamentos que toma el paciente',
+      receta: 'Medicamentos a recetar',
+      laser_pbm: '¿Usa láser / PBM?',
+      objetivo_PBM: 'Objetivo del PBM',
+      dispositivo_laser: 'Dispositivo / longitud de onda',
+      peso_paciente: 'Peso del paciente (kg)',
+      medicamento: 'Medicamento a calcular',
+      condicion: 'Condición del paciente',
+      area_tratamiento: 'Área a tratar',
+      yes: 'Sí',
+      no: 'No',
+    },
+  },
+  en: {
+    hello: 'Hi',
+    choose_module: 'Pick a module to get started.',
+    credits: 'consults',
+    back: 'Back',
+    consult: 'Consult',
+    send: 'Send',
+    followup_title: 'Any follow-up questions about this report?',
+    followup_placeholder: 'Type your question...',
+    out_of_credits_title: '🔒 Out of consults',
+    out_of_credits_body: 'To continue, top up your account:',
+    initial_label: 'Initial access · 10 consults',
+    topup10_label: 'Top-up · 10 consults',
+    topup25_label: 'Top-up · 25 consults',
+    error_generic: 'Something went wrong. Please try again.',
+    error_network: 'Network error. Check your connection.',
+    loading: 'Analyzing...',
+    modules: {
+      consulta: { title: 'Quick Consult', desc: 'Point pharmacological check', ico: 'QUICK' },
+      expediente: { title: 'Full Report', desc: 'Complete report with clinical history', ico: 'FULL' },
+      interconsulta: { title: 'Referral', desc: 'Specialist referral', ico: 'REFER' },
+      calculadora: { title: 'Calculator', desc: 'Dose calculation', ico: 'CALC' },
+      pbm: { title: 'PBM', desc: 'Photobiomodulation protocols', ico: 'PBM' },
+    },
+    fields: {
+      nombre_paciente: 'Patient name',
+      query: 'Query',
+      query_ph: 'E.g.: Can I give Augmentin if patient takes Lipitor?',
+      HistClin: 'Relevant clinical history',
+      procedimiento: 'Procedure',
+      anestesia: 'Anesthetic to use',
+      medstomando: 'Patient current medications',
+      receta: 'Medications to prescribe',
+      laser_pbm: 'Using laser / PBM?',
+      objetivo_PBM: 'PBM goal',
+      dispositivo_laser: 'Device / wavelength',
+      peso_paciente: 'Patient weight (kg)',
+      medicamento: 'Medication to calculate',
+      condicion: 'Patient condition',
+      area_tratamiento: 'Treatment area',
+      yes: 'Yes',
+      no: 'No',
+    },
+  },
+  pt: {
+    hello: 'Olá',
+    choose_module: 'Escolha um módulo para começar.',
+    credits: 'consultas',
+    back: 'Voltar',
+    consult: 'Consultar',
+    send: 'Enviar',
+    followup_title: 'Tem alguma dúvida sobre este relatório?',
+    followup_placeholder: 'Digite sua pergunta...',
+    out_of_credits_title: '🔒 Consultas esgotadas',
+    out_of_credits_body: 'Para continuar, recarregue sua conta:',
+    initial_label: 'Acesso inicial · 10 consultas',
+    topup10_label: 'Recarga · 10 consultas',
+    topup25_label: 'Recarga · 25 consultas',
+    error_generic: 'Algo deu errado. Tente novamente.',
+    error_network: 'Erro de rede. Verifique sua conexão.',
+    loading: 'Analisando...',
+    modules: {
+      consulta: { title: 'Consulta Rápida', desc: 'Interação farmacológica pontual', ico: 'QUICK' },
+      expediente: { title: 'Relatório Completo', desc: 'Relatório com histórico clínico', ico: 'FULL' },
+      interconsulta: { title: 'Interconsulta', desc: 'Encaminhamento ao especialista', ico: 'REFER' },
+      calculadora: { title: 'Calculadora', desc: 'Cálculo de dose', ico: 'CALC' },
+      pbm: { title: 'PBM', desc: 'Protocolos de fotobiomodulação', ico: 'PBM' },
+    },
+    fields: {
+      nombre_paciente: 'Nome do paciente',
+      query: 'Consulta',
+      query_ph: 'Ex: Posso dar Augmentin se o paciente toma Lipitor?',
+      HistClin: 'Histórico clínico relevante',
+      procedimiento: 'Procedimento',
+      anestesia: 'Anestésico a usar',
+      medstomando: 'Medicamentos em uso pelo paciente',
+      receta: 'Medicamentos a prescrever',
+      laser_pbm: 'Usa laser / PBM?',
+      objetivo_PBM: 'Objetivo do PBM',
+      dispositivo_laser: 'Dispositivo / comprimento de onda',
+      peso_paciente: 'Peso do paciente (kg)',
+      medicamento: 'Medicamento a calcular',
+      condicion: 'Condição do paciente',
+      area_tratamiento: 'Área de tratamento',
+      yes: 'Sim',
+      no: 'Não',
+    },
+  },
+  ja: {
+    hello: 'こんにちは',
+    choose_module: 'モジュールを選択してください。',
+    credits: '相談',
+    back: '戻る',
+    consult: '相談',
+    send: '送信',
+    followup_title: 'このレポートについて質問はありますか？',
+    followup_placeholder: '質問を入力...',
+    out_of_credits_title: '🔒 相談回数がなくなりました',
+    out_of_credits_body: '続けるにはチャージしてください:',
+    initial_label: '初回アクセス · 10相談',
+    topup10_label: 'チャージ · 10相談',
+    topup25_label: 'チャージ · 25相談',
+    error_generic: 'エラーが発生しました。もう一度お試しください。',
+    error_network: 'ネットワークエラー。接続を確認してください。',
+    loading: '分析中...',
+    modules: {
+      consulta: { title: 'クイック相談', desc: '薬物相互作用の確認', ico: 'QUICK' },
+      expediente: { title: '詳細レポート', desc: '病歴付きの完全レポート', ico: 'FULL' },
+      interconsulta: { title: '紹介', desc: '専門医への紹介', ico: 'REFER' },
+      calculadora: { title: '計算機', desc: '用量計算', ico: 'CALC' },
+      pbm: { title: 'PBM', desc: '光生体調節プロトコル', ico: 'PBM' },
+    },
+    fields: {
+      nombre_paciente: '患者名',
+      query: '相談内容',
+      query_ph: '例: Lipitor服用中にAugmentinを投与できますか？',
+      HistClin: '関連する臨床歴',
+      procedimiento: '処置',
+      anestesia: '使用する麻酔',
+      medstomando: '現在服用中の薬',
+      receta: '処方する薬',
+      laser_pbm: 'レーザー / PBM使用？',
+      objetivo_PBM: 'PBMの目的',
+      dispositivo_laser: '機器 / 波長',
+      peso_paciente: '患者の体重 (kg)',
+      medicamento: '計算する薬剤',
+      condicion: '患者の状態',
+      area_tratamiento: '治療部位',
+      yes: 'はい',
+      no: 'いいえ',
+    },
+  },
+  ko: {
+    hello: '안녕하세요',
+    choose_module: '시작할 모듈을 선택하세요.',
+    credits: '상담',
+    back: '뒤로',
+    consult: '상담',
+    send: '보내기',
+    followup_title: '이 보고서에 대한 질문이 있나요?',
+    followup_placeholder: '질문을 입력하세요...',
+    out_of_credits_title: '🔒 상담 횟수 소진',
+    out_of_credits_body: '계속하려면 충전하세요:',
+    initial_label: '초기 접근 · 10 상담',
+    topup10_label: '충전 · 10 상담',
+    topup25_label: '충전 · 25 상담',
+    error_generic: '문제가 발생했습니다. 다시 시도하세요.',
+    error_network: '네트워크 오류. 연결을 확인하세요.',
+    loading: '분석 중...',
+    modules: {
+      consulta: { title: '빠른 상담', desc: '약물 상호작용 확인', ico: 'QUICK' },
+      expediente: { title: '전체 보고서', desc: '임상 기록 포함 완전 보고서', ico: 'FULL' },
+      interconsulta: { title: '의뢰', desc: '전문의 의뢰', ico: 'REFER' },
+      calculadora: { title: '계산기', desc: '용량 계산', ico: 'CALC' },
+      pbm: { title: 'PBM', desc: '광생체조절 프로토콜', ico: 'PBM' },
+    },
+    fields: {
+      nombre_paciente: '환자 이름',
+      query: '상담 내용',
+      query_ph: '예: Lipitor 복용 중 Augmentin 처방 가능한가요?',
+      HistClin: '관련 임상 기록',
+      procedimiento: '시술',
+      anestesia: '사용할 마취제',
+      medstomando: '환자 현재 복용 약물',
+      receta: '처방할 약물',
+      laser_pbm: '레이저 / PBM 사용?',
+      objetivo_PBM: 'PBM 목표',
+      dispositivo_laser: '기기 / 파장',
+      peso_paciente: '환자 체중 (kg)',
+      medicamento: '계산할 약물',
+      condicion: '환자 상태',
+      area_tratamiento: '치료 부위',
+      yes: '예',
+      no: '아니오',
+    },
+  },
+};
+
+/* -------- Module field definitions -------- */
+const MODULE_FIELDS = {
+  consulta: ['nombre_paciente', 'query'],
+  expediente: ['nombre_paciente', 'HistClin', 'procedimiento', 'anestesia', 'medstomando', 'receta', 'laser_pbm', 'objetivo_PBM', 'dispositivo_laser'],
+  interconsulta: ['nombre_paciente', 'HistClin', 'procedimiento', 'anestesia', 'medstomando', 'receta', 'laser_pbm', 'objetivo_PBM', 'dispositivo_laser'],
+  calculadora: ['nombre_paciente', 'procedimiento', 'peso_paciente', 'medicamento', 'condicion'],
+  pbm: ['nombre_paciente', 'objetivo_PBM', 'dispositivo_laser', 'area_tratamiento'],
+};
+
+const TIPO_DE_REPORTE_MAP = {
+  consulta: 'Consulta rápida / Quick consult',
+  expediente: 'Expediente / Full report',
+  interconsulta: 'Interconsulta / Referral',
+  calculadora: 'Calculadora / Calculator',
+  pbm: 'PBM',
+};
+
+/* -------- State -------- */
+const state = {
+  userEmail: '',
+  language: 'es',
+  module: null,
+  credits: null,
+  sessionCreditUsed: false,
+  conversationHistory: [],
+  formData: {},
+};
+
+function t() { return I18N[state.language] || I18N.es; }
+
+/* -------- URL params -------- */
+function parseURL() {
+  const url = new URL(window.location.href);
+  state.userEmail = url.searchParams.get('email') || '';
+  const mod = url.searchParams.get('module');
+  if (mod && MODULE_FIELDS[mod]) state.module = mod;
+  const lang = url.searchParams.get('lang');
+  if (lang && I18N[lang]) state.language = lang;
+}
+
+/* -------- Rendering -------- */
+function setLang(lang) {
+  state.language = lang;
+  document.documentElement.lang = lang;
+  document.getElementById('lang-select').value = lang;
+  renderAll();
+}
+
+function renderCreditsPill() {
+  const pill = document.getElementById('credits-pill');
+  if (state.credits === null) {
+    pill.textContent = '—';
+    pill.classList.remove('low');
+    return;
+  }
+  pill.textContent = state.credits + ' ' + t().credits;
+  pill.classList.toggle('low', state.credits <= 0);
+}
+
+function renderWelcome() {
+  const name = state.userEmail ? state.userEmail.split('@')[0] : '';
+  document.getElementById('welcome-title').textContent = `${t().hello}${name ? ', ' + name : ''} 👋`;
+  document.getElementById('welcome-sub').textContent = t().choose_module;
+}
+
+function renderModules() {
+  const wrap = document.getElementById('modules');
+  wrap.innerHTML = '';
+  const mods = t().modules;
+  Object.keys(MODULE_FIELDS).forEach(key => {
+    const m = mods[key];
+    const btn = document.createElement('button');
+    btn.className = 'module-card';
+    btn.innerHTML = `
+      <div class="ico">${m.ico}</div>
+      <h3>${m.title}</h3>
+      <p>${m.desc}</p>
+    `;
+    btn.addEventListener('click', () => openModule(key));
+    wrap.appendChild(btn);
+  });
+}
+
+function renderUpgradeCard(containerId) {
+  const el = document.getElementById(containerId);
+  const L = t();
+  el.innerHTML = `
+    <div class="upgrade">
+      <h3>${L.out_of_credits_title}</h3>
+      <p>${L.out_of_credits_body}</p>
+      <div class="upgrade-grid">
+        <a class="pay-btn" href="${STRIPE_LINKS.topup10_mxn}" target="_blank" rel="noopener">
+          <span class="flag">🇲🇽</span>
+          <span class="price">$60 MXN</span>
+          <span class="label">${L.topup10_label}</span>
+        </a>
+        <a class="pay-btn" href="${STRIPE_LINKS.topup10_usd}" target="_blank" rel="noopener">
+          <span class="flag">🌍</span>
+          <span class="price">$3 USD</span>
+          <span class="label">${L.topup10_label}</span>
+        </a>
+        <a class="pay-btn" href="${STRIPE_LINKS.topup25_mxn}" target="_blank" rel="noopener">
+          <span class="flag">🇲🇽</span>
+          <span class="price">$125 MXN</span>
+          <span class="label">${L.topup25_label}</span>
+        </a>
+        <a class="pay-btn" href="${STRIPE_LINKS.topup25_usd}" target="_blank" rel="noopener">
+          <span class="flag">🌍</span>
+          <span class="price">$6.25 USD</span>
+          <span class="label">${L.topup25_label}</span>
+        </a>
+      </div>
+    </div>
+  `;
+  el.classList.remove('hidden');
+}
+
+function hide(id) { document.getElementById(id).classList.add('hidden'); }
+function show(id) { document.getElementById(id).classList.remove('hidden'); }
+
+function renderModuleForm() {
+  if (!state.module) return;
+  const L = t();
+  const mods = L.modules;
+  const m = mods[state.module];
+  document.getElementById('module-title').textContent = m.title;
+  document.getElementById('module-sub').textContent = m.desc;
+  document.getElementById('back-label').textContent = L.back;
+  document.getElementById('submit-label').textContent = L.consult;
+  document.getElementById('chat-send-label').textContent = L.send;
+  document.getElementById('followup-title').textContent = L.followup_title;
+  document.getElementById('chat-input').placeholder = L.followup_placeholder;
+
+  const container = document.getElementById('form-container');
+  container.innerHTML = '';
+  const fields = MODULE_FIELDS[state.module];
+  fields.forEach(f => container.appendChild(renderField(f)));
+}
+
+function renderField(fieldName) {
+  const L = t().fields;
+  const wrap = document.createElement('div');
+  wrap.className = 'field';
+  const label = document.createElement('label');
+  label.textContent = L[fieldName] || fieldName;
+  label.setAttribute('for', 'f-' + fieldName);
+  wrap.appendChild(label);
+
+  if (fieldName === 'laser_pbm') {
+    const group = document.createElement('div');
+    group.className = 'radio-group';
+    ['yes', 'no'].forEach((val, i) => {
+      const lbl = document.createElement('label');
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'laser_pbm';
+      input.value = val === 'yes' ? 'Sí' : 'No';
+      if (i === 1) input.checked = true;
+      input.addEventListener('change', () => { state.formData.laser_pbm = input.value; });
+      const sp = document.createElement('span');
+      sp.textContent = L[val];
+      lbl.appendChild(input);
+      lbl.appendChild(sp);
+      group.appendChild(lbl);
+    });
+    state.formData.laser_pbm = 'No';
+    wrap.appendChild(group);
+    return wrap;
+  }
+
+  const isTextarea = ['query', 'HistClin', 'medstomando', 'receta', 'condicion', 'objetivo_PBM'].includes(fieldName);
+  const isNumber = fieldName === 'peso_paciente';
+  const input = document.createElement(isTextarea ? 'textarea' : 'input');
+  if (!isTextarea) input.type = isNumber ? 'number' : 'text';
+  input.id = 'f-' + fieldName;
+  if (fieldName === 'query') input.placeholder = L.query_ph;
+  input.addEventListener('input', () => { state.formData[fieldName] = input.value; });
+  wrap.appendChild(input);
+  return wrap;
+}
+
+function openModule(key) {
+  state.module = key;
+  state.sessionCreditUsed = false;
+  state.conversationHistory = [];
+  state.formData = {};
+  hide('view-home');
+  show('view-module');
+  hide('response-wrap');
+  hide('followup');
+  hide('upgrade-module');
+  document.getElementById('error-box').innerHTML = '';
+  document.getElementById('chat-history').innerHTML = '';
+  renderModuleForm();
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  state.module = null;
+  hide('view-module');
+  show('view-home');
+  renderAll();
+  window.scrollTo(0, 0);
+}
+
+function renderAll() {
+  renderCreditsPill();
+  renderWelcome();
+  renderModules();
+  if (state.credits !== null && state.credits <= 0) {
+    renderUpgradeCard('upgrade-home');
+  } else {
+    hide('upgrade-home');
+  }
+  if (state.module) renderModuleForm();
+}
+
+/* -------- Profile fetch -------- */
+async function fetchProfile() {
+  if (!state.userEmail) { state.credits = null; return; }
+  try {
+    const url = N8N_PROFILE_URL + '?email=' + encodeURIComponent(state.userEmail);
+    const r = await fetch(url, { method: 'GET' });
+    if (!r.ok) throw new Error('profile fetch failed');
+    const data = await r.json();
+    state.credits = Number(data.credits_balance) || 0;
+  } catch (e) {
+    console.warn('Profile error:', e);
+    state.credits = null;
+  }
+  renderCreditsPill();
+  if (state.credits !== null && state.credits <= 0 && !state.module) {
+    renderUpgradeCard('upgrade-home');
+  }
+}
+
+/* -------- Markdown (minimal) -------- */
+function mdToHtml(md) {
+  if (!md) return '';
+  let s = String(md);
+  s = s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  // code fences
+  s = s.replace(/```([\s\S]*?)```/g, (_, c) => `<pre><code>${c}</code></pre>`);
+  // inline code
+  s = s.replace(/`([^`\n]+)`/g, '<code>$1</code>');
+  // headings
+  s = s.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+  s = s.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+  s = s.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+  // bold / italic
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
+  // tables (simple pipe table)
+  s = s.replace(/((?:^\|.+\|\s*\n)+)/gm, block => {
+    const lines = block.trim().split('\n');
+    if (lines.length < 2) return block;
+    const headerCells = lines[0].slice(1, -1).split('|').map(x => x.trim());
+    const sep = lines[1];
+    if (!/^\|[\s\-:|]+\|$/.test(sep)) return block;
+    const rows = lines.slice(2).map(l => l.slice(1, -1).split('|').map(x => x.trim()));
+    let html = '<table><thead><tr>' + headerCells.map(c => `<th>${c}</th>`).join('') + '</tr></thead><tbody>';
+    rows.forEach(r => { html += '<tr>' + r.map(c => `<td>${c}</td>`).join('') + '</tr>'; });
+    html += '</tbody></table>';
+    return html;
+  });
+  // lists
+  s = s.replace(/^(?:-|\*) (.+)$/gm, '<li>$1</li>');
+  s = s.replace(/(<li>.*?<\/li>\s*)+/gs, m => `<ul>${m}</ul>`);
+  s = s.replace(/^(\d+)\. (.+)$/gm, '<oli>$2</oli>');
+  s = s.replace(/(<oli>.*?<\/oli>\s*)+/gs, m => `<ol>${m.replace(/<oli>/g, '<li>').replace(/<\/oli>/g, '</li>')}</ol>`);
+  // paragraphs: split on blank lines
+  s = s.split(/\n{2,}/).map(block => {
+    if (/^<(h\d|ul|ol|pre|table|blockquote)/.test(block.trim())) return block;
+    return '<p>' + block.replace(/\n/g, '<br>') + '</p>';
+  }).join('\n');
+  return s;
+}
+
+/* -------- Submit -------- */
+async function submitQuery(userMessage, opts = {}) {
+  const isFollowup = !!opts.isFollowup;
+  const isFirstMessage = !state.sessionCreditUsed;
+  const L = t();
+  const errBox = document.getElementById('error-box');
+  errBox.innerHTML = '';
+
+  // Build conversation_history string
+  const historyText = state.conversationHistory.map(m => {
+    const role = m.role === 'user' ? 'Doctor' : 'Assistant';
+    return `${role}: ${m.content}`;
+  }).join('\n');
+
+  const body = {
+    user_email: state.userEmail,
+    last_message: userMessage,
+    history: historyText,
+    language: state.language,
+    is_first_message: isFirstMessage,
+    tipo_de_reporte: TIPO_DE_REPORTE_MAP[state.module] || '',
+    nombre_paciente: state.formData.nombre_paciente || '',
+    HistClin: state.formData.HistClin || '',
+    procedimiento: state.formData.procedimiento || '',
+    anestesia: state.formData.anestesia || '',
+    medstomando: state.formData.medstomando || '',
+    receta: state.formData.receta || '',
+    laser_pbm: state.formData.laser_pbm || '',
+    objetivo_PBM: state.formData.objetivo_PBM || '',
+    dispositivo_laser: state.formData.dispositivo_laser || '',
+    peso_paciente: state.formData.peso_paciente || '',
+    medicamento: state.formData.medicamento || '',
+    condicion: state.formData.condicion || '',
+    area_tratamiento: state.formData.area_tratamiento || '',
+    query: state.formData.query || '',
+  };
+
+  // UI: show loading
+  if (!isFollowup) {
+    show('response-wrap');
+    document.getElementById('response').innerHTML = `
+      <div class="loading"><div class="spinner"></div><span>${L.loading}</span></div>
+    `;
+    document.getElementById('submit-btn').disabled = true;
+  } else {
+    appendChatMsg('user', userMessage);
+    const history = document.getElementById('chat-history');
+    const loadingMsg = document.createElement('div');
+    loadingMsg.className = 'chat-msg assistant';
+    loadingMsg.innerHTML = `<div class="loading"><div class="spinner"></div><span>${L.loading}</span></div>`;
+    loadingMsg.dataset.loading = '1';
+    history.appendChild(loadingMsg);
+    history.scrollTop = history.scrollHeight;
+    document.getElementById('chat-send').disabled = true;
+  }
+
+  try {
+    const r = await fetch(N8N_CHAT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+
+    if (r.status === 403) {
+      state.credits = 0;
+      renderCreditsPill();
+      if (!isFollowup) {
+        document.getElementById('response').innerHTML = '';
+        hide('response-wrap');
+      } else {
+        removeLoadingChatMsg();
+      }
+      renderUpgradeCard('upgrade-module');
+      return;
+    }
+
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+
+    const data = await r.json();
+    const answer = data.response || '';
+
+    if (isFirstMessage) {
+      state.sessionCreditUsed = true;
+      if (state.credits !== null && state.credits > 0) state.credits -= 1;
+      renderCreditsPill();
+    }
+
+    // Update history
+    state.conversationHistory.push({ role: 'user', content: userMessage });
+    state.conversationHistory.push({ role: 'assistant', content: answer });
+
+    if (!isFollowup) {
+      document.getElementById('response').innerHTML = mdToHtml(answer);
+      show('followup');
+    } else {
+      removeLoadingChatMsg();
+      appendChatMsg('assistant', answer);
+    }
+  } catch (e) {
+    console.error(e);
+    if (!isFollowup) {
+      document.getElementById('response').innerHTML = '';
+      hide('response-wrap');
+    } else {
+      removeLoadingChatMsg();
+    }
+    errBox.innerHTML = `<div class="error-banner">${L.error_network}</div>`;
+  } finally {
+    document.getElementById('submit-btn').disabled = false;
+    document.getElementById('chat-send').disabled = false;
+  }
+}
+
+function appendChatMsg(role, text) {
+  const history = document.getElementById('chat-history');
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + role;
+  div.innerHTML = role === 'assistant' ? mdToHtml(text) : escapeHtml(text);
+  history.appendChild(div);
+  history.scrollTop = history.scrollHeight;
+}
+function removeLoadingChatMsg() {
+  const history = document.getElementById('chat-history');
+  const loading = history.querySelector('[data-loading="1"]');
+  if (loading) loading.remove();
+}
+function escapeHtml(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/* -------- Validation -------- */
+function validateForm() {
+  if (state.module === 'consulta') {
+    return (state.formData.query || '').trim().length > 0;
+  }
+  if (state.module === 'expediente' || state.module === 'interconsulta') {
+    return (state.formData.procedimiento || '').trim().length > 0;
+  }
+  if (state.module === 'calculadora') {
+    return (state.formData.medicamento || '').trim().length > 0;
+  }
+  if (state.module === 'pbm') {
+    return (state.formData.objetivo_PBM || '').trim().length > 0;
+  }
+  return true;
+}
+
+/* -------- Event binding -------- */
+function bindEvents() {
+  document.getElementById('lang-select').addEventListener('change', e => setLang(e.target.value));
+  document.getElementById('back-btn').addEventListener('click', goHome);
+
+  document.getElementById('submit-btn').addEventListener('click', () => {
+    if (state.credits !== null && state.credits <= 0 && !state.sessionCreditUsed) {
+      renderUpgradeCard('upgrade-module');
+      return;
+    }
+    if (!validateForm()) {
+      document.getElementById('error-box').innerHTML =
+        `<div class="error-banner">${t().error_generic}</div>`;
+      return;
+    }
+    // Build a summary message of the form for the agent
+    const payloadSummary = buildInitialMessage();
+    submitQuery(payloadSummary, { isFollowup: false });
+  });
+
+  const chatInput = document.getElementById('chat-input');
+  const chatSend = document.getElementById('chat-send');
+  const sendChat = () => {
+    const val = chatInput.value.trim();
+    if (!val) return;
+    chatInput.value = '';
+    submitQuery(val, { isFollowup: true });
+  };
+  chatSend.addEventListener('click', sendChat);
+  chatInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); }
+  });
+}
+
+function buildInitialMessage() {
+  const mod = state.module;
+  const f = state.formData;
+  if (mod === 'consulta') return f.query || '';
+  const lines = [];
+  if (f.nombre_paciente) lines.push(`Paciente: ${f.nombre_paciente}`);
+  if (f.HistClin) lines.push(`Historia clínica: ${f.HistClin}`);
+  if (f.procedimiento) lines.push(`Procedimiento: ${f.procedimiento}`);
+  if (f.anestesia) lines.push(`Anestésico: ${f.anestesia}`);
+  if (f.medstomando) lines.push(`Medicamentos actuales: ${f.medstomando}`);
+  if (f.receta) lines.push(`A recetar: ${f.receta}`);
+  if (f.laser_pbm) lines.push(`Láser/PBM: ${f.laser_pbm}`);
+  if (f.objetivo_PBM) lines.push(`Objetivo PBM: ${f.objetivo_PBM}`);
+  if (f.dispositivo_laser) lines.push(`Dispositivo: ${f.dispositivo_laser}`);
+  if (f.peso_paciente) lines.push(`Peso: ${f.peso_paciente} kg`);
+  if (f.medicamento) lines.push(`Medicamento: ${f.medicamento}`);
+  if (f.condicion) lines.push(`Condición: ${f.condicion}`);
+  if (f.area_tratamiento) lines.push(`Área: ${f.area_tratamiento}`);
+  return lines.join('\n');
+}
+
+/* -------- Init -------- */
+async function init() {
+  parseURL();
+  document.getElementById('lang-select').value = state.language;
+  document.documentElement.lang = state.language;
+  bindEvents();
+  renderAll();
+  await fetchProfile();
+  if (state.module) openModule(state.module);
+}
+
+init();
+</script>
+
+</body>
+</html>
