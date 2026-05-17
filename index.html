@@ -11,10 +11,8 @@
 <style>
   /* =====================================================
    * IKMeds · Design Tokens (Teal Médico Profundo)
-   * Fase 1 — paleta, tipografía, spacing, radii, shadows
    * ===================================================== */
   :root {
-    /* ── Color · primario y secundario */
     --primary:     #0F4C5C;
     --primary-90:  rgba(15, 76, 92, 0.90);
     --primary-10:  rgba(15, 76, 92, 0.10);
@@ -24,57 +22,37 @@
     --sec-30:      rgba(90, 138, 139, 0.30);
     --sec-10:      rgba(90, 138, 139, 0.10);
 
-    /* ── Color · fondos */
-    --bg:          #F4F1EC;   /* página */
-    --bg-soft:     #FAF7F2;   /* cards y superficies elevadas */
-    --bg-dark:     #E8E2D8;   /* bordes, divisores */
+    --bg:          #F4F1EC;
+    --bg-soft:     #FAF7F2;
+    --bg-dark:     #E8E2D8;
 
-    /* ── Color · texto */
-    --ink:         #0A1F26;   /* texto principal (no negro puro) */
-    --ink-soft:    #3D5560;   /* texto secundario */
-    --ink-mute:    #8A9499;   /* placeholders, captions, disabled */
+    --ink:         #0A1F26;
+    --ink-soft:    #3D5560;
+    --ink-mute:    #8A9499;
 
-    /* ── Color · semánticos */
-    --warning:     #C97B4A;   /* cobre — flags clínicos (bifosfonatos/ONJ) */
+    --warning:     #C97B4A;
     --warn-bg:     #FBEFE2;
     --warn-border: #E8B488;
     --success:     #4A7C59;
     --error:       #A53F2B;
     --error-bg:    #FBEAE6;
 
-    /* ── Typography */
     --font-serif:  'Instrument Serif', Georgia, serif;
     --font-sans:   'Instrument Sans', system-ui, -apple-system, sans-serif;
     --font-mono:   'Space Mono', ui-monospace, 'SFMono-Regular', monospace;
 
-    /* ── Spacing */
-    --space-1: 4px;
-    --space-2: 8px;
-    --space-3: 12px;
-    --space-4: 16px;
-    --space-5: 20px;
-    --space-6: 24px;
-    --space-8: 32px;
-    --space-10: 40px;
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
 
-    /* ── Radii */
-    --radius-sm:   8px;
-    --radius-md:   12px;
-    --radius-lg:   16px;
-    --radius-pill: 999px;
+    --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-pill: 999px;
 
-    /* ── Shadow */
     --shadow-sm: 0 1px 2px rgba(15, 76, 92, 0.06);
     --shadow-md: 0 4px 16px rgba(15, 76, 92, 0.10);
     --shadow-lg: 0 12px 32px rgba(15, 76, 92, 0.14);
 
-    /* ── Motion */
     --transition: 220ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* =====================================================
-   * Reset y base
-   * ===================================================== */
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
@@ -97,259 +75,137 @@
     padding: 0 16px 32px;
   }
 
-  /* =====================================================
-   * Header
-   * ===================================================== */
+  /* Header */
   .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
     padding: 18px 0 14px;
     border-bottom: 1px solid var(--bg-dark);
-    margin-bottom: 22px;
-    gap: 12px;
+    margin-bottom: 22px; gap: 12px;
   }
   .logo {
     font-family: var(--font-serif);
-    font-weight: 400;
-    font-size: 24px;
-    color: var(--primary);
-    letter-spacing: -0.015em;
-    line-height: 1;
+    font-weight: 400; font-size: 24px;
+    color: var(--primary); letter-spacing: -0.015em; line-height: 1;
   }
-  .logo-dot {
-    color: var(--secondary);
-    font-style: italic;
-  }
+  .logo-dot { color: var(--secondary); font-style: italic; }
   .header-right { display: flex; align-items: center; gap: 8px; }
 
   .credits-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    border-radius: var(--radius-pill);
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: var(--radius-pill);
     background: var(--primary-5);
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--primary);
-    font-weight: 700;
-    letter-spacing: 0.01em;
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--primary); font-weight: 700; letter-spacing: 0.01em;
   }
-  .credits-pill.low {
-    background: var(--error-bg);
-    color: var(--error);
-  }
+  .credits-pill.low { background: var(--error-bg); color: var(--error); }
 
   .lang-select {
-    font-family: var(--font-mono);
-    font-size: 11px;
+    font-family: var(--font-mono); font-size: 11px;
     border: 1px solid var(--bg-dark);
-    background: var(--bg-soft);
-    color: var(--ink-soft);
-    padding: 6px 10px;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-weight: 600;
-    letter-spacing: 0.02em;
+    background: var(--bg-soft); color: var(--ink-soft);
+    padding: 6px 10px; border-radius: var(--radius-sm);
+    cursor: pointer; font-weight: 600; letter-spacing: 0.02em;
   }
-  .lang-select:focus {
-    outline: none;
-    border-color: var(--primary);
-  }
+  .lang-select:focus { outline: none; border-color: var(--primary); }
 
-  /* =====================================================
-   * Home
-   * ===================================================== */
+  /* Home */
   .welcome { padding: 4px 0 22px; }
   .welcome h1 {
     font-family: var(--font-serif);
-    font-size: 30px;
-    margin: 0 0 6px;
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    line-height: 1.08;
-    color: var(--primary);
+    font-size: 30px; margin: 0 0 6px; font-weight: 400;
+    letter-spacing: -0.02em; line-height: 1.08; color: var(--primary);
   }
-  .welcome p {
-    margin: 0;
-    color: var(--ink-soft);
-    font-size: 14.5px;
-  }
+  .welcome p { margin: 0; color: var(--ink-soft); font-size: 14.5px; }
 
   .modules {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 16px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-bottom: 16px;
   }
-  @media (max-width: 520px) {
-    .modules { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 520px) { .modules { grid-template-columns: 1fr; } }
   .module-card {
     border: 1px solid var(--bg-dark);
-    border-radius: var(--radius-lg);
-    padding: 16px;
-    cursor: pointer;
-    background: var(--bg-soft);
+    border-radius: var(--radius-lg); padding: 16px;
+    cursor: pointer; background: var(--bg-soft);
     transition: all var(--transition);
-    text-align: left;
-    font-family: inherit;
+    text-align: left; font-family: inherit;
   }
   .module-card:hover {
     border-color: var(--sec-30);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-1px); box-shadow: var(--shadow-md);
   }
   .module-card .ico {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--secondary);
-    margin-bottom: 8px;
-    letter-spacing: 0.10em;
-    text-transform: uppercase;
-    font-weight: 700;
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--secondary); margin-bottom: 8px;
+    letter-spacing: 0.10em; text-transform: uppercase; font-weight: 700;
   }
   .module-card h3 {
-    margin: 0 0 4px;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--primary);
-    font-family: var(--font-sans);
+    margin: 0 0 4px; font-size: 16px; font-weight: 600;
+    color: var(--primary); font-family: var(--font-sans);
     letter-spacing: -0.01em;
   }
-  .module-card p {
-    margin: 0;
-    font-size: 13px;
-    color: var(--ink-soft);
-    line-height: 1.4;
-  }
+  .module-card p { margin: 0; font-size: 13px; color: var(--ink-soft); line-height: 1.4; }
 
-  /* =====================================================
-   * Forms
-   * ===================================================== */
+  /* Forms (módulos NO-expediente) */
   .module-view { display: none; }
   .module-view.active { display: block; }
 
   .back-btn {
-    background: none;
-    border: none;
-    color: var(--secondary);
-    font-family: var(--font-mono);
-    font-size: 11px;
-    cursor: pointer;
-    padding: 4px 0;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 700;
+    background: none; border: none; color: var(--secondary);
+    font-family: var(--font-mono); font-size: 11px;
+    cursor: pointer; padding: 4px 0; margin-bottom: 12px;
+    text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;
   }
   .back-btn:hover { color: var(--primary); }
 
   .form-title {
-    font-family: var(--font-serif);
-    font-size: 26px;
-    font-weight: 400;
-    color: var(--primary);
-    margin: 0 0 4px;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
+    font-family: var(--font-serif); font-size: 26px; font-weight: 400;
+    color: var(--primary); margin: 0 0 4px;
+    letter-spacing: -0.02em; line-height: 1.1;
   }
-  .form-sub {
-    color: var(--ink-soft);
-    font-size: 13.5px;
-    margin: 0 0 20px;
-  }
+  .form-sub { color: var(--ink-soft); font-size: 13.5px; margin: 0 0 20px; }
 
   .field { margin-bottom: 14px; }
   .field label {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    color: var(--primary);
-    margin-bottom: 6px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 700;
+    display: block; font-family: var(--font-mono);
+    font-size: 10.5px; color: var(--primary);
+    margin-bottom: 6px; letter-spacing: 0.08em;
+    text-transform: uppercase; font-weight: 700;
   }
-  .field input,
-  .field textarea,
-  .field select {
-    width: 100%;
-    padding: 11px 13px;
-    border: 1px solid var(--bg-dark);
-    border-radius: var(--radius-sm);
-    font-family: var(--font-sans);
-    font-size: 14px;
-    background: var(--bg-soft);
-    color: var(--ink);
+  .field input, .field textarea, .field select {
+    width: 100%; padding: 11px 13px;
+    border: 1px solid var(--bg-dark); border-radius: var(--radius-sm);
+    font-family: var(--font-sans); font-size: 14px;
+    background: var(--bg-soft); color: var(--ink);
     transition: border-color var(--transition), background var(--transition);
   }
-  .field textarea {
-    min-height: 92px;
-    resize: vertical;
-    line-height: 1.5;
-  }
-  .field input::placeholder,
-  .field textarea::placeholder {
-    color: var(--ink-mute);
-  }
-  .field input:focus,
-  .field textarea:focus,
-  .field select:focus {
-    outline: none;
-    border-color: var(--primary);
-    background: #FFFFFF;
+  .field textarea { min-height: 92px; resize: vertical; line-height: 1.5; }
+  .field input::placeholder, .field textarea::placeholder { color: var(--ink-mute); }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    outline: none; border-color: var(--primary); background: #FFFFFF;
   }
 
   .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 13px 18px;
-    border-radius: var(--radius-sm);
-    background: var(--primary);
-    color: var(--bg-soft);
-    border: none;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    font-family: var(--font-sans);
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 8px; padding: 13px 18px; border-radius: var(--radius-sm);
+    background: var(--primary); color: var(--bg-soft);
+    border: none; font-weight: 600; font-size: 14px;
+    cursor: pointer; font-family: var(--font-sans);
     transition: background var(--transition), opacity var(--transition);
-    width: 100%;
-    letter-spacing: -0.01em;
+    width: 100%; letter-spacing: -0.01em;
   }
   .btn:hover { background: var(--primary-90); }
-  .btn:disabled {
-    background: var(--secondary);
-    cursor: not-allowed;
-    opacity: 0.65;
-  }
-  .btn-secondary {
-    background: var(--sec-10);
-    color: var(--primary);
-  }
-  .btn-secondary:hover { background: var(--sec-30); }
+  .btn:disabled { background: var(--secondary); cursor: not-allowed; opacity: 0.65; }
 
-  /* =====================================================
-   * Response area
-   * ===================================================== */
+  /* Response */
   .response-wrap { margin-top: 24px; }
   .response {
     border: 1px solid var(--bg-dark);
-    border-radius: var(--radius-md);
-    padding: 20px;
+    border-radius: var(--radius-md); padding: 20px;
     background: var(--bg-soft);
   }
-  .response h1,
-  .response h2,
-  .response h3 {
-    color: var(--primary);
-    margin: 18px 0 8px;
-    font-weight: 600;
-    font-family: var(--font-sans);
-    letter-spacing: -0.01em;
+  .response h1, .response h2, .response h3 {
+    color: var(--primary); margin: 18px 0 8px; font-weight: 600;
+    font-family: var(--font-sans); letter-spacing: -0.01em;
   }
   .response h1 { font-size: 19px; }
   .response h2 { font-size: 16px; }
@@ -359,263 +215,348 @@
   .response li { margin: 4px 0; }
   .response strong { color: var(--primary); font-weight: 600; }
   .response code {
-    background: #FFFFFF;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    border: 1px solid var(--bg-dark);
-    color: var(--ink);
+    background: #FFFFFF; padding: 2px 6px; border-radius: 4px;
+    font-family: var(--font-mono); font-size: 12.5px;
+    border: 1px solid var(--bg-dark); color: var(--ink);
   }
   .response pre {
-    background: #FFFFFF;
-    padding: 12px;
-    border-radius: var(--radius-sm);
-    overflow-x: auto;
-    border: 1px solid var(--bg-dark);
-    font-size: 12.5px;
+    background: #FFFFFF; padding: 12px; border-radius: var(--radius-sm);
+    overflow-x: auto; border: 1px solid var(--bg-dark); font-size: 12.5px;
   }
-  .response pre code {
-    border: none;
-    padding: 0;
-    background: transparent;
-  }
-  .response table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 12px 0;
-    font-size: 13px;
-  }
-  .response th, .response td {
-    padding: 9px 11px;
-    border-bottom: 1px solid var(--bg-dark);
-    text-align: left;
-  }
+  .response pre code { border: none; padding: 0; background: transparent; }
+  .response table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  .response th, .response td { padding: 9px 11px; border-bottom: 1px solid var(--bg-dark); text-align: left; }
   .response th {
-    background: #FFFFFF;
-    color: var(--primary);
-    font-weight: 700;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    background: #FFFFFF; color: var(--primary); font-weight: 700;
+    font-family: var(--font-mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.06em;
   }
 
-  /* =====================================================
-   * Loading
-   * ===================================================== */
+  /* Loading */
   .loading {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px;
-    color: var(--ink-soft);
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    letter-spacing: 0.02em;
+    display: flex; align-items: center; gap: 10px; padding: 16px;
+    color: var(--ink-soft); font-family: var(--font-mono);
+    font-size: 12.5px; letter-spacing: 0.02em;
   }
   .spinner {
-    width: 16px;
-    height: 16px;
+    width: 16px; height: 16px;
     border: 2px solid var(--bg-dark);
     border-top-color: var(--primary);
-    border-radius: 50%;
-    animation: spin .8s linear infinite;
+    border-radius: 50%; animation: spin .8s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* =====================================================
-   * Follow-up chat
-   * ===================================================== */
-  .followup {
-    margin-top: 22px;
-    border-top: 1px solid var(--bg-dark);
-    padding-top: 20px;
-  }
+  /* Followup */
+  .followup { margin-top: 22px; border-top: 1px solid var(--bg-dark); padding-top: 20px; }
   .followup-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--primary);
-    margin: 0 0 14px;
-    font-family: var(--font-sans);
-    letter-spacing: -0.01em;
+    font-size: 14px; font-weight: 600; color: var(--primary);
+    margin: 0 0 14px; font-family: var(--font-sans); letter-spacing: -0.01em;
   }
   .chat-history {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 14px;
-    max-height: 360px;
-    overflow-y: auto;
-    padding-right: 4px;
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 14px; max-height: 360px; overflow-y: auto; padding-right: 4px;
   }
-  .chat-msg {
-    padding: 11px 15px;
-    border-radius: var(--radius-md);
-    max-width: 90%;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  .chat-msg.user {
-    align-self: flex-end;
-    background: var(--primary);
-    color: var(--bg-soft);
-    border-bottom-right-radius: 4px;
-  }
+  .chat-msg { padding: 11px 15px; border-radius: var(--radius-md); max-width: 90%; font-size: 14px; line-height: 1.5; }
+  .chat-msg.user { align-self: flex-end; background: var(--primary); color: var(--bg-soft); border-bottom-right-radius: 4px; }
   .chat-msg.assistant {
-    align-self: flex-start;
-    background: var(--bg-soft);
-    border: 1px solid var(--bg-dark);
-    color: var(--ink);
-    border-bottom-left-radius: 4px;
+    align-self: flex-start; background: var(--bg-soft);
+    border: 1px solid var(--bg-dark); color: var(--ink); border-bottom-left-radius: 4px;
   }
-  .chat-input-row {
-    display: flex;
-    gap: 8px;
-  }
+  .chat-input-row { display: flex; gap: 8px; }
   .chat-input-row textarea {
-    flex: 1;
-    padding: 11px 13px;
-    border: 1px solid var(--bg-dark);
-    border-radius: var(--radius-sm);
-    font-family: var(--font-sans);
-    font-size: 14px;
-    background: var(--bg-soft);
-    color: var(--ink);
-    resize: none;
-    min-height: 44px;
-    max-height: 120px;
-    line-height: 1.5;
+    flex: 1; padding: 11px 13px; border: 1px solid var(--bg-dark);
+    border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 14px;
+    background: var(--bg-soft); color: var(--ink); resize: none;
+    min-height: 44px; max-height: 120px; line-height: 1.5;
   }
   .chat-input-row textarea::placeholder { color: var(--ink-mute); }
-  .chat-input-row textarea:focus {
-    outline: none;
-    border-color: var(--primary);
-    background: #FFFFFF;
-  }
-  .chat-input-row .btn {
-    width: auto;
-    padding: 0 18px;
-    font-size: 13px;
-  }
+  .chat-input-row textarea:focus { outline: none; border-color: var(--primary); background: #FFFFFF; }
+  .chat-input-row .btn { width: auto; padding: 0 18px; font-size: 13px; }
 
-  /* =====================================================
-   * Upgrade card
-   * ===================================================== */
+  /* Upgrade */
   .upgrade {
-    border: 1px solid var(--primary);
-    border-radius: var(--radius-lg);
-    padding: 22px 20px;
-    background: var(--bg-soft);
-    margin: 16px 0;
-    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--primary); border-radius: var(--radius-lg);
+    padding: 22px 20px; background: var(--bg-soft);
+    margin: 16px 0; box-shadow: var(--shadow-sm);
   }
   .upgrade h3 {
-    margin: 0 0 6px;
-    color: var(--primary);
-    font-size: 19px;
-    font-family: var(--font-serif);
-    font-weight: 400;
-    letter-spacing: -0.015em;
+    margin: 0 0 6px; color: var(--primary); font-size: 19px;
+    font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.015em;
   }
-  .upgrade p {
-    margin: 0 0 16px;
-    color: var(--ink-soft);
-    font-size: 13.5px;
-  }
-  .upgrade-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-  @media (max-width: 480px) {
-    .upgrade-grid { grid-template-columns: 1fr; }
-  }
+  .upgrade p { margin: 0 0 16px; color: var(--ink-soft); font-size: 13.5px; }
+  .upgrade-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 480px) { .upgrade-grid { grid-template-columns: 1fr; } }
   .pay-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 13px 14px;
-    border: 1px solid var(--bg-dark);
-    border-radius: var(--radius-sm);
-    background: #FFFFFF;
-    color: var(--primary);
-    text-decoration: none;
-    transition: all var(--transition);
-    gap: 2px;
+    display: flex; flex-direction: column; align-items: flex-start;
+    padding: 13px 14px; border: 1px solid var(--bg-dark);
+    border-radius: var(--radius-sm); background: #FFFFFF;
+    color: var(--primary); text-decoration: none;
+    transition: all var(--transition); gap: 2px;
   }
-  .pay-btn:hover {
-    border-color: var(--primary);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
-  }
+  .pay-btn:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
   .pay-btn .region {
-    font-family: var(--font-mono);
-    font-size: 9.5px;
-    color: var(--secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.10em;
-    font-weight: 700;
-    margin-bottom: 2px;
+    font-family: var(--font-mono); font-size: 9.5px;
+    color: var(--secondary); text-transform: uppercase;
+    letter-spacing: 0.10em; font-weight: 700; margin-bottom: 2px;
   }
   .pay-btn .price {
-    font-family: var(--font-mono);
-    font-weight: 700;
-    font-size: 14.5px;
-    color: var(--primary);
-    letter-spacing: -0.01em;
+    font-family: var(--font-mono); font-weight: 700; font-size: 14.5px;
+    color: var(--primary); letter-spacing: -0.01em;
   }
-  .pay-btn .label {
-    color: var(--ink-soft);
-    font-size: 12px;
-  }
+  .pay-btn .label { color: var(--ink-soft); font-size: 12px; }
 
-  /* =====================================================
-   * Error banner
-   * ===================================================== */
   .error-banner {
-    background: var(--error-bg);
-    color: var(--error);
-    padding: 11px 14px;
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    margin: 10px 0;
+    background: var(--error-bg); color: var(--error);
+    padding: 11px 14px; border-radius: var(--radius-sm);
+    font-size: 13px; margin: 10px 0;
     border: 1px solid rgba(165, 63, 43, 0.20);
   }
 
-  /* =====================================================
-   * Radio group (laser_pbm Sí / No)
-   * ===================================================== */
+  /* Radio (laser_pbm en módulos no-expediente) */
   .radio-group { display: flex; gap: 8px; }
   .radio-group label {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 11px;
-    border: 1px solid var(--bg-dark);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    text-transform: none;
-    letter-spacing: 0;
-    color: var(--ink);
-    margin: 0;
-    background: var(--bg-soft);
-    transition: all var(--transition);
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    padding: 11px; border: 1px solid var(--bg-dark);
+    border-radius: var(--radius-sm); cursor: pointer;
+    font-family: var(--font-mono); font-size: 12px;
+    text-transform: none; letter-spacing: 0;
+    color: var(--ink); margin: 0;
+    background: var(--bg-soft); transition: all var(--transition);
   }
   .radio-group input[type="radio"] { display: none; }
-  .radio-group input[type="radio"]:checked + span {
-    color: var(--primary);
-    font-weight: 700;
-  }
-  .radio-group label:has(input:checked) {
-    border-color: var(--primary);
-    background: var(--primary-5);
-  }
+  .radio-group input[type="radio"]:checked + span { color: var(--primary); font-weight: 700; }
+  .radio-group label:has(input:checked) { border-color: var(--primary); background: var(--primary-5); }
 
   .hidden { display: none !important; }
+
+  /* =====================================================
+   * FASE 2 · Sistema de chips + acordeones (EXPEDIENTE)
+   * ===================================================== */
+
+  /* Accordion */
+  .accordion {
+    background: var(--bg-soft);
+    border: 1px solid var(--bg-dark);
+    border-radius: var(--radius-md);
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: border-color var(--transition);
+  }
+  .accordion.expanded { border-color: var(--sec-30); }
+  .accordion-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; cursor: pointer; gap: 12px;
+    user-select: none;
+  }
+  .accordion-head-left {
+    display: flex; align-items: baseline; gap: 10px; flex: 0 0 auto; min-width: 0;
+  }
+  .accordion-num {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--secondary); font-weight: 700; letter-spacing: 0.05em;
+  }
+  .accordion-title {
+    font-size: 14px; font-weight: 600; color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .accordion-summary {
+    font-size: 12.5px; color: var(--ink-soft);
+    flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    text-align: right; min-width: 0;
+  }
+  .accordion-summary.empty { color: var(--ink-mute); }
+  .accordion-summary .edit {
+    color: var(--secondary); text-transform: uppercase;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.08em; margin-left: 8px; font-weight: 700;
+  }
+  .accordion.expanded .accordion-summary { display: none; }
+  .accordion-toggle {
+    font-family: var(--font-serif); font-size: 20px;
+    color: var(--secondary); line-height: 1;
+    transition: transform var(--transition);
+    flex-shrink: 0;
+  }
+  .accordion.expanded .accordion-toggle { transform: rotate(90deg); color: var(--primary); }
+  .accordion-body { padding: 0 16px 16px; display: none; }
+  .accordion.expanded .accordion-body { display: block; }
+  .accordion-divider { height: 1px; background: var(--bg-dark); margin: 4px 0 14px; }
+
+  /* Field group inside accordion */
+  .field-group { margin-bottom: 14px; }
+  .field-group:last-child { margin-bottom: 0; }
+  .field-group-label {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--ink-soft); text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 8px; font-weight: 700;
+  }
+
+  /* Chips base */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    padding: 7px 13px; border-radius: var(--radius-pill);
+    background: var(--bg); border: 1px solid var(--sec-30);
+    color: var(--ink); font-size: 12.5px; font-weight: 500;
+    cursor: pointer; transition: all 180ms ease;
+    line-height: 1.2; user-select: none;
+    font-family: var(--font-sans);
+  }
+  .chip:hover { background: var(--sec-10); border-color: var(--secondary); }
+  .chip.active { background: var(--primary); color: var(--bg-soft); border-color: var(--primary); }
+  .chip.compact { padding: 7px 11px; font-size: 12px; }
+
+  /* Chip con abreviatura + expansión (stack vertical) */
+  .chip-stack {
+    padding: 5px 11px 6px;
+    display: inline-flex; flex-direction: column; align-items: center;
+    line-height: 1.05; gap: 1px;
+  }
+  .chip-stack .abbr {
+    font-size: 12.5px; font-weight: 600; letter-spacing: -0.01em;
+  }
+  .chip-stack .full {
+    font-size: 9px; color: var(--ink-mute);
+    font-family: var(--font-mono); text-transform: lowercase;
+    letter-spacing: 0; font-weight: 400;
+  }
+  .chip-stack.active .full { color: rgba(250, 247, 242, 0.65); }
+
+  /* Chip de alerta (Bifosfonatos / ONJ) */
+  .chip-alert {
+    background: var(--warn-bg); border: 2px solid var(--warning);
+    color: var(--ink); padding: 4px 11px 5px;
+  }
+  .chip-alert:hover { background: #F8E5CC; border-color: var(--warning); }
+  .chip-alert.active { background: var(--warning); color: var(--bg-soft); border-color: var(--warning); }
+  .chip-alert.active .full { color: rgba(250, 247, 242, 0.85); }
+  .chip-alert .full { color: var(--warning); font-weight: 700; }
+  .chip-alert .alert-tag {
+    display: inline-block; font-family: var(--font-mono);
+    font-size: 8.5px; background: var(--warning); color: var(--bg-soft);
+    padding: 1px 5px; border-radius: 3px; margin-left: 4px;
+    font-weight: 700; letter-spacing: 0.04em;
+    vertical-align: middle; line-height: 1.1;
+  }
+  .chip-alert.active .alert-tag {
+    background: var(--bg-soft); color: var(--warning);
+  }
+
+  .chip-more {
+    background: transparent; border: 1px dashed var(--sec-30);
+    color: var(--secondary); font-family: var(--font-mono);
+    font-size: 11px; letter-spacing: 0.02em;
+  }
+  .chip-more:hover { border-color: var(--secondary); background: var(--sec-10); }
+
+  /* Chip "Exacto" con input */
+  .chip-exact {
+    background: var(--bg-soft); border: 1px solid var(--sec-30);
+    color: var(--secondary); font-family: var(--font-mono);
+    font-size: 11px; letter-spacing: 0.02em;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .chip-exact:hover { background: var(--sec-10); border-color: var(--secondary); }
+  .chip-exact.has-value {
+    background: var(--primary); color: var(--bg-soft); border-color: var(--primary);
+  }
+  .chip-exact input {
+    width: 44px; background: transparent; border: none;
+    border-bottom: 1px solid currentColor; color: inherit;
+    font-family: var(--font-mono); font-size: 12px;
+    text-align: center; padding: 0 2px; outline: none;
+  }
+  .chip-exact input::-webkit-inner-spin-button,
+  .chip-exact input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+  /* Chip "Otro" con input inline expandible debajo */
+  .otro-input-wrap {
+    margin-top: 8px; display: none;
+  }
+  .otro-input-wrap.show { display: flex; gap: 6px; }
+  .otro-input-wrap input {
+    flex: 1; padding: 8px 11px;
+    border: 1px solid var(--sec-30); border-radius: var(--radius-pill);
+    background: var(--bg-soft); color: var(--ink);
+    font-family: var(--font-sans); font-size: 12.5px;
+    outline: none;
+  }
+  .otro-input-wrap input:focus { border-color: var(--primary); background: #FFFFFF; }
+
+  /* IMC display */
+  .imc-hint {
+    font-size: 11.5px; color: var(--ink-mute);
+    margin-top: 10px; font-style: italic; line-height: 1.3;
+  }
+  .imc-display {
+    margin-top: 10px;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px; background: var(--sec-10);
+    border: 1px solid var(--sec-30); border-radius: var(--radius-md);
+  }
+  .imc-display .imc-label {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--secondary); text-transform: uppercase;
+    letter-spacing: 0.08em; font-weight: 700;
+  }
+  .imc-display .imc-value {
+    font-family: var(--font-mono); font-size: 16px;
+    color: var(--primary); font-weight: 700;
+  }
+  .imc-display .imc-cat { font-size: 11.5px; color: var(--ink-soft); }
+
+  /* Medicamentos seleccionados list */
+  .med-selected {
+    display: flex; flex-direction: column; gap: 6px;
+    margin-top: 6px;
+  }
+  .med-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px; background: var(--bg);
+    border: 1px solid var(--sec-30); border-radius: var(--radius-md);
+  }
+  .med-row-name {
+    flex: 1; font-size: 13px; color: var(--ink); font-weight: 500;
+  }
+  .med-row-cat {
+    font-family: var(--font-mono); font-size: 9.5px;
+    color: var(--ink-mute); text-transform: uppercase;
+    letter-spacing: 0.06em; margin-right: 8px;
+  }
+  .med-freq-btn {
+    font-family: var(--font-mono); font-size: 11px;
+    background: var(--primary-5); color: var(--primary);
+    border: 1px solid var(--sec-30); border-radius: var(--radius-pill);
+    padding: 4px 10px; cursor: pointer; font-weight: 700;
+    letter-spacing: 0.01em;
+    transition: all var(--transition);
+  }
+  .med-freq-btn:hover { background: var(--primary-10); }
+  .med-row-remove {
+    background: none; border: none;
+    color: var(--ink-mute); font-family: var(--font-mono);
+    font-size: 16px; cursor: pointer; line-height: 1;
+    padding: 0 4px;
+  }
+  .med-row-remove:hover { color: var(--error); }
+
+  /* Nota complementaria */
+  .nota-complementaria { margin-top: 18px; }
+  .nota-complementaria label {
+    display: block; font-family: var(--font-mono);
+    font-size: 10.5px; color: var(--primary);
+    margin-bottom: 6px; letter-spacing: 0.08em;
+    text-transform: uppercase; font-weight: 700;
+  }
+  .nota-complementaria textarea {
+    width: 100%; min-height: 100px; padding: 12px 14px;
+    border: 1px solid var(--bg-dark); border-radius: var(--radius-md);
+    background: var(--bg-soft); color: var(--ink);
+    font-family: var(--font-sans); font-size: 14px; line-height: 1.55;
+    resize: vertical; outline: none;
+    transition: border-color var(--transition), background var(--transition);
+  }
+  .nota-complementaria textarea::placeholder { color: var(--ink-mute); }
+  .nota-complementaria textarea:focus { border-color: var(--primary); background: #FFFFFF; }
 </style>
 </head>
 <body>
@@ -636,19 +577,15 @@
     </div>
   </header>
 
-  <!-- HOME -->
   <section id="view-home" class="view">
     <div class="welcome">
       <h1 id="welcome-title">Hola</h1>
       <p id="welcome-sub">Elige un módulo para comenzar.</p>
     </div>
-
     <div id="upgrade-home" class="hidden"></div>
-
     <div id="modules" class="modules"></div>
   </section>
 
-  <!-- MODULE -->
   <section id="view-module" class="view hidden">
     <button id="back-btn" class="back-btn">‹ <span id="back-label">Volver</span></button>
     <h2 id="module-title" class="form-title"></h2>
@@ -662,7 +599,6 @@
 
     <div id="response-wrap" class="response-wrap hidden">
       <div id="response" class="response"></div>
-
       <div id="followup" class="followup hidden">
         <div class="followup-title" id="followup-title">¿Tienes alguna duda sobre este reporte?</div>
         <div id="chat-history" class="chat-history"></div>
@@ -681,9 +617,9 @@
 <script>
 /* ============================================================
  * IKMeds v2 (chat) — GitHub Pages
- * Fase 1: solo se actualizó identidad visual y se removieron
- * emojis. Toda la lógica de webhooks, payload, Stripe e I18N
- * se conserva intacta.
+ * Fase 2: añadido sistema de chips/acordeones en EXPEDIENTE.
+ * Otros 4 módulos sin cambios respecto a Fase 1.
+ * Webhooks, payload, Stripe, I18N intactos.
  * ============================================================ */
 
 const N8N_CHAT_URL = 'https://laserai.app.n8n.cloud/webhook/ikmeds-chat';
@@ -718,6 +654,7 @@ const I18N = {
     region_intl: 'Internacional',
     error_generic: 'Hubo un error. Intenta de nuevo.',
     error_network: 'Error de conexión. Verifica tu internet.',
+    error_empty: 'Selecciona al menos una opción o describe el caso en la nota.',
     loading: 'Analizando...',
     modules: {
       consulta: { title: 'Consulta Rápida', desc: 'Interacción farmacológica puntual', ico: 'QUICK' },
@@ -751,8 +688,42 @@ const I18N = {
       medicamento: 'Medicamento a calcular',
       condicion: 'Condición del paciente',
       area_tratamiento: 'Área a tratar',
-      yes: 'Sí',
-      no: 'No',
+      yes: 'Sí', no: 'No',
+    },
+    exp: {
+      nota_label: 'Nota clínica complementaria',
+      nota_ph: 'Continúa aquí, o si es más rápido, cuéntame el caso directamente y omite el formulario.',
+      acc_paciente: 'Paciente',
+      acc_antecedentes: 'Antecedentes',
+      acc_medicamentos: 'Medicamentos',
+      acc_procedimiento: 'Procedimiento',
+      acc_anestesia: 'Anestesia y PBM',
+      lbl_genero: 'Género',
+      lbl_edad: 'Edad',
+      lbl_peso: 'Peso',
+      lbl_talla: 'Talla',
+      lbl_categoria: 'Categoría',
+      lbl_especifico: 'Específico',
+      lbl_seleccionados: 'Seleccionados',
+      lbl_frecuencia: 'Frecuencia',
+      lbl_especialidad: 'Especialidad',
+      lbl_procedimiento: 'Procedimiento específico',
+      lbl_receta: 'Lo que piensas recetar (opcional)',
+      lbl_receta_ph: 'Ej: Amoxicilina 500mg c/8h x7d, Ibuprofeno 400mg c/8h SOS...',
+      lbl_anestesicos: 'Anestésico(s) a usar',
+      lbl_pbm: '¿Usará láser / PBM?',
+      lbl_obj_pbm: 'Objetivo del PBM',
+      lbl_obj_pbm_ph: 'Ej: Analgesia postoperatoria, regeneración ósea...',
+      lbl_disp_laser: 'Dispositivo / longitud de onda',
+      lbl_disp_laser_ph: 'Ej: 980nm diodo, Epic X...',
+      imc_hint: 'Ingresa peso y talla exactos para calcular IMC automáticamente.',
+      imc_label: 'IMC',
+      otro: 'Otro',
+      otro_ph: 'Especifica...',
+      otro_add: 'Agregar',
+      mas: 'más',
+      empty_summary: 'Sin definir',
+      btn_generar: 'Generar expediente',
     },
   },
   en: {
@@ -773,6 +744,7 @@ const I18N = {
     region_intl: 'International',
     error_generic: 'Something went wrong. Please try again.',
     error_network: 'Network error. Check your connection.',
+    error_empty: 'Select at least one option or describe the case in the note.',
     loading: 'Analyzing...',
     modules: {
       consulta: { title: 'Quick Consult', desc: 'Point pharmacological check', ico: 'QUICK' },
@@ -806,17 +778,37 @@ const I18N = {
       medicamento: 'Medication to calculate',
       condicion: 'Patient condition',
       area_tratamiento: 'Treatment area',
-      yes: 'Yes',
-      no: 'No',
+      yes: 'Yes', no: 'No',
+    },
+    exp: {
+      nota_label: 'Additional clinical note',
+      nota_ph: 'Continue here, or if it\'s faster, just tell me the case directly and skip the form.',
+      acc_paciente: 'Patient', acc_antecedentes: 'History',
+      acc_medicamentos: 'Medications', acc_procedimiento: 'Procedure', acc_anestesia: 'Anesthesia & PBM',
+      lbl_genero: 'Gender', lbl_edad: 'Age', lbl_peso: 'Weight', lbl_talla: 'Height',
+      lbl_categoria: 'Category', lbl_especifico: 'Specific',
+      lbl_seleccionados: 'Selected', lbl_frecuencia: 'Frequency',
+      lbl_especialidad: 'Specialty', lbl_procedimiento: 'Specific procedure',
+      lbl_receta: 'Planned prescription (optional)',
+      lbl_receta_ph: 'E.g.: Amoxicillin 500mg q8h x7d, Ibuprofen 400mg q8h PRN...',
+      lbl_anestesicos: 'Anesthetic(s) to use',
+      lbl_pbm: 'Using laser / PBM?',
+      lbl_obj_pbm: 'PBM goal',
+      lbl_obj_pbm_ph: 'E.g.: Postoperative analgesia, bone regeneration...',
+      lbl_disp_laser: 'Device / wavelength',
+      lbl_disp_laser_ph: 'E.g.: 980nm diode, Epic X...',
+      imc_hint: 'Enter exact weight and height to compute BMI automatically.',
+      imc_label: 'BMI',
+      otro: 'Other', otro_ph: 'Specify...', otro_add: 'Add', mas: 'more',
+      empty_summary: 'Not set',
+      btn_generar: 'Generate report',
     },
   },
   pt: {
     hello: 'Olá',
     choose_module: 'Escolha um módulo para começar.',
     credits: 'consultas',
-    back: 'Voltar',
-    consult: 'Consultar',
-    send: 'Enviar',
+    back: 'Voltar', consult: 'Consultar', send: 'Enviar',
     followup_title: 'Tem alguma dúvida sobre este relatório?',
     followup_placeholder: 'Digite sua pergunta...',
     out_of_credits_title: 'Consultas esgotadas',
@@ -824,10 +816,10 @@ const I18N = {
     initial_label: 'Acesso inicial · 10 consultas',
     topup10_label: 'Recarga · 10 consultas',
     topup25_label: 'Recarga · 25 consultas',
-    region_mx: 'México',
-    region_intl: 'Internacional',
+    region_mx: 'México', region_intl: 'Internacional',
     error_generic: 'Algo deu errado. Tente novamente.',
     error_network: 'Erro de rede. Verifique sua conexão.',
+    error_empty: 'Selecione pelo menos uma opção ou descreva o caso na nota.',
     loading: 'Analisando...',
     modules: {
       consulta: { title: 'Consulta Rápida', desc: 'Interação farmacológica pontual', ico: 'QUICK' },
@@ -861,17 +853,36 @@ const I18N = {
       medicamento: 'Medicamento a calcular',
       condicion: 'Condição do paciente',
       area_tratamiento: 'Área de tratamento',
-      yes: 'Sim',
-      no: 'Não',
+      yes: 'Sim', no: 'Não',
+    },
+    exp: {
+      nota_label: 'Nota clínica complementar',
+      nota_ph: 'Continue aqui, ou se for mais rápido, conte-me o caso diretamente e ignore o formulário.',
+      acc_paciente: 'Paciente', acc_antecedentes: 'Antecedentes',
+      acc_medicamentos: 'Medicamentos', acc_procedimiento: 'Procedimento', acc_anestesia: 'Anestesia e PBM',
+      lbl_genero: 'Gênero', lbl_edad: 'Idade', lbl_peso: 'Peso', lbl_talla: 'Altura',
+      lbl_categoria: 'Categoria', lbl_especifico: 'Específico',
+      lbl_seleccionados: 'Selecionados', lbl_frecuencia: 'Frequência',
+      lbl_especialidad: 'Especialidade', lbl_procedimiento: 'Procedimento específico',
+      lbl_receta: 'Plano de prescrição (opcional)',
+      lbl_receta_ph: 'Ex: Amoxicilina 500mg 8/8h x7d, Ibuprofeno 400mg 8/8h SOS...',
+      lbl_anestesicos: 'Anestésico(s) a usar',
+      lbl_pbm: 'Usará laser / PBM?',
+      lbl_obj_pbm: 'Objetivo do PBM',
+      lbl_obj_pbm_ph: 'Ex: Analgesia pós-operatória, regeneração óssea...',
+      lbl_disp_laser: 'Dispositivo / comprimento de onda',
+      lbl_disp_laser_ph: 'Ex: 980nm diodo, Epic X...',
+      imc_hint: 'Insira peso e altura exatos para calcular IMC automaticamente.',
+      imc_label: 'IMC',
+      otro: 'Outro', otro_ph: 'Especifique...', otro_add: 'Adicionar', mas: 'mais',
+      empty_summary: 'Não definido',
+      btn_generar: 'Gerar relatório',
     },
   },
   ja: {
     hello: 'こんにちは',
     choose_module: 'モジュールを選択してください。',
-    credits: '相談',
-    back: '戻る',
-    consult: '相談',
-    send: '送信',
+    credits: '相談', back: '戻る', consult: '相談', send: '送信',
     followup_title: 'このレポートについて質問はありますか？',
     followup_placeholder: '質問を入力...',
     out_of_credits_title: '相談回数がなくなりました',
@@ -879,10 +890,10 @@ const I18N = {
     initial_label: '初回アクセス · 10相談',
     topup10_label: 'チャージ · 10相談',
     topup25_label: 'チャージ · 25相談',
-    region_mx: 'メキシコ',
-    region_intl: '国際',
+    region_mx: 'メキシコ', region_intl: '国際',
     error_generic: 'エラーが発生しました。もう一度お試しください。',
     error_network: 'ネットワークエラー。接続を確認してください。',
+    error_empty: '少なくとも1つのオプションを選択するか、ノートで症例を説明してください。',
     loading: '分析中...',
     modules: {
       consulta: { title: 'クイック相談', desc: '薬物相互作用の確認', ico: 'QUICK' },
@@ -916,17 +927,36 @@ const I18N = {
       medicamento: '計算する薬剤',
       condicion: '患者の状態',
       area_tratamiento: '治療部位',
-      yes: 'はい',
-      no: 'いいえ',
+      yes: 'はい', no: 'いいえ',
+    },
+    exp: {
+      nota_label: '臨床補足ノート',
+      nota_ph: '続けて入力してください。または、フォームを使わずに症例を直接お知らせいただいても構いません。',
+      acc_paciente: '患者', acc_antecedentes: '既往歴',
+      acc_medicamentos: '服用薬', acc_procedimiento: '処置', acc_anestesia: '麻酔とPBM',
+      lbl_genero: '性別', lbl_edad: '年齢', lbl_peso: '体重', lbl_talla: '身長',
+      lbl_categoria: 'カテゴリ', lbl_especifico: '具体的',
+      lbl_seleccionados: '選択済み', lbl_frecuencia: '頻度',
+      lbl_especialidad: '専門', lbl_procedimiento: '具体的な処置',
+      lbl_receta: '処方計画（任意）',
+      lbl_receta_ph: '例: アモキシシリン500mg 8時間毎7日...',
+      lbl_anestesicos: '使用する麻酔薬',
+      lbl_pbm: 'レーザー/PBMを使用しますか？',
+      lbl_obj_pbm: 'PBMの目的',
+      lbl_obj_pbm_ph: '例: 術後鎮痛、骨再生...',
+      lbl_disp_laser: '機器 / 波長',
+      lbl_disp_laser_ph: '例: 980nmダイオード、Epic X...',
+      imc_hint: '正確な体重と身長を入力するとBMIが自動計算されます。',
+      imc_label: 'BMI',
+      otro: 'その他', otro_ph: '指定...', otro_add: '追加', mas: 'もっと',
+      empty_summary: '未設定',
+      btn_generar: 'レポート生成',
     },
   },
   ko: {
     hello: '안녕하세요',
     choose_module: '시작할 모듈을 선택하세요.',
-    credits: '상담',
-    back: '뒤로',
-    consult: '상담',
-    send: '보내기',
+    credits: '상담', back: '뒤로', consult: '상담', send: '보내기',
     followup_title: '이 보고서에 대한 질문이 있나요?',
     followup_placeholder: '질문을 입력하세요...',
     out_of_credits_title: '상담 횟수 소진',
@@ -934,10 +964,10 @@ const I18N = {
     initial_label: '초기 접근 · 10 상담',
     topup10_label: '충전 · 10 상담',
     topup25_label: '충전 · 25 상담',
-    region_mx: '멕시코',
-    region_intl: '국제',
+    region_mx: '멕시코', region_intl: '국제',
     error_generic: '문제가 발생했습니다. 다시 시도하세요.',
     error_network: '네트워크 오류. 연결을 확인하세요.',
+    error_empty: '최소 하나의 옵션을 선택하거나 노트에 케이스를 설명하세요.',
     loading: '분석 중...',
     modules: {
       consulta: { title: '빠른 상담', desc: '약물 상호작용 확인', ico: 'QUICK' },
@@ -971,16 +1001,97 @@ const I18N = {
       medicamento: '계산할 약물',
       condicion: '환자 상태',
       area_tratamiento: '치료 부위',
-      yes: '예',
-      no: '아니오',
+      yes: '예', no: '아니오',
+    },
+    exp: {
+      nota_label: '임상 보충 노트',
+      nota_ph: '여기서 계속하시거나, 더 빠르다면 양식 없이 케이스를 직접 알려주셔도 됩니다.',
+      acc_paciente: '환자', acc_antecedentes: '병력',
+      acc_medicamentos: '복용 약물', acc_procedimiento: '시술', acc_anestesia: '마취 및 PBM',
+      lbl_genero: '성별', lbl_edad: '나이', lbl_peso: '체중', lbl_talla: '신장',
+      lbl_categoria: '범주', lbl_especifico: '구체적',
+      lbl_seleccionados: '선택됨', lbl_frecuencia: '빈도',
+      lbl_especialidad: '전문분야', lbl_procedimiento: '구체적 시술',
+      lbl_receta: '처방 계획 (선택)',
+      lbl_receta_ph: '예: 아목시실린 500mg 8시간마다 7일...',
+      lbl_anestesicos: '사용할 마취제',
+      lbl_pbm: '레이저/PBM 사용?',
+      lbl_obj_pbm: 'PBM 목표',
+      lbl_obj_pbm_ph: '예: 술후 진통, 골재생...',
+      lbl_disp_laser: '기기 / 파장',
+      lbl_disp_laser_ph: '예: 980nm 다이오드, Epic X...',
+      imc_hint: '정확한 체중과 신장을 입력하면 BMI가 자동 계산됩니다.',
+      imc_label: 'BMI',
+      otro: '기타', otro_ph: '지정...', otro_add: '추가', mas: '더',
+      empty_summary: '미설정',
+      btn_generar: '보고서 생성',
     },
   },
 };
 
-/* -------- Module field definitions -------- */
+/* -------- Chip data (Spanish-only labels, drug DCI universal) -------- */
+const CHIPS_DATA = {
+  genero: ['Hombre', 'Mujer', 'Otro'],
+  edad: ['<12', '13-17', '18-30', '31-50', '51-65', '65+'],
+  peso: ['<40 kg', '40-60', '60-80', '80-100', '100+'],
+  talla: ['<150 cm', '150-160', '160-170', '170-180', '180-190', '190+'],
+
+  // 6 visibles + 9 más
+  condiciones: [
+    { abbr: 'HTA',          full: 'hipertensión arterial',  visible: true },
+    { abbr: 'DM2',          full: 'diabetes tipo 2',         visible: true },
+    { abbr: 'Anticoag.',    full: 'anticoagulación',         visible: true },
+    { abbr: 'Embarazo',     full: '',                         visible: true },
+    { abbr: 'Alergias',     full: 'a fármacos',              visible: true },
+    { abbr: 'Bifosfonatos', full: 'riesgo osteonecrosis',    visible: true, alert: 'ONJ' },
+    { abbr: 'Endocarditis', full: 'antecedente / riesgo' },
+    { abbr: 'Cardiopatía',  full: 'cardiopatía isquémica' },
+    { abbr: 'Marcapasos',   full: 'dispositivo cardíaco' },
+    { abbr: 'Asma',         full: '' },
+    { abbr: 'ERC',          full: 'enf. renal crónica' },
+    { abbr: 'Hepatopatía',  full: '' },
+    { abbr: 'Inmunosup.',   full: 'inmunosupresión' },
+    { abbr: 'Onco',         full: 'antecedente oncológico' },
+    { abbr: 'DM1',          full: 'diabetes tipo 1' },
+  ],
+
+  medCategorias: ['Antihipertensivos', 'Antidiabéticos', 'Anticoag./antiagreg.', 'Analgésicos/AINEs',
+                   'Antibióticos', 'Psiquiátricos', 'Bifosfonatos', 'Corticoides'],
+
+  medSubs: {
+    'Antihipertensivos':     ['Losartán', 'Enalapril', 'Amlodipino', 'Metoprolol', 'Hidroclorotiazida', 'Telmisartán'],
+    'Antidiabéticos':        ['Metformina', 'Insulina', 'Glibenclamida', 'Empagliflozina', 'Sitagliptina', 'Semaglutida'],
+    'Anticoag./antiagreg.':  ['Warfarina/acenocumarol', 'Apixabán', 'Rivaroxabán', 'Dabigatrán', 'AAS', 'Clopidogrel'],
+    'Analgésicos/AINEs':     ['Ibuprofeno', 'Naproxeno', 'Paracetamol', 'Diclofenaco', 'Ketorolaco', 'Tramadol'],
+    'Antibióticos':          ['Amoxicilina', 'Amox+clavulánico', 'Clindamicina', 'Azitromicina', 'Metronidazol'],
+    'Psiquiátricos':         ['Sertralina', 'Escitalopram', 'Venlafaxina', 'Alprazolam', 'Clonazepam', 'Quetiapina', 'Litio'],
+    'Bifosfonatos':          ['Alendronato (semanal)', 'Risedronato', 'Ác. zoledrónico (IV)', 'Denosumab'],
+    'Corticoides':           ['Prednisona', 'Dexametasona'],
+  },
+
+  frecuencias: ['c/8h', 'c/12h', 'c/24h', 'Semanal', 'Mensual', 'SOS'],
+
+  procEspecialidades: ['Endodoncia', 'Periodoncia', 'Cirugía oral', 'Implantología',
+                       'Restauradora', 'Ortodoncia', 'PBM/Láser'],
+
+  procSubs: {
+    'Endodoncia':    ['Conductos unirradicular', 'Conductos multirradicular', 'Retratamiento', 'Apicectomía', 'Pulpotomía', 'Urgencia'],
+    'Periodoncia':   ['Profilaxis', 'SRP', 'Colgajo', 'Alargamiento corona', 'Injerto gingival', 'Periimplantitis', 'Mantenimiento'],
+    'Cirugía oral':  ['Extracción simple', 'Extracción quirúrgica', '3er molar incluido', 'Frenectomía', 'Biopsia', 'Drenaje absceso'],
+    'Implantología': ['Colocación implante', 'Elevación seno lateral', 'Elevación seno transcrestal', 'ROG', 'Carga inmediata', 'Explante'],
+    'Restauradora':  ['Obturación resina', 'Incrustación/onlay', 'Corona', 'Puente', 'Carillas', 'Poste y muñón'],
+    'Ortodoncia':    ['Inicio brackets', 'Activación', 'TADs', 'Retiro', 'Alineadores'],
+    'PBM/Láser':     ['Alveolitis', 'Mucositis', 'Parálisis facial', 'DTM/bruxismo', 'Aftas/herpes', 'Postop', 'Hipersensibilidad'],
+  },
+
+  anestesicos: ['Lidocaína 2% c/epi', 'Lidocaína 2% sin epi', 'Mepivacaína 3% sin epi',
+                'Articaína 4% c/epi', 'Bupivacaína 0.5% c/epi', 'Prilocaína 4%'],
+};
+
+/* -------- Module field definitions (módulos NO-expediente) -------- */
 const MODULE_FIELDS = {
   consulta: ['nombre_paciente', 'query'],
-  expediente: ['nombre_paciente', 'HistClin', 'procedimiento', 'anestesia', 'medstomando', 'receta', 'laser_pbm', 'objetivo_PBM', 'dispositivo_laser'],
+  expediente: [], /* Expediente usa su propio render con chips */
   interconsulta: ['nombre_paciente', 'HistClin', 'procedimiento', 'anestesia', 'medstomando', 'receta', 'laser_pbm', 'objetivo_PBM', 'dispositivo_laser'],
   calculadora: ['nombre_paciente', 'procedimiento', 'peso_paciente', 'medicamento', 'condicion'],
   pbm: ['nombre_paciente', 'objetivo_PBM', 'dispositivo_laser', 'area_tratamiento'],
@@ -1003,7 +1114,35 @@ const state = {
   sessionCreditUsed: false,
   conversationHistory: [],
   formData: {},
+  expData: emptyExpData(),
 };
+
+function emptyExpData() {
+  return {
+    nombre: '',
+    genero: '',
+    edadRango: '', edadExacto: '',
+    pesoRango: '', pesoExacto: '',
+    tallaRango: '', tallaExacto: '',
+    condiciones: [],
+    condicionesOtro: '',
+    antecedentesShowMore: false,
+    meds: [], // [{cat, name, freq}]
+    medActiveCat: '',
+    medOtro: '',
+    procSpec: '',
+    procSub: '',
+    procOtro: '',
+    receta: '',
+    anestesicos: [],
+    anestesiaOtro: '',
+    usaPBM: false,
+    objetivoPBM: '',
+    dispositivoLaser: '',
+    nota: '',
+    accordionOpen: 'paciente',
+  };
+}
 
 function t() { return I18N[state.language] || I18N.es; }
 
@@ -1012,12 +1151,12 @@ function parseURL() {
   const url = new URL(window.location.href);
   state.userEmail = url.searchParams.get('email') || '';
   const mod = url.searchParams.get('module');
-  if (mod && MODULE_FIELDS[mod]) state.module = mod;
+  if (mod && MODULE_FIELDS[mod] !== undefined) state.module = mod;
   const lang = url.searchParams.get('lang');
   if (lang && I18N[lang]) state.language = lang;
 }
 
-/* -------- Rendering -------- */
+/* -------- Rendering: home & module shell -------- */
 function setLang(lang) {
   state.language = lang;
   document.documentElement.lang = lang;
@@ -1027,11 +1166,7 @@ function setLang(lang) {
 
 function renderCreditsPill() {
   const pill = document.getElementById('credits-pill');
-  if (state.credits === null) {
-    pill.textContent = '—';
-    pill.classList.remove('low');
-    return;
-  }
+  if (state.credits === null) { pill.textContent = '—'; pill.classList.remove('low'); return; }
   pill.textContent = state.credits + ' ' + t().credits;
   pill.classList.toggle('low', state.credits <= 0);
 }
@@ -1046,15 +1181,11 @@ function renderModules() {
   const wrap = document.getElementById('modules');
   wrap.innerHTML = '';
   const mods = t().modules;
-  Object.keys(MODULE_FIELDS).forEach(key => {
+  ['consulta', 'expediente', 'interconsulta', 'calculadora', 'pbm'].forEach(key => {
     const m = mods[key];
     const btn = document.createElement('button');
     btn.className = 'module-card';
-    btn.innerHTML = `
-      <div class="ico">${m.ico}</div>
-      <h3>${m.title}</h3>
-      <p>${m.desc}</p>
-    `;
+    btn.innerHTML = `<div class="ico">${m.ico}</div><h3>${m.title}</h3><p>${m.desc}</p>`;
     btn.addEventListener('click', () => openModule(key));
     wrap.appendChild(btn);
   });
@@ -1069,28 +1200,15 @@ function renderUpgradeCard(containerId) {
       <p>${L.out_of_credits_body}</p>
       <div class="upgrade-grid">
         <a class="pay-btn" href="${STRIPE_LINKS.topup10_mxn}" target="_blank" rel="noopener">
-          <span class="region">${L.region_mx} · MXN</span>
-          <span class="price">$60</span>
-          <span class="label">${L.topup10_label}</span>
-        </a>
+          <span class="region">${L.region_mx} · MXN</span><span class="price">$60</span><span class="label">${L.topup10_label}</span></a>
         <a class="pay-btn" href="${STRIPE_LINKS.topup10_usd}" target="_blank" rel="noopener">
-          <span class="region">${L.region_intl} · USD</span>
-          <span class="price">$3</span>
-          <span class="label">${L.topup10_label}</span>
-        </a>
+          <span class="region">${L.region_intl} · USD</span><span class="price">$3</span><span class="label">${L.topup10_label}</span></a>
         <a class="pay-btn" href="${STRIPE_LINKS.topup25_mxn}" target="_blank" rel="noopener">
-          <span class="region">${L.region_mx} · MXN</span>
-          <span class="price">$125</span>
-          <span class="label">${L.topup25_label}</span>
-        </a>
+          <span class="region">${L.region_mx} · MXN</span><span class="price">$125</span><span class="label">${L.topup25_label}</span></a>
         <a class="pay-btn" href="${STRIPE_LINKS.topup25_usd}" target="_blank" rel="noopener">
-          <span class="region">${L.region_intl} · USD</span>
-          <span class="price">$6.25</span>
-          <span class="label">${L.topup25_label}</span>
-        </a>
+          <span class="region">${L.region_intl} · USD</span><span class="price">$6.25</span><span class="label">${L.topup25_label}</span></a>
       </div>
-    </div>
-  `;
+    </div>`;
   el.classList.remove('hidden');
 }
 
@@ -1100,19 +1218,28 @@ function show(id) { document.getElementById(id).classList.remove('hidden'); }
 function renderModuleForm() {
   if (!state.module) return;
   const L = t();
-  const mods = L.modules;
-  const m = mods[state.module];
+  const m = L.modules[state.module];
   document.getElementById('module-title').textContent = m.title;
   document.getElementById('module-sub').textContent = m.desc;
   document.getElementById('back-label').textContent = L.back;
-  document.getElementById('submit-label').textContent = L.consult;
   document.getElementById('chat-send-label').textContent = L.send;
   document.getElementById('followup-title').textContent = L.followup_title;
   document.getElementById('chat-input').placeholder = L.followup_placeholder;
 
+  if (state.module === 'expediente') {
+    document.getElementById('submit-label').textContent = L.exp.btn_generar;
+    renderExpedienteForm();
+  } else {
+    document.getElementById('submit-label').textContent = L.consult;
+    renderClassicForm();
+  }
+}
+
+/* -------- Render: módulos clásicos (NO-expediente) -------- */
+function renderClassicForm() {
   const container = document.getElementById('form-container');
   container.innerHTML = '';
-  const fields = MODULE_FIELDS[state.module];
+  const fields = MODULE_FIELDS[state.module] || [];
   fields.forEach(f => container.appendChild(renderField(f)));
 }
 
@@ -1131,16 +1258,13 @@ function renderField(fieldName) {
     ['yes', 'no'].forEach((val, i) => {
       const lbl = document.createElement('label');
       const input = document.createElement('input');
-      input.type = 'radio';
-      input.name = 'laser_pbm';
+      input.type = 'radio'; input.name = 'laser_pbm';
       input.value = val === 'yes' ? 'Sí' : 'No';
       if (i === 1) input.checked = true;
       input.addEventListener('change', () => { state.formData.laser_pbm = input.value; });
       const sp = document.createElement('span');
       sp.textContent = L[val];
-      lbl.appendChild(input);
-      lbl.appendChild(sp);
-      group.appendChild(lbl);
+      lbl.appendChild(input); lbl.appendChild(sp); group.appendChild(lbl);
     });
     state.formData.laser_pbm = 'No';
     wrap.appendChild(group);
@@ -1152,31 +1276,799 @@ function renderField(fieldName) {
   const input = document.createElement(isTextarea ? 'textarea' : 'input');
   if (!isTextarea) input.type = isNumber ? 'number' : 'text';
   input.id = 'f-' + fieldName;
-  if (fieldName === 'query') input.placeholder = L.query_ph || '';
-  else if (fieldName === 'nombre_paciente') input.placeholder = L.nombre_paciente_ph || '';
-  else if (fieldName === 'HistClin') input.placeholder = L.HistClin_ph || '';
-  else if (fieldName === 'procedimiento') input.placeholder = L.procedimiento_ph || '';
-  else if (fieldName === 'anestesia') input.placeholder = L.anestesia_ph || '';
-  else if (fieldName === 'medstomando') input.placeholder = L.medstomando_ph || '';
-  else if (fieldName === 'receta') input.placeholder = L.receta_ph || '';
-  else if (fieldName === 'objetivo_PBM') input.placeholder = L.objetivo_PBM_ph || '';
-  else if (fieldName === 'dispositivo_laser') input.placeholder = L.dispositivo_laser_ph || '';
-  else if (fieldName === 'area_tratamiento') input.placeholder = L.area_tratamiento_ph || '';
+  const phMap = {
+    query: L.query_ph, nombre_paciente: L.nombre_paciente_ph, HistClin: L.HistClin_ph,
+    procedimiento: L.procedimiento_ph, anestesia: L.anestesia_ph, medstomando: L.medstomando_ph,
+    receta: L.receta_ph, objetivo_PBM: L.objetivo_PBM_ph, dispositivo_laser: L.dispositivo_laser_ph,
+    area_tratamiento: L.area_tratamiento_ph,
+  };
+  if (phMap[fieldName]) input.placeholder = phMap[fieldName];
   input.addEventListener('input', () => { state.formData[fieldName] = input.value; });
   wrap.appendChild(input);
   return wrap;
 }
+
+/* =============================================================
+ * EXPEDIENTE · render con chips/acordeones
+ * ============================================================= */
+
+function renderExpedienteForm() {
+  const L = t().exp;
+  const e = state.expData;
+  const container = document.getElementById('form-container');
+  container.innerHTML = `
+    <div class="field">
+      <label for="exp-nombre">${t().fields.nombre_paciente}</label>
+      <input type="text" id="exp-nombre" placeholder="${t().fields.nombre_paciente_ph}" />
+    </div>
+
+    <div class="accordion" data-acc="paciente">
+      <div class="accordion-head" data-acc-head="paciente">
+        <div class="accordion-head-left">
+          <span class="accordion-num">01</span>
+          <span class="accordion-title">${L.acc_paciente}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="paciente"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_genero}</div>
+          <div class="chips" id="chips-genero"></div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_edad}</div>
+          <div class="chips" id="chips-edad"></div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_peso}</div>
+          <div class="chips" id="chips-peso"></div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_talla}</div>
+          <div class="chips" id="chips-talla"></div>
+          <div class="imc-hint" id="imc-hint">${L.imc_hint}</div>
+          <div class="imc-display hidden" id="imc-display">
+            <span class="imc-label">${L.imc_label}</span>
+            <span class="imc-value" id="imc-value">—</span>
+            <span class="imc-cat" id="imc-cat">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="antecedentes">
+      <div class="accordion-head" data-acc-head="antecedentes">
+        <div class="accordion-head-left">
+          <span class="accordion-num">02</span>
+          <span class="accordion-title">${L.acc_antecedentes}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="antecedentes"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="chips" id="chips-antecedentes"></div>
+        <div class="otro-input-wrap" id="otro-antecedentes-wrap">
+          <input type="text" id="otro-antecedentes-input" placeholder="${L.otro_ph}" />
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="medicamentos">
+      <div class="accordion-head" data-acc-head="medicamentos">
+        <div class="accordion-head-left">
+          <span class="accordion-num">03</span>
+          <span class="accordion-title">${L.acc_medicamentos}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="medicamentos"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_categoria}</div>
+          <div class="chips" id="chips-med-cats"></div>
+        </div>
+        <div class="field-group hidden" id="med-subs-wrap">
+          <div class="field-group-label" id="med-subs-label">${L.lbl_especifico}</div>
+          <div class="chips" id="chips-med-subs"></div>
+          <div class="otro-input-wrap" id="otro-med-wrap">
+            <input type="text" id="otro-med-input" placeholder="${L.otro_ph}" />
+          </div>
+        </div>
+        <div class="field-group hidden" id="med-selected-wrap">
+          <div class="field-group-label">${L.lbl_seleccionados}</div>
+          <div class="med-selected" id="med-selected"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="procedimiento">
+      <div class="accordion-head" data-acc-head="procedimiento">
+        <div class="accordion-head-left">
+          <span class="accordion-num">04</span>
+          <span class="accordion-title">${L.acc_procedimiento}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="procedimiento"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_especialidad}</div>
+          <div class="chips" id="chips-proc-specs"></div>
+        </div>
+        <div class="field-group hidden" id="proc-subs-wrap">
+          <div class="field-group-label">${L.lbl_procedimiento}</div>
+          <div class="chips" id="chips-proc-subs"></div>
+          <div class="otro-input-wrap" id="otro-proc-wrap">
+            <input type="text" id="otro-proc-input" placeholder="${L.otro_ph}" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="exp-receta">${L.lbl_receta}</label>
+          <textarea id="exp-receta" placeholder="${L.lbl_receta_ph}"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="anestesia">
+      <div class="accordion-head" data-acc-head="anestesia">
+        <div class="accordion-head-left">
+          <span class="accordion-num">05</span>
+          <span class="accordion-title">${L.acc_anestesia}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="anestesia"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_anestesicos}</div>
+          <div class="chips" id="chips-anestesia"></div>
+          <div class="otro-input-wrap" id="otro-anestesia-wrap">
+            <input type="text" id="otro-anestesia-input" placeholder="${L.otro_ph}" />
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_pbm}</div>
+          <div class="radio-group" id="pbm-toggle">
+            <label><input type="radio" name="exp-pbm" value="No" ${!e.usaPBM?'checked':''} /><span>${t().fields.no}</span></label>
+            <label><input type="radio" name="exp-pbm" value="Sí" ${e.usaPBM?'checked':''} /><span>${t().fields.yes}</span></label>
+          </div>
+        </div>
+        <div id="pbm-details" class="${e.usaPBM?'':'hidden'}">
+          <div class="field">
+            <label for="exp-obj-pbm">${L.lbl_obj_pbm}</label>
+            <textarea id="exp-obj-pbm" placeholder="${L.lbl_obj_pbm_ph}"></textarea>
+          </div>
+          <div class="field">
+            <label for="exp-disp-laser">${L.lbl_disp_laser}</label>
+            <input type="text" id="exp-disp-laser" placeholder="${L.lbl_disp_laser_ph}" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nota-complementaria">
+      <label for="exp-nota">${L.nota_label}</label>
+      <textarea id="exp-nota" placeholder="${L.nota_ph}"></textarea>
+    </div>
+  `;
+
+  bindExpedienteEvents();
+  renderAllExpedienteChips();
+  setAccordionOpen(state.expData.accordionOpen || 'paciente');
+  refreshAllSummaries();
+  restoreExpedienteValues();
+}
+
+function restoreExpedienteValues() {
+  const e = state.expData;
+  if (e.nombre) document.getElementById('exp-nombre').value = e.nombre;
+  if (e.receta) document.getElementById('exp-receta').value = e.receta;
+  if (e.nota)   document.getElementById('exp-nota').value = e.nota;
+  if (e.objetivoPBM) document.getElementById('exp-obj-pbm').value = e.objetivoPBM;
+  if (e.dispositivoLaser) document.getElementById('exp-disp-laser').value = e.dispositivoLaser;
+}
+
+function bindExpedienteEvents() {
+  document.getElementById('exp-nombre').addEventListener('input', ev => { state.expData.nombre = ev.target.value; });
+  document.getElementById('exp-receta').addEventListener('input', ev => { state.expData.receta = ev.target.value; });
+  document.getElementById('exp-nota').addEventListener('input', ev => { state.expData.nota = ev.target.value; });
+  document.getElementById('exp-obj-pbm').addEventListener('input', ev => { state.expData.objetivoPBM = ev.target.value; });
+  document.getElementById('exp-disp-laser').addEventListener('input', ev => { state.expData.dispositivoLaser = ev.target.value; });
+
+  document.querySelectorAll('[data-acc-head]').forEach(head => {
+    head.addEventListener('click', () => setAccordionOpen(head.dataset.accHead));
+  });
+
+  document.querySelectorAll('input[name="exp-pbm"]').forEach(r => {
+    r.addEventListener('change', ev => {
+      state.expData.usaPBM = ev.target.value === 'Sí';
+      document.getElementById('pbm-details').classList.toggle('hidden', !state.expData.usaPBM);
+      refreshAllSummaries();
+    });
+  });
+
+  /* Otro inputs */
+  bindOtroInput('otro-antecedentes-input', val => {
+    state.expData.condicionesOtro = val.trim();
+    refreshAllSummaries();
+  });
+  bindOtroInput('otro-med-input', val => {
+    state.expData.medOtro = val.trim();
+  });
+  bindOtroInput('otro-proc-input', val => {
+    state.expData.procOtro = val.trim();
+    refreshAllSummaries();
+  });
+  bindOtroInput('otro-anestesia-input', val => {
+    state.expData.anestesiaOtro = val.trim();
+    refreshAllSummaries();
+  });
+}
+
+function bindOtroInput(id, cb) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener('input', ev => cb(ev.target.value));
+}
+
+function setAccordionOpen(name) {
+  state.expData.accordionOpen = name;
+  document.querySelectorAll('[data-acc]').forEach(a => {
+    a.classList.toggle('expanded', a.dataset.acc === name);
+  });
+}
+
+/* -------- Render chips -------- */
+function renderAllExpedienteChips() {
+  renderRangeChips('chips-genero', CHIPS_DATA.genero, 'genero', false);
+  renderRangeWithExact('chips-edad', CHIPS_DATA.edad, 'edadRango', 'edadExacto', '');
+  renderRangeWithExact('chips-peso', CHIPS_DATA.peso, 'pesoRango', 'pesoExacto', 'kg');
+  renderRangeWithExact('chips-talla', CHIPS_DATA.talla, 'tallaRango', 'tallaExacto', 'cm');
+  renderAntecedentesChips();
+  renderMedCategorias();
+  renderMedSubs();
+  renderMedSelected();
+  renderProcEspecialidades();
+  renderProcSubs();
+  renderAnestesiaChips();
+  refreshIMC();
+}
+
+function renderRangeChips(containerId, values, stateKey, withExact) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+  values.forEach(v => {
+    const chip = document.createElement('button');
+    chip.className = 'chip compact';
+    chip.textContent = v;
+    chip.dataset.value = v;
+    if (state.expData[stateKey] === v) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      state.expData[stateKey] = state.expData[stateKey] === v ? '' : v;
+      renderRangeChips(containerId, values, stateKey, withExact);
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+}
+
+function renderRangeWithExact(containerId, values, rangoKey, exactoKey, unit) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+  values.forEach(v => {
+    const chip = document.createElement('button');
+    chip.className = 'chip compact';
+    chip.textContent = v;
+    if (state.expData[rangoKey] === v && !state.expData[exactoKey]) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      state.expData[rangoKey] = state.expData[rangoKey] === v ? '' : v;
+      state.expData[exactoKey] = '';
+      renderRangeWithExact(containerId, values, rangoKey, exactoKey, unit);
+      refreshIMC();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+
+  // Exacto chip
+  const exact = document.createElement('button');
+  exact.className = 'chip-exact chip compact';
+  if (state.expData[exactoKey]) exact.classList.add('has-value');
+  const exactLabel = (state.language === 'es' || state.language === 'pt') ? 'Exacto'
+                   : (state.language === 'ja') ? '正確'
+                   : (state.language === 'ko') ? '정확'
+                   : 'Exact';
+  const unitSuffix = unit ? ` ${unit}` : '';
+  exact.innerHTML = `${exactLabel} <input type="number" min="0" />${unitSuffix}`;
+  const input = exact.querySelector('input');
+  input.value = state.expData[exactoKey] || '';
+  input.addEventListener('click', e => e.stopPropagation());
+  input.addEventListener('input', () => {
+    state.expData[exactoKey] = input.value;
+    if (input.value) state.expData[rangoKey] = '';
+    exact.classList.toggle('has-value', !!input.value);
+    document.querySelectorAll(`#${containerId} .chip`).forEach(c => {
+      if (!c.classList.contains('chip-exact')) c.classList.remove('active');
+    });
+    refreshIMC();
+    refreshAllSummaries();
+  });
+  exact.addEventListener('click', () => input.focus());
+  container.appendChild(exact);
+}
+
+function renderAntecedentesChips() {
+  const container = document.getElementById('chips-antecedentes');
+  if (!container) return;
+  container.innerHTML = '';
+  const e = state.expData;
+  const visibles = CHIPS_DATA.condiciones.filter(c => c.visible);
+  const hidden = CHIPS_DATA.condiciones.filter(c => !c.visible);
+  const items = e.antecedentesShowMore ? CHIPS_DATA.condiciones : visibles;
+
+  items.forEach(cond => {
+    const chip = document.createElement('button');
+    chip.className = 'chip chip-stack';
+    if (cond.alert) chip.classList.add('chip-alert');
+    if (e.condiciones.includes(cond.abbr)) chip.classList.add('active');
+    const fullSpan = cond.full ? `<span class="full">${cond.full}</span>` : '';
+    const alertTag = cond.alert ? `<span class="alert-tag">${cond.alert}</span>` : '';
+    chip.innerHTML = `<span class="abbr">${cond.abbr}${alertTag}</span>${fullSpan}`;
+    chip.addEventListener('click', () => {
+      const idx = e.condiciones.indexOf(cond.abbr);
+      if (idx >= 0) e.condiciones.splice(idx, 1);
+      else e.condiciones.push(cond.abbr);
+      renderAntecedentesChips();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+
+  if (!e.antecedentesShowMore && hidden.length > 0) {
+    const more = document.createElement('button');
+    more.className = 'chip chip-more';
+    more.textContent = `+ ${hidden.length} ${t().exp.mas}`;
+    more.addEventListener('click', () => {
+      e.antecedentesShowMore = true;
+      renderAntecedentesChips();
+    });
+    container.appendChild(more);
+  }
+
+  // Otro chip
+  const otroChip = document.createElement('button');
+  otroChip.className = 'chip chip-more';
+  otroChip.textContent = t().exp.otro;
+  if (e.condicionesOtro) otroChip.classList.add('active');
+  const otroWrap = document.getElementById('otro-antecedentes-wrap');
+  otroChip.addEventListener('click', () => {
+    otroWrap.classList.toggle('show');
+    if (otroWrap.classList.contains('show')) {
+      document.getElementById('otro-antecedentes-input').focus();
+    }
+  });
+  container.appendChild(otroChip);
+
+  // Set Otro input value if any
+  const otroInput = document.getElementById('otro-antecedentes-input');
+  if (otroInput && e.condicionesOtro && !otroInput.value) otroInput.value = e.condicionesOtro;
+  if (e.condicionesOtro) otroWrap.classList.add('show');
+}
+
+function renderMedCategorias() {
+  const container = document.getElementById('chips-med-cats');
+  if (!container) return;
+  container.innerHTML = '';
+  const e = state.expData;
+  CHIPS_DATA.medCategorias.forEach(cat => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = cat;
+    if (e.medActiveCat === cat) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      e.medActiveCat = e.medActiveCat === cat ? '' : cat;
+      e.medOtro = '';
+      renderMedCategorias();
+      renderMedSubs();
+    });
+    container.appendChild(chip);
+  });
+}
+
+function renderMedSubs() {
+  const wrap = document.getElementById('med-subs-wrap');
+  const container = document.getElementById('chips-med-subs');
+  const label = document.getElementById('med-subs-label');
+  if (!wrap || !container) return;
+  const e = state.expData;
+  if (!e.medActiveCat) {
+    wrap.classList.add('hidden');
+    return;
+  }
+  wrap.classList.remove('hidden');
+  label.textContent = e.medActiveCat;
+  container.innerHTML = '';
+  const subs = CHIPS_DATA.medSubs[e.medActiveCat] || [];
+  subs.forEach(name => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = name;
+    // Already selected in this cat?
+    if (e.meds.find(m => m.cat === e.medActiveCat && m.name === name)) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      const existingIdx = e.meds.findIndex(m => m.cat === e.medActiveCat && m.name === name);
+      if (existingIdx >= 0) {
+        e.meds.splice(existingIdx, 1);
+      } else {
+        const defFreq = e.medActiveCat === 'Bifosfonatos' ? 'Semanal' : 'c/8h';
+        e.meds.push({ cat: e.medActiveCat, name, freq: defFreq });
+      }
+      renderMedSubs();
+      renderMedSelected();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+  // Otro
+  const otro = document.createElement('button');
+  otro.className = 'chip chip-more';
+  otro.textContent = t().exp.otro;
+  const otroWrap = document.getElementById('otro-med-wrap');
+  otro.addEventListener('click', () => {
+    otroWrap.classList.toggle('show');
+    if (otroWrap.classList.contains('show')) {
+      document.getElementById('otro-med-input').focus();
+    }
+  });
+  container.appendChild(otro);
+  // Add med via Enter on Otro input
+  const otroInput = document.getElementById('otro-med-input');
+  if (otroInput) {
+    otroInput.onkeydown = ev => {
+      if (ev.key === 'Enter') {
+        ev.preventDefault();
+        const v = otroInput.value.trim();
+        if (v && e.medActiveCat) {
+          const defFreq = e.medActiveCat === 'Bifosfonatos' ? 'Semanal' : 'c/8h';
+          e.meds.push({ cat: e.medActiveCat, name: v, freq: defFreq });
+          otroInput.value = '';
+          renderMedSelected();
+          refreshAllSummaries();
+        }
+      }
+    };
+  }
+}
+
+function renderMedSelected() {
+  const wrap = document.getElementById('med-selected-wrap');
+  const container = document.getElementById('med-selected');
+  if (!wrap || !container) return;
+  const e = state.expData;
+  if (e.meds.length === 0) {
+    wrap.classList.add('hidden');
+    return;
+  }
+  wrap.classList.remove('hidden');
+  container.innerHTML = '';
+  e.meds.forEach((m, idx) => {
+    const row = document.createElement('div');
+    row.className = 'med-row';
+    row.innerHTML = `
+      <span class="med-row-cat">${m.cat.split('/')[0].slice(0,12)}</span>
+      <span class="med-row-name">${m.name}</span>
+      <button class="med-freq-btn" type="button">${m.freq}</button>
+      <button class="med-row-remove" type="button" title="Quitar">×</button>
+    `;
+    const freqBtn = row.querySelector('.med-freq-btn');
+    freqBtn.addEventListener('click', () => {
+      const f = CHIPS_DATA.frecuencias;
+      const i = f.indexOf(m.freq);
+      m.freq = f[(i + 1) % f.length];
+      freqBtn.textContent = m.freq;
+      refreshAllSummaries();
+    });
+    row.querySelector('.med-row-remove').addEventListener('click', () => {
+      e.meds.splice(idx, 1);
+      renderMedSubs();
+      renderMedSelected();
+      refreshAllSummaries();
+    });
+    container.appendChild(row);
+  });
+}
+
+function renderProcEspecialidades() {
+  const container = document.getElementById('chips-proc-specs');
+  if (!container) return;
+  container.innerHTML = '';
+  const e = state.expData;
+  CHIPS_DATA.procEspecialidades.forEach(spec => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = spec;
+    if (e.procSpec === spec) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      if (e.procSpec === spec) {
+        e.procSpec = ''; e.procSub = '';
+      } else {
+        e.procSpec = spec; e.procSub = '';
+      }
+      e.procOtro = '';
+      renderProcEspecialidades();
+      renderProcSubs();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+}
+
+function renderProcSubs() {
+  const wrap = document.getElementById('proc-subs-wrap');
+  const container = document.getElementById('chips-proc-subs');
+  if (!wrap || !container) return;
+  const e = state.expData;
+  if (!e.procSpec) { wrap.classList.add('hidden'); return; }
+  wrap.classList.remove('hidden');
+  container.innerHTML = '';
+  const subs = CHIPS_DATA.procSubs[e.procSpec] || [];
+  subs.forEach(s => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = s;
+    if (e.procSub === s) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      e.procSub = e.procSub === s ? '' : s;
+      e.procOtro = '';
+      renderProcSubs();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+  const otro = document.createElement('button');
+  otro.className = 'chip chip-more';
+  otro.textContent = t().exp.otro;
+  if (e.procOtro) otro.classList.add('active');
+  const otroWrap = document.getElementById('otro-proc-wrap');
+  otro.addEventListener('click', () => {
+    otroWrap.classList.toggle('show');
+    if (otroWrap.classList.contains('show')) {
+      document.getElementById('otro-proc-input').focus();
+    }
+  });
+  container.appendChild(otro);
+  const otroInput = document.getElementById('otro-proc-input');
+  if (otroInput && e.procOtro && !otroInput.value) otroInput.value = e.procOtro;
+  if (e.procOtro) otroWrap.classList.add('show');
+}
+
+function renderAnestesiaChips() {
+  const container = document.getElementById('chips-anestesia');
+  if (!container) return;
+  container.innerHTML = '';
+  const e = state.expData;
+  CHIPS_DATA.anestesicos.forEach(a => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = a;
+    if (e.anestesicos.includes(a)) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      const idx = e.anestesicos.indexOf(a);
+      if (idx >= 0) e.anestesicos.splice(idx, 1);
+      else e.anestesicos.push(a);
+      renderAnestesiaChips();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+  const otro = document.createElement('button');
+  otro.className = 'chip chip-more';
+  otro.textContent = t().exp.otro;
+  if (e.anestesiaOtro) otro.classList.add('active');
+  const otroWrap = document.getElementById('otro-anestesia-wrap');
+  otro.addEventListener('click', () => {
+    otroWrap.classList.toggle('show');
+    if (otroWrap.classList.contains('show')) {
+      document.getElementById('otro-anestesia-input').focus();
+    }
+  });
+  container.appendChild(otro);
+  const otroInput = document.getElementById('otro-anestesia-input');
+  if (otroInput && e.anestesiaOtro && !otroInput.value) otroInput.value = e.anestesiaOtro;
+  if (e.anestesiaOtro) otroWrap.classList.add('show');
+}
+
+/* -------- IMC -------- */
+function imcCategory(imc) {
+  if (imc < 18.5) return 'bajo peso';
+  if (imc < 25) return 'normal';
+  if (imc < 30) return 'sobrepeso';
+  if (imc < 35) return 'obesidad grado I';
+  if (imc < 40) return 'obesidad grado II';
+  return 'obesidad grado III';
+}
+
+function refreshIMC() {
+  const e = state.expData;
+  const hint = document.getElementById('imc-hint');
+  const disp = document.getElementById('imc-display');
+  const val = document.getElementById('imc-value');
+  const cat = document.getElementById('imc-cat');
+  if (!hint || !disp) return;
+  const peso = parseFloat(e.pesoExacto);
+  const talla = parseFloat(e.tallaExacto);
+  if (!peso || !talla || talla < 50) {
+    disp.classList.add('hidden');
+    hint.classList.remove('hidden');
+    return;
+  }
+  const m = talla / 100;
+  const imc = peso / (m * m);
+  val.textContent = imc.toFixed(1);
+  cat.textContent = imcCategory(imc);
+  disp.classList.remove('hidden');
+  hint.classList.add('hidden');
+}
+
+/* -------- Summaries -------- */
+function refreshAllSummaries() {
+  setSummary('paciente', summaryPaciente());
+  setSummary('antecedentes', summaryAntecedentes());
+  setSummary('medicamentos', summaryMedicamentos());
+  setSummary('procedimiento', summaryProcedimiento());
+  setSummary('anestesia', summaryAnestesia());
+}
+
+function setSummary(name, text) {
+  const el = document.querySelector(`[data-acc-summary="${name}"]`);
+  if (!el) return;
+  if (!text) {
+    el.textContent = t().exp.empty_summary;
+    el.classList.add('empty');
+  } else {
+    el.innerHTML = text;
+    el.classList.remove('empty');
+  }
+}
+
+function summaryPaciente() {
+  const e = state.expData;
+  const parts = [];
+  if (e.genero) parts.push(e.genero);
+  if (e.edadExacto) parts.push(`${e.edadExacto}a`);
+  else if (e.edadRango) parts.push(`${e.edadRango}a`);
+  if (e.pesoExacto) parts.push(`${e.pesoExacto}kg`);
+  else if (e.pesoRango) parts.push(e.pesoRango);
+  if (e.tallaExacto) parts.push(`${e.tallaExacto}cm`);
+  else if (e.tallaRango) parts.push(e.tallaRango);
+  return parts.join(' · ');
+}
+
+function summaryAntecedentes() {
+  const e = state.expData;
+  const items = [...e.condiciones];
+  if (e.condicionesOtro) items.push(e.condicionesOtro);
+  return items.length > 0 ? items.join(', ') : '';
+}
+
+function summaryMedicamentos() {
+  const e = state.expData;
+  if (e.meds.length === 0) return '';
+  return e.meds.map(m => `${m.name} ${m.freq}`).join(', ');
+}
+
+function summaryProcedimiento() {
+  const e = state.expData;
+  if (!e.procSpec) return '';
+  let s = e.procSpec;
+  if (e.procOtro) s += ` — ${e.procOtro}`;
+  else if (e.procSub) s += ` — ${e.procSub}`;
+  return s;
+}
+
+function summaryAnestesia() {
+  const e = state.expData;
+  const parts = [...e.anestesicos];
+  if (e.anestesiaOtro) parts.push(e.anestesiaOtro);
+  let s = parts.join(', ');
+  if (e.usaPBM) s += (s ? ' · ' : '') + 'PBM Sí';
+  return s;
+}
+
+/* -------- Build payload for Expediente -------- */
+function buildExpedienteFormData() {
+  const e = state.expData;
+
+  // Paciente
+  const patientParts = [];
+  if (e.genero) patientParts.push(e.genero);
+  if (e.edadExacto) patientParts.push(`${e.edadExacto} años`);
+  else if (e.edadRango) patientParts.push(`${e.edadRango} años`);
+  if (e.pesoExacto) patientParts.push(`${e.pesoExacto} kg`);
+  else if (e.pesoRango) patientParts.push(`peso ${e.pesoRango}`);
+  if (e.tallaExacto) patientParts.push(`${e.tallaExacto} cm`);
+  else if (e.tallaRango) patientParts.push(`talla ${e.tallaRango}`);
+
+  let pacienteLine = '';
+  if (patientParts.length > 0) pacienteLine = 'Paciente: ' + patientParts.join(', ') + '.';
+
+  // IMC
+  let imcSuffix = '';
+  const p = parseFloat(e.pesoExacto), tt = parseFloat(e.tallaExacto);
+  if (p && tt && tt >= 50) {
+    const m = tt / 100;
+    const imc = p / (m * m);
+    imcSuffix = ` IMC ${imc.toFixed(1)} (${imcCategory(imc)}).`;
+  }
+
+  // Antecedentes
+  const condItems = [...e.condiciones];
+  if (e.condicionesOtro) condItems.push(e.condicionesOtro);
+  let antLine = '';
+  if (condItems.length > 0) {
+    const formatted = condItems.map(c => c === 'Bifosfonatos' ? 'Bifosfonatos (riesgo ONJ)' : c);
+    antLine = 'Antecedentes: ' + formatted.join(', ') + '.';
+  }
+
+  // HistClin = paciente + IMC + antecedentes + nota
+  const histParts = [];
+  if (pacienteLine) histParts.push(pacienteLine + imcSuffix);
+  if (antLine) histParts.push(antLine);
+  if ((e.nota || '').trim()) histParts.push('Nota del doctor: ' + e.nota.trim());
+  state.formData.HistClin = histParts.join(' ');
+
+  // medstomando — limpia paréntesis de frecuencia para evitar duplicar ("Alendronato (semanal) Semanal")
+  state.formData.medstomando = e.meds.map(m => {
+    const cleanName = m.name.replace(/\s*\((semanal|mensual|diario|c\/\d+h)\)\s*/i, '').trim();
+    return `${cleanName} ${m.freq}`;
+  }).join(', ');
+
+  // procedimiento
+  let procStr = '';
+  if (e.procSpec) {
+    procStr = e.procSpec;
+    if (e.procOtro) procStr += ' — ' + e.procOtro;
+    else if (e.procSub) procStr += ' — ' + e.procSub;
+  }
+  state.formData.procedimiento = procStr;
+
+  // anestesia
+  const anestesicos = [...e.anestesicos];
+  if (e.anestesiaOtro) anestesicos.push(e.anestesiaOtro);
+  state.formData.anestesia = anestesicos.join(', ');
+
+  // receta
+  state.formData.receta = (e.receta || '').trim();
+
+  // PBM
+  state.formData.laser_pbm = e.usaPBM ? 'Sí' : 'No';
+  state.formData.objetivo_PBM = e.usaPBM ? (e.objetivoPBM || '').trim() : '';
+  state.formData.dispositivo_laser = e.usaPBM ? (e.dispositivoLaser || '').trim() : '';
+
+  // Nombre
+  state.formData.nombre_paciente = (e.nombre || '').trim();
+}
+
+/* =============================================================
+ * Module open/close, profile, submit, validation
+ * ============================================================= */
 
 function openModule(key) {
   state.module = key;
   state.sessionCreditUsed = false;
   state.conversationHistory = [];
   state.formData = {};
-  hide('view-home');
-  show('view-module');
-  hide('response-wrap');
-  hide('followup');
-  hide('upgrade-module');
+  if (key === 'expediente') state.expData = emptyExpData();
+  hide('view-home'); show('view-module');
+  hide('response-wrap'); hide('followup'); hide('upgrade-module');
   document.getElementById('error-box').innerHTML = '';
   document.getElementById('chat-history').innerHTML = '';
   renderModuleForm();
@@ -1185,8 +2077,7 @@ function openModule(key) {
 
 function goHome() {
   state.module = null;
-  hide('view-module');
-  show('view-home');
+  hide('view-module'); show('view-home');
   renderAll();
   window.scrollTo(0, 0);
 }
@@ -1195,15 +2086,11 @@ function renderAll() {
   renderCreditsPill();
   renderWelcome();
   renderModules();
-  if (state.credits !== null && state.credits <= 0) {
-    renderUpgradeCard('upgrade-home');
-  } else {
-    hide('upgrade-home');
-  }
+  if (state.credits !== null && state.credits <= 0) renderUpgradeCard('upgrade-home');
+  else hide('upgrade-home');
   if (state.module) renderModuleForm();
 }
 
-/* -------- Profile fetch -------- */
 async function fetchProfile() {
   if (!state.userEmail) { state.credits = null; return; }
   try {
@@ -1212,33 +2099,22 @@ async function fetchProfile() {
     if (!r.ok) throw new Error('profile fetch failed');
     const data = await r.json();
     state.credits = Number(data.credits_balance) || 0;
-  } catch (e) {
-    console.warn('Profile error:', e);
-    state.credits = null;
-  }
+  } catch (e) { console.warn('Profile error:', e); state.credits = null; }
   renderCreditsPill();
-  if (state.credits !== null && state.credits <= 0 && !state.module) {
-    renderUpgradeCard('upgrade-home');
-  }
+  if (state.credits !== null && state.credits <= 0 && !state.module) renderUpgradeCard('upgrade-home');
 }
 
-/* -------- Markdown (minimal) -------- */
 function mdToHtml(md) {
   if (!md) return '';
   let s = String(md);
   s = s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  // code fences
   s = s.replace(/```([\s\S]*?)```/g, (_, c) => `<pre><code>${c}</code></pre>`);
-  // inline code
   s = s.replace(/`([^`\n]+)`/g, '<code>$1</code>');
-  // headings
   s = s.replace(/^### (.+)$/gm, '<h3>$1</h3>');
   s = s.replace(/^## (.+)$/gm, '<h2>$1</h2>');
   s = s.replace(/^# (.+)$/gm, '<h1>$1</h1>');
-  // bold / italic
   s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   s = s.replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
-  // tables (simple pipe table)
   s = s.replace(/((?:^\|.+\|\s*\n)+)/gm, block => {
     const lines = block.trim().split('\n');
     if (lines.length < 2) return block;
@@ -1251,12 +2127,10 @@ function mdToHtml(md) {
     html += '</tbody></table>';
     return html;
   });
-  // lists
   s = s.replace(/^(?:-|\*) (.+)$/gm, '<li>$1</li>');
   s = s.replace(/(<li>.*?<\/li>\s*)+/gs, m => `<ul>${m}</ul>`);
   s = s.replace(/^(\d+)\. (.+)$/gm, '<oli>$2</oli>');
   s = s.replace(/(<oli>.*?<\/oli>\s*)+/gs, m => `<ol>${m.replace(/<oli>/g, '<li>').replace(/<\/oli>/g, '</li>')}</ol>`);
-  // paragraphs: split on blank lines
   s = s.split(/\n{2,}/).map(block => {
     if (/^<(h\d|ul|ol|pre|table|blockquote)/.test(block.trim())) return block;
     return '<p>' + block.replace(/\n/g, '<br>') + '</p>';
@@ -1264,7 +2138,6 @@ function mdToHtml(md) {
   return s;
 }
 
-/* -------- Submit -------- */
 async function submitQuery(userMessage, opts = {}) {
   const isFollowup = !!opts.isFollowup;
   const isFirstMessage = !state.sessionCreditUsed;
@@ -1272,7 +2145,6 @@ async function submitQuery(userMessage, opts = {}) {
   const errBox = document.getElementById('error-box');
   errBox.innerHTML = '';
 
-  // Build conversation_history string
   const historyText = state.conversationHistory.map(m => {
     const role = m.role === 'user' ? 'Doctor' : 'Assistant';
     return `${role}: ${m.content}`;
@@ -1301,12 +2173,9 @@ async function submitQuery(userMessage, opts = {}) {
     query: state.formData.query || '',
   };
 
-  // UI: show loading
   if (!isFollowup) {
     show('response-wrap');
-    document.getElementById('response').innerHTML = `
-      <div class="loading"><div class="spinner"></div><span>${L.loading}</span></div>
-    `;
+    document.getElementById('response').innerHTML = `<div class="loading"><div class="spinner"></div><span>${L.loading}</span></div>`;
     document.getElementById('submit-btn').disabled = true;
   } else {
     appendChatMsg('user', userMessage);
@@ -1326,35 +2195,23 @@ async function submitQuery(userMessage, opts = {}) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     });
-
     if (r.status === 403) {
-      state.credits = 0;
-      renderCreditsPill();
-      if (!isFollowup) {
-        document.getElementById('response').innerHTML = '';
-        hide('response-wrap');
-      } else {
-        removeLoadingChatMsg();
-      }
+      state.credits = 0; renderCreditsPill();
+      if (!isFollowup) { document.getElementById('response').innerHTML = ''; hide('response-wrap'); }
+      else removeLoadingChatMsg();
       renderUpgradeCard('upgrade-module');
       return;
     }
-
     if (!r.ok) throw new Error('HTTP ' + r.status);
-
     const data = await r.json();
     const answer = data.response || '';
-
     if (isFirstMessage) {
       state.sessionCreditUsed = true;
       if (state.credits !== null && state.credits > 0) state.credits -= 1;
       renderCreditsPill();
     }
-
-    // Update history
     state.conversationHistory.push({ role: 'user', content: userMessage });
     state.conversationHistory.push({ role: 'assistant', content: answer });
-
     if (!isFollowup) {
       document.getElementById('response').innerHTML = mdToHtml(answer);
       show('followup');
@@ -1364,12 +2221,8 @@ async function submitQuery(userMessage, opts = {}) {
     }
   } catch (e) {
     console.error(e);
-    if (!isFollowup) {
-      document.getElementById('response').innerHTML = '';
-      hide('response-wrap');
-    } else {
-      removeLoadingChatMsg();
-    }
+    if (!isFollowup) { document.getElementById('response').innerHTML = ''; hide('response-wrap'); }
+    else removeLoadingChatMsg();
     errBox.innerHTML = `<div class="error-banner">${L.error_network}</div>`;
   } finally {
     document.getElementById('submit-btn').disabled = false;
@@ -1390,28 +2243,26 @@ function removeLoadingChatMsg() {
   const loading = history.querySelector('[data-loading="1"]');
   if (loading) loading.remove();
 }
-function escapeHtml(s) {
-  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
+function escapeHtml(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
-/* -------- Validation -------- */
 function validateForm() {
-  if (state.module === 'consulta') {
-    return (state.formData.query || '').trim().length > 0;
+  if (state.module === 'consulta') return (state.formData.query || '').trim().length > 0;
+  if (state.module === 'expediente') {
+    const e = state.expData;
+    // Permite enviar si hay AL MENOS: chips seleccionados, nota, nombre o cualquier dato
+    const anyChip = e.genero || e.edadRango || e.edadExacto || e.pesoRango || e.pesoExacto ||
+                    e.tallaRango || e.tallaExacto || e.condiciones.length > 0 || e.condicionesOtro ||
+                    e.meds.length > 0 || e.procSpec || e.anestesicos.length > 0 || e.anestesiaOtro ||
+                    (e.receta || '').trim() || e.usaPBM;
+    const anyText = (e.nota || '').trim() || (e.nombre || '').trim();
+    return !!(anyChip || anyText);
   }
-  if (state.module === 'expediente' || state.module === 'interconsulta') {
-    return (state.formData.procedimiento || '').trim().length > 0;
-  }
-  if (state.module === 'calculadora') {
-    return (state.formData.medicamento || '').trim().length > 0;
-  }
-  if (state.module === 'pbm') {
-    return (state.formData.objetivo_PBM || '').trim().length > 0;
-  }
+  if (state.module === 'interconsulta') return (state.formData.procedimiento || '').trim().length > 0;
+  if (state.module === 'calculadora') return (state.formData.medicamento || '').trim().length > 0;
+  if (state.module === 'pbm') return (state.formData.objetivo_PBM || '').trim().length > 0;
   return true;
 }
 
-/* -------- Event binding -------- */
 function bindEvents() {
   document.getElementById('lang-select').addEventListener('change', e => setLang(e.target.value));
   document.getElementById('back-btn').addEventListener('click', goHome);
@@ -1421,12 +2272,14 @@ function bindEvents() {
       renderUpgradeCard('upgrade-module');
       return;
     }
+    // For expediente, build formData from expData first
+    if (state.module === 'expediente') buildExpedienteFormData();
+
     if (!validateForm()) {
-      document.getElementById('error-box').innerHTML =
-        `<div class="error-banner">${t().error_generic}</div>`;
+      const msg = state.module === 'expediente' ? t().error_empty : t().error_generic;
+      document.getElementById('error-box').innerHTML = `<div class="error-banner">${msg}</div>`;
       return;
     }
-    // Build a summary message of the form for the agent
     const payloadSummary = buildInitialMessage();
     submitQuery(payloadSummary, { isFollowup: false });
   });
@@ -1466,7 +2319,6 @@ function buildInitialMessage() {
   return lines.join('\n');
 }
 
-/* -------- Init -------- */
 async function init() {
   parseURL();
   document.getElementById('lang-select').value = state.language;
