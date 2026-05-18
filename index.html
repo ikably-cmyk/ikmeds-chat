@@ -665,7 +665,8 @@
  * Webhooks, payload, Stripe, I18N intactos.
  * ============================================================ */
 
-const N8N_CHAT_URL = 'https://laserai.app.n8n.cloud/webhook/ikmeds-chat';
+const N8N_CHAT_URL = 'https://laserai.app.n8n.cloud/webhook/ikmeds-chat-async';
+const N8N_RESULT_URL = 'https://laserai.app.n8n.cloud/webhook/ikmeds-get-result';
 const N8N_PROFILE_URL = 'https://laserai.app.n8n.cloud/webhook/ikmeds-get-profile';
 
 const STRIPE_LINKS = {
@@ -2217,6 +2218,39 @@ function applyClinicalHighlights(html) {
   return html;
 }
 
+/* -------- async polling helper -------- */
+const POLL_INTERVAL_MS = 3000;
+const POLL_TIMEOUT_MS  = 5 * 60 * 1000; // 5 min
+
+async function pollForResult(sessionId, { onTimeout } = {}) {
+  const start = Date.now();
+  while (true) {
+    if (Date.now() - start > POLL_TIMEOUT_MS) {
+      if (onTimeout) {
+        const keepWaiting = await onTimeout(sessionId);
+        if (keepWaiting) {
+          return pollForResult(sessionId, { onTimeout });
+        }
+      }
+      throw new Error('TIMEOUT');
+    }
+    await new Promise(res => setTimeout(res, POLL_INTERVAL_MS));
+    let r;
+    try {
+      r = await fetch(`${N8N_RESULT_URL}?session_id=${encodeURIComponent(sessionId)}`, { method: 'GET' });
+    } catch (e) {
+      continue; // error de red puntual: seguir intentando hasta timeout
+    }
+    if (!r.ok) continue;
+    let data;
+    try { data = await r.json(); } catch { continue; }
+    if (data.status === 'done')      return data.response || '';
+    if (data.status === 'error')     throw new Error(data.message || 'ERROR');
+    if (data.status === 'not_found') throw new Error('NOT_FOUND');
+    // 'processing' → seguir el loop
+  }
+}
+
 async function submitQuery(userMessage, opts = {}) {
   const isFollowup = !!opts.isFollowup;
   const isFirstMessage = !state.sessionCreditUsed;
@@ -2269,6 +2303,7 @@ async function submitQuery(userMessage, opts = {}) {
   }
 
   try {
+    // 1) Iniciar generación async
     const r = await fetch(N8N_CHAT_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -2282,13 +2317,30 @@ async function submitQuery(userMessage, opts = {}) {
       return;
     }
     if (!r.ok) throw new Error('HTTP ' + r.status);
-    const data = await r.json();
-    const answer = data.response || '';
+    const initData = await r.json();
+    const sessionId = initData.session_id;
+    if (!sessionId) throw new Error('NO_SESSION_ID');
+
+    // 2) Descontar crédito local apenas el backend acepta (el backend ya lo cobró)
     if (isFirstMessage) {
       state.sessionCreditUsed = true;
       if (state.credits !== null && state.credits > 0) state.credits -= 1;
       renderCreditsPill();
     }
+
+    // 3) Polling con opción de extender tras timeout
+    const answer = await pollForResult(sessionId, {
+      onTimeout: async () => {
+        return new Promise(resolve => {
+          const msg = state.language === 'es'
+            ? 'El reporte está tardando más de lo normal. ¿Seguir esperando?'
+            : 'The report is taking longer than usual. Keep waiting?';
+          resolve(window.confirm(msg));
+        });
+      }
+    });
+
+    // 4) Pintar respuesta
     state.conversationHistory.push({ role: 'user', content: userMessage });
     state.conversationHistory.push({ role: 'assistant', content: answer });
     if (!isFollowup) {
