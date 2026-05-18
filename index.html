@@ -30,10 +30,11 @@
     --ink-soft:    #3D5560;
     --ink-mute:    #8A9499;
 
-    --warning:     #C97B4A;
-    --warn-bg:     #FBEFE2;
-    --warn-border: #E8B488;
+    --warning:     #6B4600;
+    --warn-bg:     #FAE294;
+    --warn-border: #E8C77A;
     --success:     #4A7C59;
+    --success-bg:  #E7F0E5;
     --error:       #A53F2B;
     --error-bg:    #FBEAE6;
 
@@ -557,6 +558,48 @@
   }
   .nota-complementaria textarea::placeholder { color: var(--ink-mute); }
   .nota-complementaria textarea:focus { border-color: var(--primary); background: #FFFFFF; }
+
+  /* =====================================================
+   * FASE 2.1 · Sistema de resaltado clínico
+   * (badges aplicados al output del agente vía
+   *  applyClinicalHighlights() después de mdToHtml)
+   * ===================================================== */
+
+  /* Badges de cabecera de riesgo */
+  .risk-high, .risk-warn, .risk-low {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.95em;
+    letter-spacing: 0.01em;
+  }
+  .risk-high { background: var(--error-bg);   color: var(--error); }
+  .risk-warn { background: var(--warn-bg);    color: var(--warning); }
+  .risk-low  { background: var(--success-bg); color: var(--success); }
+
+  /* Sub-labels de sección (texto coloreado, sin fondo) */
+  .label-avoid { color: var(--error);   font-weight: 700; }
+  .label-use   { color: var(--success); font-weight: 700; }
+  .label-warn  { color: var(--warning); font-weight: 700; }
+
+  /* Badges de decisión final (filled, fuertes) */
+  .decision-go, .decision-adjust, .decision-stop {
+    display: inline-block;
+    padding: 6px 13px;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 0.98em;
+    letter-spacing: 0.02em;
+  }
+  .decision-go     { background: var(--success-bg); color: var(--success); }
+  .decision-adjust { background: var(--warn-bg);    color: var(--warning); }
+  .decision-stop   { background: var(--error-bg);   color: var(--error); }
+
+  /* Riesgo inline (la palabra alto/moderado/bajo en bullets de alertas) */
+  .risk-inline-high { color: var(--error);   font-weight: 700; }
+  .risk-inline-warn { color: var(--warning); font-weight: 700; }
+  .risk-inline-low  { color: var(--success); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -2128,14 +2171,50 @@ function mdToHtml(md) {
     return html;
   });
   s = s.replace(/^(?:-|\*) (.+)$/gm, '<li>$1</li>');
-  s = s.replace(/(<li>.*?<\/li>\s*)+/gs, m => `<ul>${m}</ul>`);
+  s = s.replace(/(<li>.*?<\/li>\s*)+/gs, m => `<ul>${m.trim()}</ul>`);
   s = s.replace(/^(\d+)\. (.+)$/gm, '<oli>$2</oli>');
   s = s.replace(/(<oli>.*?<\/oli>\s*)+/gs, m => `<ol>${m.replace(/<oli>/g, '<li>').replace(/<\/oli>/g, '</li>')}</ol>`);
+  // Asegurar que listas queden separadas del texto previo/siguiente
+  // para que el split por \n\n no las envuelva en <p>...</p>
+  s = s.replace(/([^\n])\n+(<ul>|<ol>)/g, '$1\n\n$2');
+  s = s.replace(/(<\/ul>|<\/ol>)\n*([^\n])/g, '$1\n\n$2');
   s = s.split(/\n{2,}/).map(block => {
     if (/^<(h\d|ul|ol|pre|table|blockquote)/.test(block.trim())) return block;
     return '<p>' + block.replace(/\n/g, '<br>') + '</p>';
   }).join('\n');
+  s = applyClinicalHighlights(s);
   return s;
+}
+
+/* Aplica resaltado clínico al HTML ya renderizado por mdToHtml.
+ * Detecta tokens del agente MindStudio (en bold con marcadores específicos)
+ * y los envuelve en spans con clases coloreadas.
+ * Si el agente cambia su formato, esta función solo deja el bold normal
+ * (sin colores) — no se rompe nada. */
+function applyClinicalHighlights(html) {
+  if (!html) return '';
+  // Badges de cabecera de riesgo
+  html = html.replace(/<strong>\[ALTO RIESGO\]<\/strong>/g, '<span class="risk-high">[ALTO RIESGO]</span>');
+  html = html.replace(/<strong>\[PRECAUCIÓN\]<\/strong>/g, '<span class="risk-warn">[PRECAUCIÓN]</span>');
+  html = html.replace(/<strong>\[BAJO RIESGO\]<\/strong>/g, '<span class="risk-low">[BAJO RIESGO]</span>');
+  // Sub-labels de sección (con dos puntos al final)
+  html = html.replace(/<strong>No usar:<\/strong>/g, '<span class="label-avoid">No usar:</span>');
+  html = html.replace(/<strong>Evitar:<\/strong>/g, '<span class="label-avoid">Evitar:</span>');
+  html = html.replace(/<strong>Sí usar:<\/strong>/g, '<span class="label-use">Sí usar:</span>');
+  html = html.replace(/<strong>Si usar:<\/strong>/g, '<span class="label-use">Si usar:</span>');
+  html = html.replace(/<strong>Redundancias:<\/strong>/g, '<span class="label-warn">Redundancias:</span>');
+  // Badges de decisión final
+  html = html.replace(/<strong>DECISIÓN: PROCEDER<\/strong>/g, '<span class="decision-go">DECISIÓN: PROCEDER</span>');
+  html = html.replace(/<strong>DECISION: PROCEDER<\/strong>/g, '<span class="decision-go">DECISION: PROCEDER</span>');
+  html = html.replace(/<strong>DECISIÓN: AJUSTAR RECETA<\/strong>/g, '<span class="decision-adjust">DECISIÓN: AJUSTAR RECETA</span>');
+  html = html.replace(/<strong>DECISION: AJUSTAR RECETA<\/strong>/g, '<span class="decision-adjust">DECISION: AJUSTAR RECETA</span>');
+  html = html.replace(/<strong>DECISIÓN: CONSULTAR ESPECIALISTA<\/strong>/g, '<span class="decision-stop">DECISIÓN: CONSULTAR ESPECIALISTA</span>');
+  html = html.replace(/<strong>DECISION: CONSULTAR ESPECIALISTA<\/strong>/g, '<span class="decision-stop">DECISION: CONSULTAR ESPECIALISTA</span>');
+  // Riesgo inline en bullets de alertas
+  html = html.replace(/Riesgo: <strong>alto<\/strong>/g, 'Riesgo: <span class="risk-inline-high">alto</span>');
+  html = html.replace(/Riesgo: <strong>moderado<\/strong>/g, 'Riesgo: <span class="risk-inline-warn">moderado</span>');
+  html = html.replace(/Riesgo: <strong>bajo<\/strong>/g, 'Riesgo: <span class="risk-inline-low">bajo</span>');
+  return html;
 }
 
 async function submitQuery(userMessage, opts = {}) {
