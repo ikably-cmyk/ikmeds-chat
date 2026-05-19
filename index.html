@@ -600,6 +600,114 @@
   .risk-inline-high { color: var(--error);   font-weight: 700; }
   .risk-inline-warn { color: var(--warning); font-weight: 700; }
   .risk-inline-low  { color: var(--success); font-weight: 700; }
+
+  /* ===== Modo Revisión (toggle + chips) ===== */
+  .review-toggle {
+    margin: var(--space-4) 0 var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-soft);
+    border: 1px solid var(--bg-dark);
+    border-radius: var(--radius-md);
+    transition: border-color 150ms ease, background 150ms ease;
+  }
+  .review-toggle.is-on {
+    background: var(--primary-5);
+    border-color: var(--sec-30);
+  }
+  .review-toggle-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .review-switch {
+    position: relative;
+    flex: 0 0 auto;
+    width: 38px;
+    height: 22px;
+    background: var(--bg-dark);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 150ms ease;
+  }
+  .review-switch::after {
+    content: '';
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 18px; height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: var(--shadow-sm);
+    transition: transform 150ms ease;
+  }
+  .review-toggle.is-on .review-switch { background: var(--primary); }
+  .review-toggle.is-on .review-switch::after { transform: translateX(16px); }
+  .review-label {
+    flex: 1 1 auto;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 0.95em;
+    user-select: none;
+  }
+  .review-pill {
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: 0.72em;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: var(--warn-bg);
+    color: var(--warning);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    border: 1px solid var(--warn-border);
+    opacity: 0;
+    transform: scale(0.92);
+    transition: opacity 150ms ease, transform 150ms ease;
+  }
+  .review-toggle.is-on .review-pill { opacity: 1; transform: scale(1); }
+  .review-caption {
+    margin-top: var(--space-2);
+    font-size: 0.82em;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+  .review-caption strong { color: var(--ink); font-weight: 600; }
+  .review-caption .review-cost { color: var(--warning); font-weight: 700; font-family: var(--font-mono); }
+  .review-toggle-hidden { display: none; }
+
+  /* Chips de confirmación tras verificación */
+  .review-chips {
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px dashed var(--bg-dark);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .review-chip {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    font-family: var(--font-sans);
+    font-size: 0.92em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 150ms ease;
+    text-align: center;
+    border: 1px solid;
+  }
+  .review-chip-primary {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+  }
+  .review-chip-primary:hover { background: var(--ink); border-color: var(--ink); }
+  .review-chip-secondary {
+    background: transparent;
+    color: var(--primary);
+    border-color: var(--sec-30);
+  }
+  .review-chip-secondary:hover { background: var(--primary-5); border-color: var(--secondary); }
 </style>
 </head>
 <body>
@@ -635,6 +743,8 @@
     <p id="module-sub" class="form-sub"></p>
 
     <div id="form-container"></div>
+
+    <div id="review-toggle-container" class="review-toggle-hidden"></div>
 
     <button id="submit-btn" class="btn"><span id="submit-label">Consultar</span></button>
 
@@ -769,6 +879,16 @@ const I18N = {
       empty_summary: 'Sin definir',
       btn_generar: 'Generar expediente',
     },
+    review: {
+      label: 'Modo Revisión',
+      caption_strong: 'Reduce el riesgo de error:',
+      caption_rest: ' IKMeds valida fármacos, dosis y datos clínicos contigo antes de generar el reporte.',
+      caption_cost: '+1 crédito',
+      chip_confirm: 'Confirmo, generar reporte',
+      chip_correct: 'Corregir / añadir contexto',
+      correct_placeholder: 'Aclara o corrige las interpretaciones del asistente...',
+      confirm_message: 'Confirmado. Procede a generar el reporte.',
+    },
   },
   en: {
     hello: 'Hi',
@@ -847,6 +967,16 @@ const I18N = {
       empty_summary: 'Not set',
       btn_generar: 'Generate report',
     },
+    review: {
+      label: 'Review Mode',
+      caption_strong: 'Reduce the risk of error:',
+      caption_rest: ' IKMeds validates drugs, doses, and clinical data with you before generating the report.',
+      caption_cost: '+1 credit',
+      chip_confirm: 'Confirm, generate report',
+      chip_correct: 'Correct / add context',
+      correct_placeholder: "Clarify or correct the assistant's interpretations...",
+      confirm_message: 'Confirmed. Please proceed to generate the report.',
+    },
   },
   pt: {
     hello: 'Olá',
@@ -922,6 +1052,16 @@ const I18N = {
       empty_summary: 'Não definido',
       btn_generar: 'Gerar relatório',
     },
+    review: {
+      label: 'Modo de Revisão',
+      caption_strong: 'Reduza o risco de erro:',
+      caption_rest: ' o IKMeds valida fármacos, doses e dados clínicos com você antes de gerar o relatório.',
+      caption_cost: '+1 crédito',
+      chip_confirm: 'Confirmo, gerar relatório',
+      chip_correct: 'Corrigir / adicionar contexto',
+      correct_placeholder: 'Esclareça ou corrija as interpretações do assistente...',
+      confirm_message: 'Confirmado. Por favor, prossiga para gerar o relatório.',
+    },
   },
   ja: {
     hello: 'こんにちは',
@@ -996,6 +1136,16 @@ const I18N = {
       empty_summary: '未設定',
       btn_generar: 'レポート生成',
     },
+    review: {
+      label: 'レビューモード',
+      caption_strong: 'エラーリスクを軽減:',
+      caption_rest: ' IKMedsがレポート生成前に薬剤・用量・臨床データをあなたと一緒に確認します。',
+      caption_cost: 'クレジット+1',
+      chip_confirm: '確認、レポート生成',
+      chip_correct: '修正・補足を追加',
+      correct_placeholder: 'アシスタントの解釈を明確化または修正...',
+      confirm_message: '確認しました。レポートを生成してください。',
+    },
   },
   ko: {
     hello: '안녕하세요',
@@ -1069,6 +1219,16 @@ const I18N = {
       otro: '기타', otro_ph: '지정...', otro_add: '추가', mas: '더',
       empty_summary: '미설정',
       btn_generar: '보고서 생성',
+    },
+    review: {
+      label: '검토 모드',
+      caption_strong: '오류 위험 감소:',
+      caption_rest: ' IKMeds가 보고서 생성 전 약물·용량·임상 데이터를 함께 확인합니다.',
+      caption_cost: '+1 크레딧',
+      chip_confirm: '확인, 보고서 생성',
+      chip_correct: '수정·맥락 추가',
+      correct_placeholder: '어시스턴트의 해석을 명확히 하거나 수정...',
+      confirm_message: '확인했습니다. 보고서를 생성해주세요.',
     },
   },
 };
@@ -1159,6 +1319,8 @@ const state = {
   conversationHistory: [],
   formData: {},
   expData: emptyExpData(),
+  reviewMode: false,     // Modo Revisión ON/OFF (off por default, siempre)
+  reviewTurn: 0,         // 0=sin uso, 1=verificación enviada, 2=reporte solicitado, 3=ciclo terminado
 };
 
 function emptyExpData() {
@@ -1277,6 +1439,80 @@ function renderModuleForm() {
     document.getElementById('submit-label').textContent = L.consult;
     renderClassicForm();
   }
+  renderReviewToggle();
+}
+
+/* -------- Render: toggle Modo Revisión -------- */
+function renderReviewToggle() {
+  const container = document.getElementById('review-toggle-container');
+  if (!container) return;
+  // Solo en setup inicial (antes de que se use el primer crédito de la sesión)
+  if (state.sessionCreditUsed || !state.module) {
+    container.className = 'review-toggle-hidden';
+    container.innerHTML = '';
+    return;
+  }
+  const R = t().review;
+  if (!R) { container.className = 'review-toggle-hidden'; return; }
+
+  container.className = 'review-toggle' + (state.reviewMode ? ' is-on' : '');
+  container.innerHTML = `
+    <div class="review-toggle-row">
+      <div id="review-switch" class="review-switch" role="switch" aria-checked="${state.reviewMode}" tabindex="0"></div>
+      <div class="review-label">${escapeHtml(R.label)}</div>
+      <div class="review-pill">${escapeHtml(R.caption_cost)}</div>
+    </div>
+    <div class="review-caption">
+      <strong>${escapeHtml(R.caption_strong)}</strong>${escapeHtml(R.caption_rest)} <span class="review-cost">${escapeHtml(R.caption_cost)}</span>.
+    </div>
+  `;
+  const sw = document.getElementById('review-switch');
+  const toggle = () => {
+    state.reviewMode = !state.reviewMode;
+    renderReviewToggle();
+  };
+  sw.addEventListener('click', toggle);
+  sw.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+  });
+  // Click en el row también activa (UX más generosa)
+  container.querySelector('.review-toggle-row').addEventListener('click', e => {
+    if (e.target === sw || sw.contains(e.target)) return;
+    toggle();
+  });
+}
+
+/* -------- Render: chips de confirmación tras turno 1 -------- */
+function renderReviewChips(targetEl) {
+  if (!targetEl) return;
+  const R = t().review;
+  if (!R) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'review-chips';
+  wrap.innerHTML = `
+    <button type="button" class="review-chip review-chip-primary" id="review-chip-confirm">${escapeHtml(R.chip_confirm)}</button>
+    <button type="button" class="review-chip review-chip-secondary" id="review-chip-correct">${escapeHtml(R.chip_correct)}</button>
+  `;
+  targetEl.appendChild(wrap);
+
+  document.getElementById('review-chip-confirm').addEventListener('click', () => {
+    // Quitar chips para evitar doble click
+    wrap.remove();
+    state.reviewTurn = 2;
+    submitQuery(R.confirm_message, { isFollowup: true });
+  });
+  document.getElementById('review-chip-correct').addEventListener('click', () => {
+    // Quitar chips, mostrar área de follow-up con placeholder de corrección
+    wrap.remove();
+    state.reviewTurn = 2;
+    show('followup');
+    const input = document.getElementById('chat-input');
+    if (input) {
+      input.placeholder = R.correct_placeholder;
+      input.focus();
+      input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  });
 }
 
 /* -------- Render: módulos clásicos (NO-expediente) -------- */
@@ -2110,6 +2346,8 @@ function openModule(key) {
   state.sessionCreditUsed = false;
   state.conversationHistory = [];
   state.formData = {};
+  state.reviewMode = false;  // off por default, siempre
+  state.reviewTurn = 0;
   if (key === 'expediente') state.expData = emptyExpData();
   hide('view-home'); show('view-module');
   hide('response-wrap'); hide('followup'); hide('upgrade-module');
@@ -2269,6 +2507,7 @@ async function submitQuery(userMessage, opts = {}) {
     history: historyText,
     language: state.language,
     is_first_message: isFirstMessage,
+    review_mode: state.reviewMode,
     tipo_de_reporte: TIPO_DE_REPORTE_MAP[state.module] || '',
     nombre_paciente: state.formData.nombre_paciente || '',
     HistClin: state.formData.HistClin || '',
@@ -2290,6 +2529,8 @@ async function submitQuery(userMessage, opts = {}) {
     show('response-wrap');
     document.getElementById('response').innerHTML = `<div class="loading"><div class="spinner"></div><span>${L.loading}</span></div>`;
     document.getElementById('submit-btn').disabled = true;
+    // Si arrancamos en Modo Revisión, marcar turno 1
+    if (state.reviewMode && isFirstMessage) state.reviewTurn = 1;
   } else {
     appendChatMsg('user', userMessage);
     const history = document.getElementById('chat-history');
@@ -2326,6 +2567,7 @@ async function submitQuery(userMessage, opts = {}) {
       state.sessionCreditUsed = true;
       if (state.credits !== null && state.credits > 0) state.credits -= 1;
       renderCreditsPill();
+      renderReviewToggle(); // ahora se oculta porque sessionCreditUsed=true
     }
 
     // 3) Polling con opción de extender tras timeout
@@ -2344,11 +2586,24 @@ async function submitQuery(userMessage, opts = {}) {
     state.conversationHistory.push({ role: 'user', content: userMessage });
     state.conversationHistory.push({ role: 'assistant', content: answer });
     if (!isFollowup) {
-      document.getElementById('response').innerHTML = mdToHtml(answer);
+      const respEl = document.getElementById('response');
+      respEl.innerHTML = mdToHtml(answer);
       show('followup');
+      // Si arrancamos en Modo Revisión, esta respuesta es la verificación → chips
+      if (state.reviewTurn === 1) {
+        renderReviewChips(respEl);
+      }
     } else {
       removeLoadingChatMsg();
       appendChatMsg('assistant', answer);
+      // Si esta respuesta corresponde al turno 2 del Modo Revisión, apagar
+      if (state.reviewTurn === 2) {
+        state.reviewMode = false;
+        state.reviewTurn = 3;
+        // Restaurar placeholder original del chat-input
+        const chatIn = document.getElementById('chat-input');
+        if (chatIn) chatIn.placeholder = t().followup_placeholder;
+      }
     }
   } catch (e) {
     console.error(e);
