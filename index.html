@@ -708,6 +708,82 @@
     border-color: var(--sec-30);
   }
   .review-chip-secondary:hover { background: var(--primary-5); border-color: var(--secondary); }
+
+  /* -------- Interconsulta: banner de herencia desde Expediente -------- */
+  .inter-heredado-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    margin-bottom: var(--space-4);
+    border-radius: var(--radius-sm);
+    background: var(--primary-5);
+    border-left: 3px solid var(--primary);
+    font-size: 0.88em;
+  }
+  .inter-heredado-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    font-weight: 600;
+  }
+  .inter-heredado-icon {
+    font-size: 1.1em;
+    line-height: 1;
+  }
+  .inter-heredado-edit {
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    text-decoration: underline;
+    font-family: var(--font-sans);
+    font-size: 0.85em;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px 8px;
+  }
+  .inter-heredado-edit:hover { color: var(--ink); }
+
+  /* -------- Next-step button (al final del reporte de Expediente) -------- */
+  .next-step-wrap {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px dashed var(--bg-dark);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .next-step-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    background: var(--primary-5);
+    border: 1px solid var(--sec-30);
+    color: var(--primary);
+    font-family: var(--font-sans);
+    font-size: 0.95em;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: all 150ms ease;
+    width: 100%;
+  }
+  .next-step-btn:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+  }
+  .next-step-icon {
+    font-size: 1.2em;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .next-step-text {
+    flex: 1 1 auto;
+  }
 </style>
 </head>
 <body>
@@ -879,6 +955,24 @@ const I18N = {
       empty_summary: 'Sin definir',
       btn_generar: 'Generar expediente',
     },
+    inter: {
+      acc_destino: 'Destino de la interconsulta',
+      acc_caso: 'Caso clínico',
+      acc_pregunta: 'Pregunta al especialista',
+      lbl_especialidad: 'Especialidad destino',
+      lbl_motivo: 'Motivo específico',
+      lbl_motivo_otro_ph: 'Especifica el motivo...',
+      lbl_tipo_pregunta: 'Tipo de pregunta (opcional)',
+      lbl_pregunta: 'Pregunta o duda específica',
+      lbl_pregunta_ph: 'Describa la pregunta o duda específica que motiva esta interconsulta. Ej: "El paciente requiere extracción molar mañana, ¿es seguro mantener el clopidogrel? ¿Cuál es el INR objetivo?"',
+      btn_generar: 'Generar carta de interconsulta',
+      btn_generar_expediente: 'Generar carta de interconsulta',
+      btn_paciente_version: 'Versión para paciente',
+      heredado_banner: 'Heredado del Expediente',
+      heredado_editar: 'Editar caso clínico',
+      heredado_caso_resumen: 'Datos clínicos heredados',
+      empty_caso: 'Sin datos clínicos. Toca para completar.',
+    },
     review: {
       label: 'Modo Revisión',
       caption_strong: 'Reduce el riesgo de error:',
@@ -967,6 +1061,24 @@ const I18N = {
       empty_summary: 'Not set',
       btn_generar: 'Generate report',
     },
+    inter: {
+      acc_destino: 'Referral destination',
+      acc_caso: 'Clinical case',
+      acc_pregunta: 'Question to specialist',
+      lbl_especialidad: 'Destination specialty',
+      lbl_motivo: 'Specific reason',
+      lbl_motivo_otro_ph: 'Specify the reason...',
+      lbl_tipo_pregunta: 'Question type (optional)',
+      lbl_pregunta: 'Specific question or concern',
+      lbl_pregunta_ph: 'Describe the specific question or concern motivating this referral. Ex: "Patient needs molar extraction tomorrow, is it safe to continue clopidogrel? What INR target?"',
+      btn_generar: 'Generate referral letter',
+      btn_generar_expediente: 'Generate referral letter',
+      btn_paciente_version: 'Patient version',
+      heredado_banner: 'Inherited from Full Report',
+      heredado_editar: 'Edit clinical case',
+      heredado_caso_resumen: 'Inherited clinical data',
+      empty_caso: 'No clinical data. Tap to complete.',
+    },
     review: {
       label: 'Review Mode',
       caption_strong: 'Reduce the risk of error:',
@@ -1052,6 +1164,24 @@ const I18N = {
       empty_summary: 'Não definido',
       btn_generar: 'Gerar relatório',
     },
+    inter: {
+      acc_destino: 'Destino do encaminhamento',
+      acc_caso: 'Caso clínico',
+      acc_pregunta: 'Pergunta ao especialista',
+      lbl_especialidad: 'Especialidade de destino',
+      lbl_motivo: 'Motivo específico',
+      lbl_motivo_otro_ph: 'Especifique o motivo...',
+      lbl_tipo_pregunta: 'Tipo de pergunta (opcional)',
+      lbl_pregunta: 'Pergunta ou dúvida específica',
+      lbl_pregunta_ph: 'Descreva a pergunta ou dúvida específica que motiva este encaminhamento.',
+      btn_generar: 'Gerar carta de encaminhamento',
+      btn_generar_expediente: 'Gerar carta de encaminhamento',
+      btn_paciente_version: 'Versão para paciente',
+      heredado_banner: 'Herdado do Relatório',
+      heredado_editar: 'Editar caso clínico',
+      heredado_caso_resumen: 'Dados clínicos herdados',
+      empty_caso: 'Sem dados clínicos. Toque para preencher.',
+    },
     review: {
       label: 'Modo de Revisão',
       caption_strong: 'Reduza o risco de erro:',
@@ -1135,6 +1265,24 @@ const I18N = {
       otro: 'その他', otro_ph: '指定...', otro_add: '追加', mas: 'もっと',
       empty_summary: '未設定',
       btn_generar: 'レポート生成',
+    },
+    inter: {
+      acc_destino: '紹介先',
+      acc_caso: '臨床症例',
+      acc_pregunta: '専門医への質問',
+      lbl_especialidad: '紹介先専門科',
+      lbl_motivo: '具体的な理由',
+      lbl_motivo_otro_ph: '理由を入力...',
+      lbl_tipo_pregunta: '質問の種類(任意)',
+      lbl_pregunta: '具体的な質問',
+      lbl_pregunta_ph: 'この紹介の動機となる具体的な質問または懸念を記述してください。',
+      btn_generar: '紹介状を生成',
+      btn_generar_expediente: '紹介状を生成',
+      btn_paciente_version: '患者向け版',
+      heredado_banner: 'レポートから継承',
+      heredado_editar: '症例を編集',
+      heredado_caso_resumen: '継承された臨床データ',
+      empty_caso: '臨床データなし。タップして入力。',
     },
     review: {
       label: 'レビューモード',
@@ -1220,6 +1368,24 @@ const I18N = {
       empty_summary: '미설정',
       btn_generar: '보고서 생성',
     },
+    inter: {
+      acc_destino: '의뢰 대상',
+      acc_caso: '임상 사례',
+      acc_pregunta: '전문의에게 질문',
+      lbl_especialidad: '의뢰 전문과',
+      lbl_motivo: '구체적 사유',
+      lbl_motivo_otro_ph: '사유를 입력...',
+      lbl_tipo_pregunta: '질문 유형(선택)',
+      lbl_pregunta: '구체적 질문',
+      lbl_pregunta_ph: '이 의뢰의 동기가 되는 구체적인 질문이나 우려사항을 기술하십시오.',
+      btn_generar: '의뢰서 생성',
+      btn_generar_expediente: '의뢰서 생성',
+      btn_paciente_version: '환자용 버전',
+      heredado_banner: '보고서에서 상속',
+      heredado_editar: '사례 편집',
+      heredado_caso_resumen: '상속된 임상 데이터',
+      empty_caso: '임상 데이터 없음. 탭하여 작성.',
+    },
     review: {
       label: '검토 모드',
       caption_strong: '오류 위험 감소:',
@@ -1292,6 +1458,92 @@ const CHIPS_DATA = {
                 'Articaína 4% c/epi', 'Bupivacaína 0.5% c/epi', 'Prilocaína 4%'],
 };
 
+/* -------- Datos de Interconsulta: especialidad destino + motivos por especialidad -------- */
+const INTER_DATA = {
+  especialidades: [
+    {
+      key: 'cardio', label: 'Cardiología',
+      motivos: ['Valoración pre-quirúrgica', 'Ajuste de anticoagulación/antiagregación',
+                'Profilaxis endocarditis infecciosa', 'HTA no controlada',
+                'Arritmia o palpitaciones', 'Otro']
+    },
+    {
+      key: 'endo', label: 'Endocrinología',
+      motivos: ['DM mal controlada', 'Manejo perioperatorio de antidiabéticos',
+                'Bifosfonatos / riesgo MRONJ', 'Hipo/hipertiroidismo',
+                'Corticoides crónicos', 'Otro']
+    },
+    {
+      key: 'hema', label: 'Hematología',
+      motivos: ['Verificar INR / manejo de anticoagulante', 'Trombocitopenia o sangrado',
+                'Anemia', 'Coagulopatía', 'Otro']
+    },
+    {
+      key: 'nefro', label: 'Nefrología',
+      motivos: ['ERC: ajuste de fármacos', 'Diálisis: programación del procedimiento',
+                'Trasplante renal', 'Otro']
+    },
+    {
+      key: 'neuro', label: 'Neurología',
+      motivos: ['Anticonvulsivantes: cambio o ajuste', 'Neuralgia del trigémino',
+                'ACV reciente / antiagregación', 'Hiperplasia gingival por fenitoína',
+                'Otro']
+    },
+    {
+      key: 'onco', label: 'Oncología',
+      motivos: ['Timing del procedimiento vs quimioterapia/radio',
+                'Bifosfonatos oncológicos / MRONJ', 'Inmunosupresión',
+                'Anticoagulación en cáncer', 'Otro']
+    },
+    {
+      key: 'reuma', label: 'Reumatología',
+      motivos: ['Inmunosupresores / biológicos', 'Esteroides crónicos',
+                'Artritis y manejo dental', 'Otro']
+    },
+    {
+      key: 'gineco', label: 'Ginecología/Obstetricia',
+      motivos: ['Embarazo: trimestre y manejo', 'Lactancia: fármacos compatibles',
+                'Anticoncepción + inductores enzimáticos', 'Otro']
+    },
+    {
+      key: 'psiq', label: 'Psiquiatría',
+      motivos: ['IMAO + anestesia con vasoconstrictor', 'Antidepresivos perioperatorio',
+                'Litio: ajuste', 'Benzodiazepinas / sedación', 'Otro']
+    },
+    {
+      key: 'general', label: 'Médico tratante (general)',
+      motivos: ['Confirmar diagnóstico actual', 'Solicitar laboratorios',
+                'Validar plan de tratamiento dental', 'Comunicar plan al médico',
+                'Otro']
+    },
+    {
+      key: 'otro', label: 'Otro',
+      motivos: ['Otro']
+    },
+  ],
+  tipoPregunta: [
+    'Valoración pre-procedimiento',
+    'Ajuste de medicación',
+    'Solicitud de laboratorios',
+    'Confirmación de diagnóstico',
+    'Recomendación de manejo',
+  ],
+};
+
+/* -------- Mapeo regex para detectar especialidad sugerida en reporte del Expediente -------- */
+const SPECIALTY_REGEX = [
+  { key: 'cardio',  rx: /cardi[óo]log[oa]|cardiolog[íi]a|cardiologist|cardiology|cardi[óo]lo[gj]o/i },
+  { key: 'endo',    rx: /endocrin[óo]log[oa]|endocrinolog[íi]a|endocrinologist|endocrinology|endocrino/i },
+  { key: 'hema',    rx: /hemat[óo]log[oa]|hematolog[íi]a|hematologist|hematology|anticoagulant\w* tratante/i },
+  { key: 'nefro',   rx: /nefr[óo]log[oa]|nefrolog[íi]a|nephrologist|nephrology|nefro/i },
+  { key: 'neuro',   rx: /neur[óo]log[oa]|neurolog[íi]a|neurologist|neurology/i },
+  { key: 'onco',    rx: /onc[óo]log[oa]|oncolog[íi]a|oncologist|oncology|oncolog/i },
+  { key: 'reuma',   rx: /reumat[óo]log[oa]|reumatolog[íi]a|rheumatologist|rheumatology/i },
+  { key: 'gineco',  rx: /ginec[óo]log[oa]|ginecolog[íi]a|obstetra|gynecologist|obstetrician|obstetri/i },
+  { key: 'psiq',    rx: /psiquiatra|psiquiatr[íi]a|psychiatrist|psychiatry/i },
+  { key: 'general', rx: /m[ée]dico tratante|m[ée]dico general|primary care|family doctor|treating physician/i },
+];
+
 /* -------- Module field definitions (módulos NO-expediente) -------- */
 const MODULE_FIELDS = {
   consulta: ['nombre_paciente', 'query'],
@@ -1319,6 +1571,7 @@ const state = {
   conversationHistory: [],
   formData: {},
   expData: emptyExpData(),
+  interData: emptyInterData(),
   reviewMode: false,     // Modo Revisión ON/OFF (off por default, siempre)
   reviewTurn: 0,         // 0=sin uso, 1=verificación enviada, 2=reporte solicitado, 3=ciclo terminado
 };
@@ -1347,6 +1600,30 @@ function emptyExpData() {
     dispositivoLaser: '',
     nota: '',
     accordionOpen: 'paciente',
+  };
+}
+
+function emptyInterData() {
+  return {
+    especialidad: '',          // key del primario (cardio/endo/...)
+    motivo: '',                // motivo seleccionado del sub-chip
+    motivoOtro: '',            // texto libre si motivo='Otro'
+    tipoPregunta: '',          // chip de tipo de pregunta (opcional)
+    preguntaTexto: '',         // textarea pregunta específica
+    // Datos clínicos del caso (heredados del Expediente o capturados directamente)
+    nombre: '',
+    histClin: '',
+    medstomando: '',
+    procedimiento: '',
+    anestesia: '',
+    receta: '',
+    laserPbm: 'No',
+    objetivoPBM: '',
+    dispositivoLaser: '',
+    // Estado de herencia
+    heritedFromExp: false,
+    expedienteReport: '',      // texto del reporte original (para referencia futura)
+    accordionOpen: 'destino',
   };
 }
 
@@ -1435,6 +1712,9 @@ function renderModuleForm() {
   if (state.module === 'expediente') {
     document.getElementById('submit-label').textContent = L.exp.btn_generar;
     renderExpedienteForm();
+  } else if (state.module === 'interconsulta') {
+    document.getElementById('submit-label').textContent = L.inter.btn_generar;
+    renderInterconsultaForm();
   } else {
     document.getElementById('submit-label').textContent = L.consult;
     renderClassicForm();
@@ -2338,6 +2618,430 @@ function buildExpedienteFormData() {
 }
 
 /* =============================================================
+ * INTERCONSULTA · render con chips/acordeones + herencia desde Expediente
+ * ============================================================= */
+
+function renderInterconsultaForm() {
+  const L = t().inter;
+  const i = state.interData;
+  const container = document.getElementById('form-container');
+
+  const heredadoBanner = i.heritedFromExp ? `
+    <div class="inter-heredado-banner">
+      <div class="inter-heredado-left">
+        <span class="inter-heredado-icon">↻</span>
+        <span class="inter-heredado-text">${escapeHtml(L.heredado_banner)}</span>
+      </div>
+      <button type="button" class="inter-heredado-edit" id="inter-heredado-edit">${escapeHtml(L.heredado_editar)}</button>
+    </div>
+  ` : '';
+
+  container.innerHTML = `
+    ${heredadoBanner}
+
+    <div class="field">
+      <label for="inter-nombre">${t().fields.nombre_paciente}</label>
+      <input type="text" id="inter-nombre" placeholder="${t().fields.nombre_paciente_ph}" />
+    </div>
+
+    <div class="accordion" data-inter-acc="destino">
+      <div class="accordion-head" data-inter-acc-head="destino">
+        <div class="accordion-head-left">
+          <span class="accordion-num">01</span>
+          <span class="accordion-title">${L.acc_destino}</span>
+        </div>
+        <span class="accordion-summary" data-inter-acc-summary="destino"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_especialidad}</div>
+          <div class="chips" id="chips-inter-esp"></div>
+        </div>
+        <div class="field-group hidden" id="inter-motivo-wrap">
+          <div class="field-group-label">${L.lbl_motivo}</div>
+          <div class="chips" id="chips-inter-motivo"></div>
+          <div class="otro-input-wrap" id="otro-inter-motivo-wrap">
+            <input type="text" id="otro-inter-motivo-input" placeholder="${L.lbl_motivo_otro_ph}" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-inter-acc="caso">
+      <div class="accordion-head" data-inter-acc-head="caso">
+        <div class="accordion-head-left">
+          <span class="accordion-num">02</span>
+          <span class="accordion-title">${L.acc_caso}</span>
+        </div>
+        <span class="accordion-summary" data-inter-acc-summary="caso"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field">
+          <label for="inter-histclin">${t().fields.HistClin}</label>
+          <textarea id="inter-histclin" placeholder="${t().fields.HistClin_ph}"></textarea>
+        </div>
+        <div class="field">
+          <label for="inter-medstomando">${t().fields.medstomando}</label>
+          <textarea id="inter-medstomando" placeholder="${t().fields.medstomando_ph}"></textarea>
+        </div>
+        <div class="field">
+          <label for="inter-procedimiento">${t().fields.procedimiento}</label>
+          <textarea id="inter-procedimiento" placeholder="${t().fields.procedimiento_ph}"></textarea>
+        </div>
+        <div class="field">
+          <label for="inter-anestesia">${t().fields.anestesia}</label>
+          <input type="text" id="inter-anestesia" placeholder="${t().fields.anestesia_ph}" />
+        </div>
+        <div class="field">
+          <label for="inter-receta">${t().fields.receta}</label>
+          <textarea id="inter-receta" placeholder="${t().fields.receta_ph}"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-inter-acc="pregunta">
+      <div class="accordion-head" data-inter-acc-head="pregunta">
+        <div class="accordion-head-left">
+          <span class="accordion-num">03</span>
+          <span class="accordion-title">${L.acc_pregunta}</span>
+        </div>
+        <span class="accordion-summary" data-inter-acc-summary="pregunta"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_tipo_pregunta}</div>
+          <div class="chips" id="chips-inter-tipo-pregunta"></div>
+        </div>
+        <div class="field">
+          <label for="inter-pregunta">${L.lbl_pregunta}</label>
+          <textarea id="inter-pregunta" placeholder="${L.lbl_pregunta_ph}"></textarea>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Pre-llenar campos del caso clínico (heredados o vacíos)
+  document.getElementById('inter-nombre').value = i.nombre || '';
+  document.getElementById('inter-histclin').value = i.histClin || '';
+  document.getElementById('inter-medstomando').value = i.medstomando || '';
+  document.getElementById('inter-procedimiento').value = i.procedimiento || '';
+  document.getElementById('inter-anestesia').value = i.anestesia || '';
+  document.getElementById('inter-receta').value = i.receta || '';
+
+  // Wire inputs del caso clínico
+  document.getElementById('inter-nombre').addEventListener('input', ev => {
+    i.nombre = ev.target.value;
+    refreshInterAllSummaries();
+  });
+  document.getElementById('inter-histclin').addEventListener('input', ev => { i.histClin = ev.target.value; refreshInterAllSummaries(); });
+  document.getElementById('inter-medstomando').addEventListener('input', ev => { i.medstomando = ev.target.value; refreshInterAllSummaries(); });
+  document.getElementById('inter-procedimiento').addEventListener('input', ev => { i.procedimiento = ev.target.value; refreshInterAllSummaries(); });
+  document.getElementById('inter-anestesia').addEventListener('input', ev => { i.anestesia = ev.target.value; refreshInterAllSummaries(); });
+  document.getElementById('inter-receta').addEventListener('input', ev => { i.receta = ev.target.value; refreshInterAllSummaries(); });
+  document.getElementById('inter-pregunta').addEventListener('input', ev => {
+    i.preguntaTexto = ev.target.value;
+    refreshInterAllSummaries();
+  });
+  document.getElementById('inter-pregunta').value = i.preguntaTexto || '';
+
+  // Otro motivo input
+  const otroMotivoInput = document.getElementById('otro-inter-motivo-input');
+  if (otroMotivoInput) {
+    otroMotivoInput.value = i.motivoOtro || '';
+    otroMotivoInput.addEventListener('input', ev => {
+      i.motivoOtro = ev.target.value.trim();
+      refreshInterAllSummaries();
+    });
+  }
+
+  // Botón "Editar caso clínico" del banner de herencia
+  const editBtn = document.getElementById('inter-heredado-edit');
+  if (editBtn) {
+    editBtn.addEventListener('click', () => {
+      setInterAccordionOpen('caso');
+    });
+  }
+
+  // Render chips
+  renderInterEspChips();
+  renderInterMotivoChips();
+  renderInterTipoPreguntaChips();
+
+  // Abrir acordeón inicial
+  setInterAccordionOpen(i.accordionOpen || 'destino');
+
+  // Wire accordion toggles
+  document.querySelectorAll('[data-inter-acc-head]').forEach(head => {
+    head.addEventListener('click', () => {
+      const name = head.getAttribute('data-inter-acc-head');
+      setInterAccordionOpen(state.interData.accordionOpen === name ? '' : name);
+    });
+  });
+
+  refreshInterAllSummaries();
+}
+
+function setInterAccordionOpen(name) {
+  state.interData.accordionOpen = name;
+  document.querySelectorAll('[data-inter-acc]').forEach(acc => {
+    const n = acc.getAttribute('data-inter-acc');
+    acc.classList.toggle('open', n === name);
+  });
+}
+
+function renderInterEspChips() {
+  const container = document.getElementById('chips-inter-esp');
+  if (!container) return;
+  container.innerHTML = '';
+  const i = state.interData;
+  INTER_DATA.especialidades.forEach(esp => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = esp.label;
+    if (i.especialidad === esp.key) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      if (i.especialidad === esp.key) {
+        // Click sobre el chip activo: deseleccionar todo
+        i.especialidad = '';
+        i.motivo = '';
+        i.motivoOtro = '';
+      } else {
+        i.especialidad = esp.key;
+        i.motivo = '';
+        i.motivoOtro = '';
+      }
+      renderInterEspChips();
+      renderInterMotivoChips();
+      refreshInterAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+}
+
+function renderInterMotivoChips() {
+  const container = document.getElementById('chips-inter-motivo');
+  const wrap = document.getElementById('inter-motivo-wrap');
+  const otroWrap = document.getElementById('otro-inter-motivo-wrap');
+  if (!container || !wrap) return;
+  container.innerHTML = '';
+  const i = state.interData;
+
+  if (!i.especialidad) {
+    wrap.classList.add('hidden');
+    return;
+  }
+  wrap.classList.remove('hidden');
+
+  const esp = INTER_DATA.especialidades.find(e => e.key === i.especialidad);
+  if (!esp) return;
+
+  esp.motivos.forEach(motivo => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = motivo;
+    if (i.motivo === motivo) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      i.motivo = i.motivo === motivo ? '' : motivo;
+      // Si elige "Otro", mostrar input; si elige otro distinto, ocultar
+      if (i.motivo === 'Otro') {
+        otroWrap.classList.add('show');
+        setTimeout(() => {
+          const inp = document.getElementById('otro-inter-motivo-input');
+          if (inp) inp.focus();
+        }, 50);
+      } else {
+        otroWrap.classList.remove('show');
+        i.motivoOtro = '';
+        const inp = document.getElementById('otro-inter-motivo-input');
+        if (inp) inp.value = '';
+      }
+      renderInterMotivoChips();
+      refreshInterAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+
+  // Si ya estaba en "Otro", mostrar wrap
+  if (i.motivo === 'Otro') otroWrap.classList.add('show');
+  else otroWrap.classList.remove('show');
+}
+
+function renderInterTipoPreguntaChips() {
+  const container = document.getElementById('chips-inter-tipo-pregunta');
+  if (!container) return;
+  container.innerHTML = '';
+  const i = state.interData;
+  INTER_DATA.tipoPregunta.forEach(tp => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = tp;
+    if (i.tipoPregunta === tp) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      i.tipoPregunta = i.tipoPregunta === tp ? '' : tp;
+      renderInterTipoPreguntaChips();
+      refreshInterAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+}
+
+function refreshInterAllSummaries() {
+  const i = state.interData;
+  const L = t().inter;
+
+  // Destino summary
+  const destSum = document.querySelector('[data-inter-acc-summary="destino"]');
+  if (destSum) {
+    const parts = [];
+    if (i.especialidad) {
+      const esp = INTER_DATA.especialidades.find(e => e.key === i.especialidad);
+      if (esp) parts.push(esp.label);
+    }
+    if (i.motivo) {
+      const motivoText = i.motivo === 'Otro' && i.motivoOtro ? i.motivoOtro : i.motivo;
+      parts.push(motivoText);
+    }
+    destSum.textContent = parts.length > 0 ? parts.join(' · ') : t().exp.empty_summary;
+    destSum.classList.toggle('empty', parts.length === 0);
+  }
+
+  // Caso clínico summary
+  const casoSum = document.querySelector('[data-inter-acc-summary="caso"]');
+  if (casoSum) {
+    const filled = [i.nombre, i.histClin, i.medstomando, i.procedimiento, i.anestesia, i.receta].filter(s => (s || '').trim().length > 0).length;
+    if (i.heritedFromExp && filled > 0) {
+      casoSum.textContent = L.heredado_caso_resumen;
+      casoSum.classList.remove('empty');
+    } else if (filled > 0) {
+      casoSum.textContent = `${filled} ${filled === 1 ? 'campo' : 'campos'}`;
+      casoSum.classList.remove('empty');
+    } else {
+      casoSum.textContent = t().exp.empty_summary;
+      casoSum.classList.add('empty');
+    }
+  }
+
+  // Pregunta summary
+  const preguntaSum = document.querySelector('[data-inter-acc-summary="pregunta"]');
+  if (preguntaSum) {
+    const parts = [];
+    if (i.tipoPregunta) parts.push(i.tipoPregunta);
+    if ((i.preguntaTexto || '').trim()) {
+      const txt = i.preguntaTexto.trim();
+      parts.push(txt.length > 40 ? txt.slice(0, 40) + '…' : txt);
+    }
+    preguntaSum.textContent = parts.length > 0 ? parts.join(' · ') : t().exp.empty_summary;
+    preguntaSum.classList.toggle('empty', parts.length === 0);
+  }
+}
+
+function buildInterconsultaFormData() {
+  const i = state.interData;
+
+  // Arma especialidad legible
+  let especialidadLabel = '';
+  if (i.especialidad) {
+    const esp = INTER_DATA.especialidades.find(e => e.key === i.especialidad);
+    if (esp) especialidadLabel = esp.label;
+  }
+
+  // Arma motivo legible (motivoOtro tiene prioridad si motivo='Otro')
+  let motivoLabel = '';
+  if (i.motivo === 'Otro' && i.motivoOtro) motivoLabel = i.motivoOtro;
+  else if (i.motivo) motivoLabel = i.motivo;
+
+  // Vuelca al formData estándar
+  state.formData.nombre_paciente = (i.nombre || '').trim();
+  state.formData.HistClin = (i.histClin || '').trim();
+  state.formData.medstomando = (i.medstomando || '').trim();
+  state.formData.procedimiento = (i.procedimiento || '').trim();
+  state.formData.anestesia = (i.anestesia || '').trim();
+  state.formData.receta = (i.receta || '').trim();
+  state.formData.laser_pbm = i.laserPbm || 'No';
+  state.formData.objetivo_PBM = (i.objetivoPBM || '').trim();
+  state.formData.dispositivo_laser = (i.dispositivoLaser || '').trim();
+
+  // Campos nuevos específicos de interconsulta
+  state.formData.especialidad_destino = especialidadLabel;
+  state.formData.motivo_interconsulta = motivoLabel;
+  state.formData.tipo_pregunta = i.tipoPregunta || '';
+  state.formData.pregunta_especifica = (i.preguntaTexto || '').trim();
+  state.formData.inherited_from_expediente = i.heritedFromExp ? 'Sí' : 'No';
+}
+
+/* -------- Herencia Expediente → Interconsulta -------- */
+
+function detectSuggestedSpecialty(reportText) {
+  if (!reportText) return '';
+  for (const entry of SPECIALTY_REGEX) {
+    if (entry.rx.test(reportText)) return entry.key;
+  }
+  return '';
+}
+
+function inheritExpedienteToInterconsulta(reportText) {
+  // 1. Construir el caso clínico desde state.expData (mismo formato que buildExpedienteFormData)
+  buildExpedienteFormData(); // re-vuelca expData → formData (asegura datos frescos)
+
+  // 2. Inicializar interData con los datos heredados
+  state.interData = emptyInterData();
+  const i = state.interData;
+  i.nombre = state.formData.nombre_paciente || '';
+  i.histClin = state.formData.HistClin || '';
+  i.medstomando = state.formData.medstomando || '';
+  i.procedimiento = state.formData.procedimiento || '';
+  i.anestesia = state.formData.anestesia || '';
+  i.receta = state.formData.receta || '';
+  i.laserPbm = state.formData.laser_pbm || 'No';
+  i.objetivoPBM = state.formData.objetivo_PBM || '';
+  i.dispositivoLaser = state.formData.dispositivo_laser || '';
+  i.heritedFromExp = true;
+  i.expedienteReport = reportText || '';
+
+  // 3. Detectar especialidad sugerida en el reporte
+  const suggested = detectSuggestedSpecialty(reportText);
+  if (suggested) {
+    i.especialidad = suggested;
+  }
+
+  // 4. Cambiar módulo a interconsulta
+  state.module = 'interconsulta';
+  // Resetear flag de sesión para que el envío de la interconsulta cobre crédito normalmente
+  state.sessionCreditUsed = false;
+  state.conversationHistory = [];
+  state.reviewTurn = 0;
+
+  // 5. Decidir acordeón abierto inicial
+  if (suggested && i.histClin) {
+    // Si tenemos especialidad y datos clínicos, llevamos al usuario a escribir la pregunta
+    i.accordionOpen = 'pregunta';
+  } else if (!suggested) {
+    // Si no detectamos especialidad, abrir destino para que elija
+    i.accordionOpen = 'destino';
+  } else {
+    i.accordionOpen = 'destino';
+  }
+
+  // 6. Limpiar UI del Expediente y re-renderizar el módulo Interconsulta
+  document.getElementById('response').innerHTML = '';
+  hide('response-wrap');
+  hide('followup');
+  document.getElementById('chat-history').innerHTML = '';
+  show('module-view');
+  hide('home');
+
+  renderModuleForm();
+  // Scroll al inicio del nuevo formulario
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* =============================================================
  * Module open/close, profile, submit, validation
  * ============================================================= */
 
@@ -2530,6 +3234,12 @@ async function submitQuery(userMessage, opts = {}) {
     condicion: state.formData.condicion || '',
     area_tratamiento: state.formData.area_tratamiento || '',
     query: state.formData.query || '',
+    // Campos específicos de Interconsulta
+    especialidad_destino: state.formData.especialidad_destino || '',
+    motivo_interconsulta: state.formData.motivo_interconsulta || '',
+    tipo_pregunta: state.formData.tipo_pregunta || '',
+    pregunta_especifica: state.formData.pregunta_especifica || '',
+    inherited_from_expediente: state.formData.inherited_from_expediente || 'No',
   };
 
   if (!isFollowup) {
@@ -2599,6 +3309,9 @@ async function submitQuery(userMessage, opts = {}) {
       // Si arrancamos en Modo Revisión, esta respuesta es la verificación → chips
       if (state.reviewTurn === 1) {
         renderReviewChips(respEl);
+      } else if (state.module === 'expediente') {
+        // Acción al final del reporte del Expediente: generar carta de interconsulta
+        renderExpedienteNextStep(respEl, answer);
       }
     } else {
       removeLoadingChatMsg();
@@ -2621,6 +3334,38 @@ async function submitQuery(userMessage, opts = {}) {
     document.getElementById('submit-btn').disabled = false;
     document.getElementById('chat-send').disabled = false;
   }
+}
+
+/* -------- Render: bloque "siguiente paso" tras reporte del Expediente -------- */
+function renderExpedienteNextStep(targetEl, reportText) {
+  if (!targetEl) return;
+  const L = t().inter;
+  const wrap = document.createElement('div');
+  wrap.className = 'next-step-wrap';
+
+  // Detectar especialidad sugerida para mostrarla en el botón
+  const suggested = detectSuggestedSpecialty(reportText);
+  let suggestedLabel = '';
+  if (suggested) {
+    const esp = INTER_DATA.especialidades.find(e => e.key === suggested);
+    if (esp) suggestedLabel = esp.label;
+  }
+
+  const btnInterLabel = suggestedLabel
+    ? `${L.btn_generar} → ${suggestedLabel}`
+    : L.btn_generar;
+
+  wrap.innerHTML = `
+    <button type="button" class="next-step-btn next-step-inter" id="ns-btn-inter">
+      <span class="next-step-icon">→</span>
+      <span class="next-step-text">${escapeHtml(btnInterLabel)}</span>
+    </button>
+  `;
+  targetEl.appendChild(wrap);
+
+  document.getElementById('ns-btn-inter').addEventListener('click', () => {
+    inheritExpedienteToInterconsulta(reportText);
+  });
 }
 
 function appendChatMsg(role, text) {
@@ -2650,7 +3395,14 @@ function validateForm() {
     const anyText = (e.nota || '').trim() || (e.nombre || '').trim();
     return !!(anyChip || anyText);
   }
-  if (state.module === 'interconsulta') return (state.formData.procedimiento || '').trim().length > 0;
+  if (state.module === 'interconsulta') {
+    const i = state.interData;
+    const hasEsp = !!i.especialidad;
+    const hasMotivo = !!i.motivo && (i.motivo !== 'Otro' || (i.motivoOtro || '').trim().length > 0);
+    const hasPregunta = (i.preguntaTexto || '').trim().length > 0;
+    const hasCaso = ((i.histClin || '').trim() + (i.procedimiento || '').trim()).length > 0;
+    return hasEsp && hasMotivo && hasPregunta && hasCaso;
+  }
   if (state.module === 'calculadora') return (state.formData.medicamento || '').trim().length > 0;
   if (state.module === 'pbm') return (state.formData.objetivo_PBM || '').trim().length > 0;
   return true;
@@ -2667,6 +3419,7 @@ function bindEvents() {
     }
     // For expediente, build formData from expData first
     if (state.module === 'expediente') buildExpedienteFormData();
+    if (state.module === 'interconsulta') buildInterconsultaFormData();
 
     if (!validateForm()) {
       const msg = state.module === 'expediente' ? t().error_empty : t().error_generic;
