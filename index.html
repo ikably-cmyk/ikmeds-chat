@@ -2791,7 +2791,7 @@ function setInterAccordionOpen(name) {
   state.interData.accordionOpen = name;
   document.querySelectorAll('[data-inter-acc]').forEach(acc => {
     const n = acc.getAttribute('data-inter-acc');
-    acc.classList.toggle('open', n === name);
+    acc.classList.toggle('expanded', n === name);
   });
 }
 
