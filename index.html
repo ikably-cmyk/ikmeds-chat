@@ -1610,20 +1610,10 @@ function emptyInterData() {
     motivoOtro: '',            // texto libre si motivo='Otro'
     tipoPregunta: '',          // chip de tipo de pregunta (opcional)
     preguntaTexto: '',         // textarea pregunta específica
-    // Datos clínicos del caso (heredados del Expediente o capturados directamente)
-    nombre: '',
-    histClin: '',
-    medstomando: '',
-    procedimiento: '',
-    anestesia: '',
-    receta: '',
-    laserPbm: 'No',
-    objetivoPBM: '',
-    dispositivoLaser: '',
     // Estado de herencia
     heritedFromExp: false,
     expedienteReport: '',      // texto del reporte original (para referencia futura)
-    accordionOpen: 'destino',
+    accordionOpen: 'destino',  // qué acordeón está abierto inicialmente
   };
 }
 
@@ -2623,7 +2613,9 @@ function buildExpedienteFormData() {
 
 function renderInterconsultaForm() {
   const L = t().inter;
+  const Lexp = t().exp;
   const i = state.interData;
+  const e = state.expData;
   const container = document.getElementById('form-container');
 
   const heredadoBanner = i.heritedFromExp ? `
@@ -2640,8 +2632,8 @@ function renderInterconsultaForm() {
     ${heredadoBanner}
 
     <div class="field">
-      <label for="inter-nombre">${t().fields.nombre_paciente}</label>
-      <input type="text" id="inter-nombre" placeholder="${t().fields.nombre_paciente_ph}" />
+      <label for="exp-nombre">${t().fields.nombre_paciente}</label>
+      <input type="text" id="exp-nombre" placeholder="${t().fields.nombre_paciente_ph}" />
     </div>
 
     <div class="accordion" data-inter-acc="destino">
@@ -2669,44 +2661,165 @@ function renderInterconsultaForm() {
       </div>
     </div>
 
-    <div class="accordion" data-inter-acc="caso">
-      <div class="accordion-head" data-inter-acc-head="caso">
+    <div class="accordion" data-acc="paciente">
+      <div class="accordion-head" data-acc-head="paciente">
         <div class="accordion-head-left">
           <span class="accordion-num">02</span>
-          <span class="accordion-title">${L.acc_caso}</span>
+          <span class="accordion-title">${Lexp.acc_paciente}</span>
         </div>
-        <span class="accordion-summary" data-inter-acc-summary="caso"></span>
+        <span class="accordion-summary" data-acc-summary="paciente"></span>
         <span class="accordion-toggle">›</span>
       </div>
       <div class="accordion-body">
         <div class="accordion-divider"></div>
-        <div class="field">
-          <label for="inter-histclin">${t().fields.HistClin}</label>
-          <textarea id="inter-histclin" placeholder="${t().fields.HistClin_ph}"></textarea>
+        <div class="field-group">
+          <div class="field-group-label">${Lexp.lbl_genero}</div>
+          <div class="chips" id="chips-genero"></div>
         </div>
-        <div class="field">
-          <label for="inter-medstomando">${t().fields.medstomando}</label>
-          <textarea id="inter-medstomando" placeholder="${t().fields.medstomando_ph}"></textarea>
+        <div class="field-group">
+          <div class="field-group-label">${Lexp.lbl_edad}</div>
+          <div class="chips" id="chips-edad"></div>
         </div>
-        <div class="field">
-          <label for="inter-procedimiento">${t().fields.procedimiento}</label>
-          <textarea id="inter-procedimiento" placeholder="${t().fields.procedimiento_ph}"></textarea>
+        <div class="field-group">
+          <div class="field-group-label">${Lexp.lbl_peso}</div>
+          <div class="chips" id="chips-peso"></div>
         </div>
-        <div class="field">
-          <label for="inter-anestesia">${t().fields.anestesia}</label>
-          <input type="text" id="inter-anestesia" placeholder="${t().fields.anestesia_ph}" />
-        </div>
-        <div class="field">
-          <label for="inter-receta">${t().fields.receta}</label>
-          <textarea id="inter-receta" placeholder="${t().fields.receta_ph}"></textarea>
+        <div class="field-group">
+          <div class="field-group-label">${Lexp.lbl_talla}</div>
+          <div class="chips" id="chips-talla"></div>
+          <div class="imc-hint" id="imc-hint">${Lexp.imc_hint}</div>
+          <div class="imc-display hidden" id="imc-display">
+            <span class="imc-label">${Lexp.imc_label}</span>
+            <span class="imc-value" id="imc-value">—</span>
+            <span class="imc-cat" id="imc-cat">—</span>
+          </div>
         </div>
       </div>
+    </div>
+
+    <div class="accordion" data-acc="antecedentes">
+      <div class="accordion-head" data-acc-head="antecedentes">
+        <div class="accordion-head-left">
+          <span class="accordion-num">03</span>
+          <span class="accordion-title">${Lexp.acc_antecedentes}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="antecedentes"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="chips" id="chips-antecedentes"></div>
+        <div class="otro-input-wrap" id="otro-antecedentes-wrap">
+          <input type="text" id="otro-antecedentes-input" placeholder="${Lexp.otro_ph}" />
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="medicamentos">
+      <div class="accordion-head" data-acc-head="medicamentos">
+        <div class="accordion-head-left">
+          <span class="accordion-num">04</span>
+          <span class="accordion-title">${Lexp.acc_medicamentos}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="medicamentos"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${Lexp.lbl_categoria}</div>
+          <div class="chips" id="chips-med-cats"></div>
+        </div>
+        <div class="field-group hidden" id="med-subs-wrap">
+          <div class="field-group-label" id="med-subs-label">${Lexp.lbl_especifico}</div>
+          <div class="chips" id="chips-med-subs"></div>
+          <div class="otro-input-wrap" id="otro-med-wrap">
+            <input type="text" id="otro-med-input" placeholder="${Lexp.otro_ph}" />
+          </div>
+        </div>
+        <div class="field-group hidden" id="med-selected-wrap">
+          <div class="field-group-label">${Lexp.lbl_seleccionados}</div>
+          <div class="med-selected" id="med-selected"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="procedimiento">
+      <div class="accordion-head" data-acc-head="procedimiento">
+        <div class="accordion-head-left">
+          <span class="accordion-num">05</span>
+          <span class="accordion-title">${Lexp.acc_procedimiento}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="procedimiento"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${Lexp.lbl_especialidad}</div>
+          <div class="chips" id="chips-proc-specs"></div>
+        </div>
+        <div class="field-group hidden" id="proc-subs-wrap">
+          <div class="field-group-label">${Lexp.lbl_procedimiento}</div>
+          <div class="chips" id="chips-proc-subs"></div>
+          <div class="otro-input-wrap" id="otro-proc-wrap">
+            <input type="text" id="otro-proc-input" placeholder="${Lexp.otro_ph}" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="exp-receta">${Lexp.lbl_receta}</label>
+          <textarea id="exp-receta" placeholder="${Lexp.lbl_receta_ph}"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="anestesia">
+      <div class="accordion-head" data-acc-head="anestesia">
+        <div class="accordion-head-left">
+          <span class="accordion-num">06</span>
+          <span class="accordion-title">${Lexp.acc_anestesia}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="anestesia"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${Lexp.lbl_anestesicos}</div>
+          <div class="chips" id="chips-anestesia"></div>
+          <div class="otro-input-wrap" id="otro-anestesia-wrap">
+            <input type="text" id="otro-anestesia-input" placeholder="${Lexp.otro_ph}" />
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-label">${Lexp.lbl_pbm}</div>
+          <div class="radio-group" id="pbm-toggle">
+            <label><input type="radio" name="exp-pbm" value="No" ${!e.usaPBM?'checked':''} /><span>${t().fields.no}</span></label>
+            <label><input type="radio" name="exp-pbm" value="Sí" ${e.usaPBM?'checked':''} /><span>${t().fields.yes}</span></label>
+          </div>
+        </div>
+        <div id="pbm-details" class="${e.usaPBM?'':'hidden'}">
+          <div class="field">
+            <label for="exp-obj-pbm">${Lexp.lbl_obj_pbm}</label>
+            <textarea id="exp-obj-pbm" placeholder="${Lexp.lbl_obj_pbm_ph}"></textarea>
+          </div>
+          <div class="field">
+            <label for="exp-disp-laser">${Lexp.lbl_disp_laser}</label>
+            <input type="text" id="exp-disp-laser" placeholder="${Lexp.lbl_disp_laser_ph}" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nota-complementaria">
+      <label for="exp-nota">${Lexp.nota_label}</label>
+      <textarea id="exp-nota" placeholder="${Lexp.nota_ph}"></textarea>
     </div>
 
     <div class="accordion" data-inter-acc="pregunta">
       <div class="accordion-head" data-inter-acc-head="pregunta">
         <div class="accordion-head-left">
-          <span class="accordion-num">03</span>
+          <span class="accordion-num">07</span>
           <span class="accordion-title">${L.acc_pregunta}</span>
         </div>
         <span class="accordion-summary" data-inter-acc-summary="pregunta"></span>
@@ -2726,29 +2839,18 @@ function renderInterconsultaForm() {
     </div>
   `;
 
-  // Pre-llenar campos del caso clínico (heredados o vacíos)
-  document.getElementById('inter-nombre').value = i.nombre || '';
-  document.getElementById('inter-histclin').value = i.histClin || '';
-  document.getElementById('inter-medstomando').value = i.medstomando || '';
-  document.getElementById('inter-procedimiento').value = i.procedimiento || '';
-  document.getElementById('inter-anestesia').value = i.anestesia || '';
-  document.getElementById('inter-receta').value = i.receta || '';
+  // -- Wire eventos del Expediente (reutilizado) --
+  bindExpedienteEvents();          // inputs nombre/receta/nota/PBM + acordeones data-acc + "Otro"
+  renderAllExpedienteChips();      // pinta TODOS los chips del Expediente
 
-  // Wire inputs del caso clínico
-  document.getElementById('inter-nombre').addEventListener('input', ev => {
-    i.nombre = ev.target.value;
-    refreshInterAllSummaries();
-  });
-  document.getElementById('inter-histclin').addEventListener('input', ev => { i.histClin = ev.target.value; refreshInterAllSummaries(); });
-  document.getElementById('inter-medstomando').addEventListener('input', ev => { i.medstomando = ev.target.value; refreshInterAllSummaries(); });
-  document.getElementById('inter-procedimiento').addEventListener('input', ev => { i.procedimiento = ev.target.value; refreshInterAllSummaries(); });
-  document.getElementById('inter-anestesia').addEventListener('input', ev => { i.anestesia = ev.target.value; refreshInterAllSummaries(); });
-  document.getElementById('inter-receta').addEventListener('input', ev => { i.receta = ev.target.value; refreshInterAllSummaries(); });
-  document.getElementById('inter-pregunta').addEventListener('input', ev => {
+  // -- Wire eventos específicos de Interconsulta --
+  // Textarea pregunta
+  const preguntaEl = document.getElementById('inter-pregunta');
+  preguntaEl.value = i.preguntaTexto || '';
+  preguntaEl.addEventListener('input', ev => {
     i.preguntaTexto = ev.target.value;
     refreshInterAllSummaries();
   });
-  document.getElementById('inter-pregunta').value = i.preguntaTexto || '';
 
   // Otro motivo input
   const otroMotivoInput = document.getElementById('otro-inter-motivo-input');
@@ -2760,23 +2862,20 @@ function renderInterconsultaForm() {
     });
   }
 
-  // Botón "Editar caso clínico" del banner de herencia
+  // Botón "Editar caso clínico" del banner de herencia → abre acordeón paciente
   const editBtn = document.getElementById('inter-heredado-edit');
   if (editBtn) {
     editBtn.addEventListener('click', () => {
-      setInterAccordionOpen('caso');
+      setAccordionOpen('paciente');
     });
   }
 
-  // Render chips
+  // Pintar chips de Interconsulta
   renderInterEspChips();
   renderInterMotivoChips();
   renderInterTipoPreguntaChips();
 
-  // Abrir acordeón inicial
-  setInterAccordionOpen(i.accordionOpen || 'destino');
-
-  // Wire accordion toggles
+  // Acordeones data-inter-acc (Destino y Pregunta)
   document.querySelectorAll('[data-inter-acc-head]').forEach(head => {
     head.addEventListener('click', () => {
       const name = head.getAttribute('data-inter-acc-head');
@@ -2784,7 +2883,18 @@ function renderInterconsultaForm() {
     });
   });
 
-  refreshInterAllSummaries();
+  // Abrir acordeones iniciales
+  // Si heredado: abrir el primer acordeón clínico (paciente) y dejar destino expandido también
+  if (i.heritedFromExp) {
+    setAccordionOpen('');                                   // ningún data-acc abierto por defecto si heredado
+    setInterAccordionOpen(i.accordionOpen || 'pregunta');   // pregunta abierta para que el doctor escriba
+  } else {
+    setAccordionOpen('');                                   // ningún data-acc abierto en flujo directo
+    setInterAccordionOpen(i.accordionOpen || 'destino');    // destino abierto en flujo directo
+  }
+
+  refreshAllSummaries();           // del Expediente
+  refreshInterAllSummaries();      // de Interconsulta
 }
 
 function setInterAccordionOpen(name) {
@@ -2893,9 +3003,8 @@ function renderInterTipoPreguntaChips() {
 
 function refreshInterAllSummaries() {
   const i = state.interData;
-  const L = t().inter;
 
-  // Destino summary
+  // Destino summary (01)
   const destSum = document.querySelector('[data-inter-acc-summary="destino"]');
   if (destSum) {
     const parts = [];
@@ -2911,23 +3020,7 @@ function refreshInterAllSummaries() {
     destSum.classList.toggle('empty', parts.length === 0);
   }
 
-  // Caso clínico summary
-  const casoSum = document.querySelector('[data-inter-acc-summary="caso"]');
-  if (casoSum) {
-    const filled = [i.nombre, i.histClin, i.medstomando, i.procedimiento, i.anestesia, i.receta].filter(s => (s || '').trim().length > 0).length;
-    if (i.heritedFromExp && filled > 0) {
-      casoSum.textContent = L.heredado_caso_resumen;
-      casoSum.classList.remove('empty');
-    } else if (filled > 0) {
-      casoSum.textContent = `${filled} ${filled === 1 ? 'campo' : 'campos'}`;
-      casoSum.classList.remove('empty');
-    } else {
-      casoSum.textContent = t().exp.empty_summary;
-      casoSum.classList.add('empty');
-    }
-  }
-
-  // Pregunta summary
+  // Pregunta summary (07)
   const preguntaSum = document.querySelector('[data-inter-acc-summary="pregunta"]');
   if (preguntaSum) {
     const parts = [];
@@ -2944,30 +3037,23 @@ function refreshInterAllSummaries() {
 function buildInterconsultaFormData() {
   const i = state.interData;
 
-  // Arma especialidad legible
+  // 1. Caso clínico viene del Expediente (única fuente de verdad).
+  //    buildExpedienteFormData vuelca expData → formData (nombre, HistClin, meds, procedimiento, anestesia, receta, PBM).
+  buildExpedienteFormData();
+
+  // 2. Arma especialidad destino legible
   let especialidadLabel = '';
   if (i.especialidad) {
     const esp = INTER_DATA.especialidades.find(e => e.key === i.especialidad);
     if (esp) especialidadLabel = esp.label;
   }
 
-  // Arma motivo legible (motivoOtro tiene prioridad si motivo='Otro')
+  // 3. Arma motivo legible (motivoOtro tiene prioridad si motivo='Otro')
   let motivoLabel = '';
   if (i.motivo === 'Otro' && i.motivoOtro) motivoLabel = i.motivoOtro;
   else if (i.motivo) motivoLabel = i.motivo;
 
-  // Vuelca al formData estándar
-  state.formData.nombre_paciente = (i.nombre || '').trim();
-  state.formData.HistClin = (i.histClin || '').trim();
-  state.formData.medstomando = (i.medstomando || '').trim();
-  state.formData.procedimiento = (i.procedimiento || '').trim();
-  state.formData.anestesia = (i.anestesia || '').trim();
-  state.formData.receta = (i.receta || '').trim();
-  state.formData.laser_pbm = i.laserPbm || 'No';
-  state.formData.objetivo_PBM = (i.objetivoPBM || '').trim();
-  state.formData.dispositivo_laser = (i.dispositivoLaser || '').trim();
-
-  // Campos nuevos específicos de interconsulta
+  // 4. Campos específicos de Interconsulta
   state.formData.especialidad_destino = especialidadLabel;
   state.formData.motivo_interconsulta = motivoLabel;
   state.formData.tipo_pregunta = i.tipoPregunta || '';
@@ -2986,49 +3072,30 @@ function detectSuggestedSpecialty(reportText) {
 }
 
 function inheritExpedienteToInterconsulta(reportText) {
-  // 1. Construir el caso clínico desde state.expData (mismo formato que buildExpedienteFormData)
-  buildExpedienteFormData(); // re-vuelca expData → formData (asegura datos frescos)
+  // Los datos clínicos viven en state.expData y permanecen intactos.
+  // Solo inicializamos los campos exclusivos de Interconsulta y marcamos herencia.
 
-  // 2. Inicializar interData con los datos heredados
   state.interData = emptyInterData();
   const i = state.interData;
-  i.nombre = state.formData.nombre_paciente || '';
-  i.histClin = state.formData.HistClin || '';
-  i.medstomando = state.formData.medstomando || '';
-  i.procedimiento = state.formData.procedimiento || '';
-  i.anestesia = state.formData.anestesia || '';
-  i.receta = state.formData.receta || '';
-  i.laserPbm = state.formData.laser_pbm || 'No';
-  i.objetivoPBM = state.formData.objetivo_PBM || '';
-  i.dispositivoLaser = state.formData.dispositivo_laser || '';
   i.heritedFromExp = true;
   i.expedienteReport = reportText || '';
 
-  // 3. Detectar especialidad sugerida en el reporte
+  // Detectar especialidad sugerida del reporte
   const suggested = detectSuggestedSpecialty(reportText);
-  if (suggested) {
-    i.especialidad = suggested;
-  }
+  if (suggested) i.especialidad = suggested;
 
-  // 4. Cambiar módulo a interconsulta
+  // Cambiar módulo a interconsulta
   state.module = 'interconsulta';
-  // Resetear flag de sesión para que el envío de la interconsulta cobre crédito normalmente
-  state.sessionCreditUsed = false;
+  state.sessionCreditUsed = false;       // la interconsulta cobra su propio crédito
   state.conversationHistory = [];
   state.reviewTurn = 0;
 
-  // 5. Decidir acordeón abierto inicial
-  if (suggested && i.histClin) {
-    // Si tenemos especialidad y datos clínicos, llevamos al usuario a escribir la pregunta
-    i.accordionOpen = 'pregunta';
-  } else if (!suggested) {
-    // Si no detectamos especialidad, abrir destino para que elija
-    i.accordionOpen = 'destino';
-  } else {
-    i.accordionOpen = 'destino';
-  }
+  // Decidir acordeón inicial:
+  // - si detectamos especialidad, vamos directo a la pregunta (datos clínicos ya están)
+  // - si no, abrir destino para que el doctor elija especialidad
+  i.accordionOpen = suggested ? 'pregunta' : 'destino';
 
-  // 6. Limpiar UI del Expediente y re-renderizar el módulo Interconsulta
+  // Limpiar UI del reporte previo y re-renderizar módulo Interconsulta
   document.getElementById('response').innerHTML = '';
   hide('response-wrap');
   hide('followup');
@@ -3037,7 +3104,6 @@ function inheritExpedienteToInterconsulta(reportText) {
   hide('home');
 
   renderModuleForm();
-  // Scroll al inicio del nuevo formulario
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -3053,6 +3119,11 @@ function openModule(key) {
   state.reviewMode = false;  // off por default, siempre
   state.reviewTurn = 0;
   if (key === 'expediente') state.expData = emptyExpData();
+  if (key === 'interconsulta') {
+    // Entrada directa a Interconsulta (no herencia): expediente e interData limpios
+    state.expData = emptyExpData();
+    state.interData = emptyInterData();
+  }
   hide('view-home'); show('view-module');
   hide('response-wrap'); hide('followup'); hide('upgrade-module');
   document.getElementById('error-box').innerHTML = '';
@@ -3397,10 +3468,17 @@ function validateForm() {
   }
   if (state.module === 'interconsulta') {
     const i = state.interData;
+    const e = state.expData;
     const hasEsp = !!i.especialidad;
     const hasMotivo = !!i.motivo && (i.motivo !== 'Otro' || (i.motivoOtro || '').trim().length > 0);
     const hasPregunta = (i.preguntaTexto || '').trim().length > 0;
-    const hasCaso = ((i.histClin || '').trim() + (i.procedimiento || '').trim()).length > 0;
+    // Caso clínico: mismo criterio del Expediente (al menos un chip o texto)
+    const anyChip = e.genero || e.edadRango || e.edadExacto || e.pesoRango || e.pesoExacto ||
+                    e.tallaRango || e.tallaExacto || e.condiciones.length > 0 || e.condicionesOtro ||
+                    e.meds.length > 0 || e.procSpec || e.anestesicos.length > 0 || e.anestesiaOtro ||
+                    (e.receta || '').trim() || e.usaPBM;
+    const anyText = (e.nota || '').trim() || (e.nombre || '').trim();
+    const hasCaso = !!(anyChip || anyText);
     return hasEsp && hasMotivo && hasPregunta && hasCaso;
   }
   if (state.module === 'calculadora') return (state.formData.medicamento || '').trim().length > 0;
