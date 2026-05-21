@@ -947,6 +947,11 @@ const I18N = {
       lbl_obj_pbm_ph: 'Ej: Analgesia postoperatoria, regeneración ósea...',
       lbl_disp_laser: 'Dispositivo / longitud de onda',
       lbl_disp_laser_ph: 'Ej: 980nm diodo, Epic X...',
+      lbl_pbm_mecanismo: 'Objetivo (mecanismo de acción)',
+      lbl_pbm_indicacion: 'Indicación clínica',
+      lbl_pbm_indicacion_otro_ph: 'Especifica la indicación clínica...',
+      lbl_pbm_dispositivo: 'Dispositivo / longitud de onda',
+      lbl_pbm_dispositivo_otro_ph: 'Especifica el dispositivo o longitud de onda...',
       imc_hint: 'Ingresa peso y talla exactos para calcular IMC automáticamente.',
       imc_label: 'IMC',
       otro: 'Otro',
@@ -1058,6 +1063,11 @@ const I18N = {
       lbl_obj_pbm_ph: 'E.g.: Postoperative analgesia, bone regeneration...',
       lbl_disp_laser: 'Device / wavelength',
       lbl_disp_laser_ph: 'E.g.: 980nm diode, Epic X...',
+      lbl_pbm_mecanismo: 'Goal (mechanism of action)',
+      lbl_pbm_indicacion: 'Clinical indication',
+      lbl_pbm_indicacion_otro_ph: 'Specify the clinical indication...',
+      lbl_pbm_dispositivo: 'Device / wavelength',
+      lbl_pbm_dispositivo_otro_ph: 'Specify the device or wavelength...',
       imc_hint: 'Enter exact weight and height to compute BMI automatically.',
       imc_label: 'BMI',
       otro: 'Other', otro_ph: 'Specify...', otro_add: 'Add', mas: 'more',
@@ -1163,6 +1173,11 @@ const I18N = {
       lbl_obj_pbm_ph: 'Ex: Analgesia pós-operatória, regeneração óssea...',
       lbl_disp_laser: 'Dispositivo / comprimento de onda',
       lbl_disp_laser_ph: 'Ex: 980nm diodo, Epic X...',
+      lbl_pbm_mecanismo: 'Objetivo (mecanismo de ação)',
+      lbl_pbm_indicacion: 'Indicação clínica',
+      lbl_pbm_indicacion_otro_ph: 'Especifique a indicação clínica...',
+      lbl_pbm_dispositivo: 'Dispositivo / comprimento de onda',
+      lbl_pbm_dispositivo_otro_ph: 'Especifique o dispositivo ou comprimento de onda...',
       imc_hint: 'Insira peso e altura exatos para calcular IMC automaticamente.',
       imc_label: 'IMC',
       otro: 'Outro', otro_ph: 'Especifique...', otro_add: 'Adicionar', mas: 'mais',
@@ -1267,6 +1282,11 @@ const I18N = {
       lbl_obj_pbm_ph: '例: 術後鎮痛、骨再生...',
       lbl_disp_laser: '機器 / 波長',
       lbl_disp_laser_ph: '例: 980nmダイオード、Epic X...',
+      lbl_pbm_mecanismo: '目的(作用機序)',
+      lbl_pbm_indicacion: '臨床的適応',
+      lbl_pbm_indicacion_otro_ph: '臨床的適応を入力...',
+      lbl_pbm_dispositivo: '機器 / 波長',
+      lbl_pbm_dispositivo_otro_ph: '機器または波長を入力...',
       imc_hint: '正確な体重と身長を入力するとBMIが自動計算されます。',
       imc_label: 'BMI',
       otro: 'その他', otro_ph: '指定...', otro_add: '追加', mas: 'もっと',
@@ -1371,6 +1391,11 @@ const I18N = {
       lbl_obj_pbm_ph: '예: 술후 진통, 골재생...',
       lbl_disp_laser: '기기 / 파장',
       lbl_disp_laser_ph: '예: 980nm 다이오드, Epic X...',
+      lbl_pbm_mecanismo: '목표(작용 기전)',
+      lbl_pbm_indicacion: '임상 적응증',
+      lbl_pbm_indicacion_otro_ph: '임상 적응증을 입력...',
+      lbl_pbm_dispositivo: '기기 / 파장',
+      lbl_pbm_dispositivo_otro_ph: '기기 또는 파장을 입력...',
       imc_hint: '정확한 체중과 신장을 입력하면 BMI가 자동 계산됩니다.',
       imc_label: 'BMI',
       otro: '기타', otro_ph: '지정...', otro_add: '추가', mas: '더',
@@ -1467,6 +1492,26 @@ const CHIPS_DATA = {
 
   anestesicos: ['Lidocaína 2% c/epi', 'Lidocaína 2% sin epi', 'Mepivacaína 3% sin epi',
                 'Articaína 4% c/epi', 'Bupivacaína 0.5% c/epi', 'Prilocaína 4%'],
+
+  // PBM: objetivo (mecanismo) y sus indicaciones clínicas por mecanismo
+  pbmMecanismos: ['Analgesia', 'Antiinflamatorio', 'Regeneración', 'Bioestimulación', 'Antimicrobiano'],
+  pbmIndicacionesByMec: {
+    'Analgesia':        ['Dolor postop', 'Dolor TTM/bruxismo', 'Neuralgia trigémino', 'Parestesia/disestesia', 'Otro'],
+    'Antiinflamatorio': ['Postop quirúrgico', 'Mucositis', 'Periodontitis', 'Periimplantitis', 'Alveolitis', 'Otro'],
+    'Regeneración':     ['Cicatrización tejidos blandos', 'Estimulación ósea', 'Postextracción', 'Parálisis facial', 'Otro'],
+    'Bioestimulación':  ['ATM disfuncional', 'Trismus', 'Disestesia', 'Tinnitus', 'Otro'],
+    'Antimicrobiano':   ['Periodontitis', 'Periimplantitis', 'Endodoncia (coadyuvante)', 'Mucositis infecciosa', 'Otro'],
+  },
+  pbmDispositivos: [
+    '660 nm (diodo rojo)',
+    '810 nm (diodo IR)',
+    '940 nm (diodo IR)',
+    '980 nm (diodo IR)',
+    '1064 nm (Nd:YAG)',
+    '2780 nm (Er,Cr:YSGG)',
+    '2940 nm (Er:YAG)',
+    'Otro',
+  ],
 };
 
 /* -------- Datos de Interconsulta: especialidad destino + motivos por especialidad -------- */
@@ -1607,8 +1652,12 @@ function emptyExpData() {
     anestesicos: [],
     anestesiaOtro: '',
     usaPBM: false,
-    objetivoPBM: '',
-    dispositivoLaser: '',
+    // PBM nuevos campos multi-select
+    pbmMecanismos: [],          // ['Analgesia', 'Antiinflamatorio']
+    pbmIndicaciones: [],        // ['Dolor postop', 'Mucositis']
+    pbmIndicacionOtro: '',      // texto libre si alguna indicación es 'Otro'
+    pbmDispositivos: [],        // ['660 nm (diodo rojo)', '810 nm (diodo IR)']
+    pbmDispositivoOtro: '',     // texto libre si dispositivo 'Otro'
     nota: '',
     accordionOpen: 'paciente',
   };
@@ -2015,13 +2064,23 @@ function renderExpedienteForm() {
           </div>
         </div>
         <div id="pbm-details" class="${e.usaPBM?'':'hidden'}">
-          <div class="field">
-            <label for="exp-obj-pbm">${L.lbl_obj_pbm}</label>
-            <textarea id="exp-obj-pbm" placeholder="${L.lbl_obj_pbm_ph}"></textarea>
+          <div class="field-group">
+            <div class="field-group-label">${L.lbl_pbm_mecanismo}</div>
+            <div class="chips" id="chips-pbm-mecanismo"></div>
           </div>
-          <div class="field">
-            <label for="exp-disp-laser">${L.lbl_disp_laser}</label>
-            <input type="text" id="exp-disp-laser" placeholder="${L.lbl_disp_laser_ph}" />
+          <div class="field-group hidden" id="pbm-indicacion-wrap">
+            <div class="field-group-label">${L.lbl_pbm_indicacion}</div>
+            <div class="chips" id="chips-pbm-indicacion"></div>
+            <div class="otro-input-wrap" id="otro-pbm-indicacion-wrap">
+              <input type="text" id="otro-pbm-indicacion-input" placeholder="${L.lbl_pbm_indicacion_otro_ph}" />
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field-group-label">${L.lbl_pbm_dispositivo}</div>
+            <div class="chips" id="chips-pbm-dispositivo"></div>
+            <div class="otro-input-wrap" id="otro-pbm-dispositivo-wrap">
+              <input type="text" id="otro-pbm-dispositivo-input" placeholder="${L.lbl_pbm_dispositivo_otro_ph}" />
+            </div>
           </div>
         </div>
       </div>
@@ -2045,16 +2104,20 @@ function restoreExpedienteValues() {
   if (e.nombre) document.getElementById('exp-nombre').value = e.nombre;
   if (e.receta) document.getElementById('exp-receta').value = e.receta;
   if (e.nota)   document.getElementById('exp-nota').value = e.nota;
-  if (e.objetivoPBM) document.getElementById('exp-obj-pbm').value = e.objetivoPBM;
-  if (e.dispositivoLaser) document.getElementById('exp-disp-laser').value = e.dispositivoLaser;
+  if (e.pbmIndicacionOtro) {
+    const inp = document.getElementById('otro-pbm-indicacion-input');
+    if (inp) inp.value = e.pbmIndicacionOtro;
+  }
+  if (e.pbmDispositivoOtro) {
+    const inp = document.getElementById('otro-pbm-dispositivo-input');
+    if (inp) inp.value = e.pbmDispositivoOtro;
+  }
 }
 
 function bindExpedienteEvents() {
   document.getElementById('exp-nombre').addEventListener('input', ev => { state.expData.nombre = ev.target.value; });
   document.getElementById('exp-receta').addEventListener('input', ev => { state.expData.receta = ev.target.value; });
   document.getElementById('exp-nota').addEventListener('input', ev => { state.expData.nota = ev.target.value; });
-  document.getElementById('exp-obj-pbm').addEventListener('input', ev => { state.expData.objetivoPBM = ev.target.value; });
-  document.getElementById('exp-disp-laser').addEventListener('input', ev => { state.expData.dispositivoLaser = ev.target.value; });
 
   document.querySelectorAll('[data-acc-head]').forEach(head => {
     head.addEventListener('click', () => setAccordionOpen(head.dataset.accHead));
@@ -2066,6 +2129,16 @@ function bindExpedienteEvents() {
       document.getElementById('pbm-details').classList.toggle('hidden', !state.expData.usaPBM);
       refreshAllSummaries();
     });
+  });
+
+  /* Otro inputs PBM */
+  bindOtroInput('otro-pbm-indicacion-input', val => {
+    state.expData.pbmIndicacionOtro = val.trim();
+    refreshAllSummaries();
+  });
+  bindOtroInput('otro-pbm-dispositivo-input', val => {
+    state.expData.pbmDispositivoOtro = val.trim();
+    refreshAllSummaries();
   });
 
   /* Otro inputs */
@@ -2112,6 +2185,9 @@ function renderAllExpedienteChips() {
   renderProcEspecialidades();
   renderProcSubs();
   renderAnestesiaChips();
+  renderPBMMecanismoChips();
+  renderPBMIndicacionChips();
+  renderPBMDispositivoChips();
   refreshIMC();
 }
 
@@ -2461,6 +2537,135 @@ function renderAnestesiaChips() {
   if (e.anestesiaOtro) otroWrap.classList.add('show');
 }
 
+/* -------- PBM chips (multi-select) -------- */
+
+function renderPBMMecanismoChips() {
+  const container = document.getElementById('chips-pbm-mecanismo');
+  if (!container) return;
+  container.innerHTML = '';
+  const e = state.expData;
+  CHIPS_DATA.pbmMecanismos.forEach(mec => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = mec;
+    if (e.pbmMecanismos.includes(mec)) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      const idx = e.pbmMecanismos.indexOf(mec);
+      if (idx >= 0) {
+        e.pbmMecanismos.splice(idx, 1);
+        // Al deseleccionar un mecanismo, quitar indicaciones que ya no son válidas
+        const stillValid = new Set();
+        e.pbmMecanismos.forEach(m => (CHIPS_DATA.pbmIndicacionesByMec[m] || []).forEach(i => stillValid.add(i)));
+        e.pbmIndicaciones = e.pbmIndicaciones.filter(ind => stillValid.has(ind));
+      } else {
+        e.pbmMecanismos.push(mec);
+      }
+      renderPBMMecanismoChips();
+      renderPBMIndicacionChips();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+}
+
+function renderPBMIndicacionChips() {
+  const container = document.getElementById('chips-pbm-indicacion');
+  const wrap = document.getElementById('pbm-indicacion-wrap');
+  const otroWrap = document.getElementById('otro-pbm-indicacion-wrap');
+  if (!container || !wrap) return;
+  container.innerHTML = '';
+  const e = state.expData;
+
+  if (e.pbmMecanismos.length === 0) {
+    wrap.classList.add('hidden');
+    return;
+  }
+  wrap.classList.remove('hidden');
+
+  // Unir todas las indicaciones de los mecanismos seleccionados, deduplicando
+  // Sacar 'Otro' al final
+  const indicacionesSet = new Set();
+  e.pbmMecanismos.forEach(mec => {
+    (CHIPS_DATA.pbmIndicacionesByMec[mec] || []).forEach(ind => indicacionesSet.add(ind));
+  });
+  const indicaciones = [...indicacionesSet].filter(i => i !== 'Otro');
+  const hasOtro = indicacionesSet.has('Otro');
+
+  indicaciones.forEach(ind => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = ind;
+    if (e.pbmIndicaciones.includes(ind)) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      const idx = e.pbmIndicaciones.indexOf(ind);
+      if (idx >= 0) e.pbmIndicaciones.splice(idx, 1);
+      else e.pbmIndicaciones.push(ind);
+      renderPBMIndicacionChips();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+
+  if (hasOtro) {
+    const otro = document.createElement('button');
+    otro.className = 'chip chip-more';
+    otro.textContent = t().exp.otro;
+    if (e.pbmIndicacionOtro) otro.classList.add('active');
+    otro.addEventListener('click', () => {
+      otroWrap.classList.toggle('show');
+      if (otroWrap.classList.contains('show')) {
+        const inp = document.getElementById('otro-pbm-indicacion-input');
+        if (inp) inp.focus();
+      }
+    });
+    container.appendChild(otro);
+    const otroInput = document.getElementById('otro-pbm-indicacion-input');
+    if (otroInput && e.pbmIndicacionOtro && !otroInput.value) otroInput.value = e.pbmIndicacionOtro;
+    if (e.pbmIndicacionOtro) otroWrap.classList.add('show');
+  }
+}
+
+function renderPBMDispositivoChips() {
+  const container = document.getElementById('chips-pbm-dispositivo');
+  const otroWrap = document.getElementById('otro-pbm-dispositivo-wrap');
+  if (!container) return;
+  container.innerHTML = '';
+  const e = state.expData;
+
+  CHIPS_DATA.pbmDispositivos.forEach(disp => {
+    if (disp === 'Otro') return; // lo manejamos al final
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = disp;
+    if (e.pbmDispositivos.includes(disp)) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      const idx = e.pbmDispositivos.indexOf(disp);
+      if (idx >= 0) e.pbmDispositivos.splice(idx, 1);
+      else e.pbmDispositivos.push(disp);
+      renderPBMDispositivoChips();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+
+  // Chip "Otro" al final
+  const otro = document.createElement('button');
+  otro.className = 'chip chip-more';
+  otro.textContent = t().exp.otro;
+  if (e.pbmDispositivoOtro) otro.classList.add('active');
+  otro.addEventListener('click', () => {
+    otroWrap.classList.toggle('show');
+    if (otroWrap.classList.contains('show')) {
+      const inp = document.getElementById('otro-pbm-dispositivo-input');
+      if (inp) inp.focus();
+    }
+  });
+  container.appendChild(otro);
+  const otroInput = document.getElementById('otro-pbm-dispositivo-input');
+  if (otroInput && e.pbmDispositivoOtro && !otroInput.value) otroInput.value = e.pbmDispositivoOtro;
+  if (e.pbmDispositivoOtro) otroWrap.classList.add('show');
+}
+
 /* -------- IMC -------- */
 function imcCategory(imc) {
   if (imc < 18.5) return 'bajo peso';
@@ -2561,14 +2766,28 @@ function summaryPBM() {
   const e = state.expData;
   if (!e.usaPBM) return '';
   const parts = ['Sí'];
-  if (e.objetivoPBM) {
-    const obj = e.objetivoPBM.trim();
-    parts.push(obj.length > 30 ? obj.slice(0, 30) + '…' : obj);
+
+  // Mecanismos seleccionados
+  if (e.pbmMecanismos.length > 0) {
+    parts.push(e.pbmMecanismos.join(', '));
   }
-  if (e.dispositivoLaser) {
-    const disp = e.dispositivoLaser.trim();
-    parts.push(disp.length > 25 ? disp.slice(0, 25) + '…' : disp);
+
+  // Indicaciones (incluye Otro si tiene texto)
+  const inds = [...e.pbmIndicaciones];
+  if (e.pbmIndicacionOtro) inds.push(e.pbmIndicacionOtro);
+  if (inds.length > 0) {
+    const joined = inds.join(', ');
+    parts.push(joined.length > 40 ? joined.slice(0, 40) + '…' : joined);
   }
+
+  // Dispositivos (incluye Otro si tiene texto)
+  const disps = [...e.pbmDispositivos];
+  if (e.pbmDispositivoOtro) disps.push(e.pbmDispositivoOtro);
+  if (disps.length > 0) {
+    const joined = disps.join(', ');
+    parts.push(joined.length > 35 ? joined.slice(0, 35) + '…' : joined);
+  }
+
   return parts.join(' · ');
 }
 
@@ -2638,9 +2857,29 @@ function buildExpedienteFormData() {
   state.formData.receta = (e.receta || '').trim();
 
   // PBM
+  // PBM: construir strings legibles desde arrays multi-select
   state.formData.laser_pbm = e.usaPBM ? 'Sí' : 'No';
-  state.formData.objetivo_PBM = e.usaPBM ? (e.objetivoPBM || '').trim() : '';
-  state.formData.dispositivo_laser = e.usaPBM ? (e.dispositivoLaser || '').trim() : '';
+  if (e.usaPBM) {
+    // objetivo_PBM = "Mecanismos: Analgesia, Antiinflamatorio. Indicaciones: Dolor postop, Mucositis, Periodontitis. Otro: <texto libre si aplica>"
+    const objParts = [];
+    if (e.pbmMecanismos.length > 0) {
+      objParts.push('Mecanismos: ' + e.pbmMecanismos.join(', '));
+    }
+    const inds = [...e.pbmIndicaciones];
+    if (e.pbmIndicacionOtro) inds.push(e.pbmIndicacionOtro.trim());
+    if (inds.length > 0) {
+      objParts.push('Indicaciones: ' + inds.join(', '));
+    }
+    state.formData.objetivo_PBM = objParts.join('. ');
+
+    // dispositivo_laser = "660 nm (diodo rojo), 810 nm (diodo IR). Otro: <texto libre>"
+    const disps = [...e.pbmDispositivos];
+    if (e.pbmDispositivoOtro) disps.push(e.pbmDispositivoOtro.trim());
+    state.formData.dispositivo_laser = disps.join(', ');
+  } else {
+    state.formData.objetivo_PBM = '';
+    state.formData.dispositivo_laser = '';
+  }
 
   // Nombre
   state.formData.nombre_paciente = (e.nombre || '').trim();
@@ -2852,13 +3091,23 @@ function renderInterconsultaForm() {
           </div>
         </div>
         <div id="pbm-details" class="${e.usaPBM?'':'hidden'}">
-          <div class="field">
-            <label for="exp-obj-pbm">${Lexp.lbl_obj_pbm}</label>
-            <textarea id="exp-obj-pbm" placeholder="${Lexp.lbl_obj_pbm_ph}"></textarea>
+          <div class="field-group">
+            <div class="field-group-label">${Lexp.lbl_pbm_mecanismo}</div>
+            <div class="chips" id="chips-pbm-mecanismo"></div>
           </div>
-          <div class="field">
-            <label for="exp-disp-laser">${Lexp.lbl_disp_laser}</label>
-            <input type="text" id="exp-disp-laser" placeholder="${Lexp.lbl_disp_laser_ph}" />
+          <div class="field-group hidden" id="pbm-indicacion-wrap">
+            <div class="field-group-label">${Lexp.lbl_pbm_indicacion}</div>
+            <div class="chips" id="chips-pbm-indicacion"></div>
+            <div class="otro-input-wrap" id="otro-pbm-indicacion-wrap">
+              <input type="text" id="otro-pbm-indicacion-input" placeholder="${Lexp.lbl_pbm_indicacion_otro_ph}" />
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field-group-label">${Lexp.lbl_pbm_dispositivo}</div>
+            <div class="chips" id="chips-pbm-dispositivo"></div>
+            <div class="otro-input-wrap" id="otro-pbm-dispositivo-wrap">
+              <input type="text" id="otro-pbm-dispositivo-input" placeholder="${Lexp.lbl_pbm_dispositivo_otro_ph}" />
+            </div>
           </div>
         </div>
       </div>
