@@ -890,8 +890,6 @@ const I18N = {
       consulta: { title: 'Consulta Rápida', desc: 'Interacción farmacológica puntual', ico: 'QUICK' },
       expediente: { title: 'Expediente', desc: 'Reporte completo con historial clínico', ico: 'FULL' },
       interconsulta: { title: 'Interconsulta', desc: 'Referencia a especialista', ico: 'REFER' },
-      calculadora: { title: 'Calculadora', desc: 'Cálculo de dosis', ico: 'CALC' },
-      pbm: { title: 'PBM', desc: 'Protocolos de fotobiomodulación', ico: 'PBM' },
     },
     fields: {
       nombre_paciente: 'Nombre del paciente',
@@ -1016,8 +1014,6 @@ const I18N = {
       consulta: { title: 'Quick Consult', desc: 'Point pharmacological check', ico: 'QUICK' },
       expediente: { title: 'Full Report', desc: 'Complete report with clinical history', ico: 'FULL' },
       interconsulta: { title: 'Referral', desc: 'Specialist referral', ico: 'REFER' },
-      calculadora: { title: 'Calculator', desc: 'Dose calculation', ico: 'CALC' },
-      pbm: { title: 'PBM', desc: 'Photobiomodulation protocols', ico: 'PBM' },
     },
     fields: {
       nombre_paciente: 'Patient name',
@@ -1126,8 +1122,6 @@ const I18N = {
       consulta: { title: 'Consulta Rápida', desc: 'Interação farmacológica pontual', ico: 'QUICK' },
       expediente: { title: 'Relatório Completo', desc: 'Relatório com histórico clínico', ico: 'FULL' },
       interconsulta: { title: 'Interconsulta', desc: 'Encaminhamento ao especialista', ico: 'REFER' },
-      calculadora: { title: 'Calculadora', desc: 'Cálculo de dose', ico: 'CALC' },
-      pbm: { title: 'PBM', desc: 'Protocolos de fotobiomodulação', ico: 'PBM' },
     },
     fields: {
       nombre_paciente: 'Nome do paciente',
@@ -1235,8 +1229,6 @@ const I18N = {
       consulta: { title: 'クイック相談', desc: '薬物相互作用の確認', ico: 'QUICK' },
       expediente: { title: '詳細レポート', desc: '病歴付きの完全レポート', ico: 'FULL' },
       interconsulta: { title: '紹介', desc: '専門医への紹介', ico: 'REFER' },
-      calculadora: { title: '計算機', desc: '用量計算', ico: 'CALC' },
-      pbm: { title: 'PBM', desc: '光生体調節プロトコル', ico: 'PBM' },
     },
     fields: {
       nombre_paciente: '患者名',
@@ -1344,8 +1336,6 @@ const I18N = {
       consulta: { title: '빠른 상담', desc: '약물 상호작용 확인', ico: 'QUICK' },
       expediente: { title: '전체 보고서', desc: '임상 기록 포함 완전 보고서', ico: 'FULL' },
       interconsulta: { title: '의뢰', desc: '전문의 의뢰', ico: 'REFER' },
-      calculadora: { title: '계산기', desc: '용량 계산', ico: 'CALC' },
-      pbm: { title: 'PBM', desc: '광생체조절 프로토콜', ico: 'PBM' },
     },
     fields: {
       nombre_paciente: '환자 이름',
@@ -1604,16 +1594,12 @@ const MODULE_FIELDS = {
   consulta: ['nombre_paciente', 'query'],
   expediente: [], /* Expediente usa su propio render con chips */
   interconsulta: ['nombre_paciente', 'HistClin', 'procedimiento', 'anestesia', 'medstomando', 'receta', 'laser_pbm', 'objetivo_PBM', 'dispositivo_laser'],
-  calculadora: ['nombre_paciente', 'procedimiento', 'peso_paciente', 'medicamento', 'condicion'],
-  pbm: ['nombre_paciente', 'objetivo_PBM', 'dispositivo_laser', 'area_tratamiento'],
 };
 
 const TIPO_DE_REPORTE_MAP = {
   consulta: 'Consulta rápida / Quick consult',
   expediente: 'Expediente / Full report',
   interconsulta: 'Interconsulta / Referral',
-  calculadora: 'Calculadora / Calculator',
-  pbm: 'PBM',
 };
 
 /* -------- State -------- */
@@ -1713,7 +1699,7 @@ function renderModules() {
   const wrap = document.getElementById('modules');
   wrap.innerHTML = '';
   const mods = t().modules;
-  ['consulta', 'expediente', 'interconsulta', 'calculadora', 'pbm'].forEach(key => {
+  ['consulta', 'expediente', 'interconsulta'].forEach(key => {
     const m = mods[key];
     const btn = document.createElement('button');
     btn.className = 'module-card';
@@ -3816,8 +3802,6 @@ function validateForm() {
     const hasCaso = !!(anyChip || anyText);
     return hasEsp && hasMotivo && hasPregunta && hasCaso;
   }
-  if (state.module === 'calculadora') return (state.formData.medicamento || '').trim().length > 0;
-  if (state.module === 'pbm') return (state.formData.objetivo_PBM || '').trim().length > 0;
   return true;
 }
 
