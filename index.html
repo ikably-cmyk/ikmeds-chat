@@ -3875,5 +3875,244 @@ async function init() {
 init();
 </script>
 
+<!-- ═══ IKMEDS TOUR — START (bloque autocontenido, no tocar el resto del chat) ═══ -->
+<style id="ikt-style">
+.ikt *{box-sizing:border-box}
+:root{
+  --ikt-bg:#F4F1EC; --ikt-card:#FBF9F5; --ikt-ink:#0A1F26; --ikt-prim:#0F4C5C; --ikt-sec:#5A8A8B;
+  --ikt-hair:#E4DED2; --ikt-teal:#12A5A0; --ikt-teal-lt:#0F7C77;
+  --ikt-hi:#A53F2B; --ikt-hi-bg:#FBEAE6; --ikt-warn:#6B4600; --ikt-warn-bg:#FAE294; --ikt-ok:#4A7C59; --ikt-ok-bg:#E7F0E5;
+  --ikt-serif:'Instrument Serif',Georgia,serif; --ikt-sans:'Instrument Sans',system-ui,sans-serif; --ikt-mono:'Space Mono',ui-monospace,monospace;
+}
+/* trigger "?" */
+.ikt-trigger{position:fixed;right:14px;bottom:16px;z-index:9998;width:34px;height:34px;border-radius:50%;border:1px solid var(--ikt-hair);background:var(--ikt-card);color:var(--ikt-prim);font-family:var(--ikt-serif);font-size:19px;line-height:1;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 6px 16px -8px rgba(10,31,38,.4)}
+.ikt-trigger.on{display:flex}
+.ikt-trigger:hover{border-color:var(--ikt-teal);color:var(--ikt-teal-lt)}
+/* overlay */
+.ikt-overlay{position:fixed;inset:0;z-index:9999;background:rgba(8,30,36,.62);display:none;align-items:center;justify-content:center;padding:14px;font-family:var(--ikt-sans)}
+.ikt-overlay.on{display:flex}
+.ikt-card{position:relative;width:100%;max-width:380px;max-height:94%;background:var(--ikt-bg);border-radius:18px;border:1px solid var(--ikt-hair);box-shadow:0 24px 60px -20px rgba(0,0,0,.5);display:flex;flex-direction:column;overflow:hidden;animation:ikt-in .3s ease}
+@keyframes ikt-in{from{opacity:0;transform:translateY(10px) scale(.99)}to{opacity:1;transform:none}}
+/* head */
+.ikt-head{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;border-bottom:1px solid var(--ikt-hair);background:var(--ikt-card)}
+.ikt-htitle{font-family:var(--ikt-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ikt-sec)}
+.ikt-htitle b{color:var(--ikt-prim)}
+.ikt-dots{display:flex;gap:6px}
+.ikt-dot{width:7px;height:7px;border-radius:50%;border:0;padding:0;background:var(--ikt-hair);cursor:pointer;transition:all .25s}
+.ikt-dot.on{background:var(--ikt-teal);width:20px;border-radius:4px}
+.ikt-dot.done{background:var(--ikt-sec)}
+.ikt-close{border:0;background:none;color:var(--ikt-sec);cursor:pointer;font-size:20px;line-height:1;padding:2px 4px}
+.ikt-close:hover{color:var(--ikt-ink)}
+/* body / steps */
+.ikt-body{flex:1;overflow-y:auto;padding:16px 16px 4px}
+.ikt-step{display:none}
+.ikt-step.on{display:block;animation:ikt-fade .35s ease}
+@keyframes ikt-fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.ikt-eye{font-family:var(--ikt-mono);font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--ikt-teal-lt);display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.ikt-eye::before{content:"";width:20px;height:1px;background:var(--ikt-teal)}
+.ikt-title{font-family:var(--ikt-serif);font-size:25px;line-height:1.12;color:var(--ikt-ink);margin:0 0 8px}
+.ikt-desc{font-size:13px;line-height:1.55;color:var(--ikt-sec);margin:0 0 14px}
+.ikt-desc b{color:var(--ikt-prim);font-weight:600}
+/* mock frame */
+.ikt-mock{background:var(--ikt-card);border:1px solid var(--ikt-hair);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:10px}
+/* chat bits */
+.ikt-lbl{font-family:var(--ikt-mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ikt-sec);margin:0 2px -4px}
+.ikt-bub{max-width:90%;padding:9px 11px;border-radius:12px;font-size:12px;line-height:1.45}
+.ikt-bub.u{align-self:flex-end;background:var(--ikt-prim);color:#F2F8F7;border-bottom-right-radius:4px}
+.ikt-verify{background:#FFFDF6;border:1px solid #E7CE7A;border-left:3px solid var(--ikt-warn);border-radius:10px;padding:11px}
+.ikt-vtag{display:flex;align-items:center;gap:6px;margin-bottom:7px}
+.ikt-vtag span{font-family:var(--ikt-mono);font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ikt-warn)}
+.ikt-vq{font-size:12px;line-height:1.5;color:var(--ikt-ink)}
+.ikt-vq b{color:var(--ikt-prim)}
+.ikt-vchips{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
+.ikt-vchip{font-size:11px;font-weight:500;padding:6px 11px;border-radius:999px;border:1px solid var(--ikt-hair);background:#fff;color:var(--ikt-prim)}
+.ikt-vchip.pick{background:var(--ikt-prim);color:#fff;border-color:var(--ikt-prim)}
+.ikt-vchip.pick::before{content:"✓ ";font-family:var(--ikt-mono)}
+.ikt-report{background:#fff;border:1px solid var(--ikt-hair);border-radius:10px;overflow:hidden}
+.ikt-rhd{display:flex;align-items:center;gap:7px;padding:9px 11px;border-bottom:1px solid var(--ikt-hair)}
+.ikt-badge{font-family:var(--ikt-mono);font-size:8.5px;font-weight:700;letter-spacing:.08em;padding:3px 8px;border-radius:4px}
+.ikt-badge.hi{background:var(--ikt-hi-bg);color:var(--ikt-hi)} .ikt-badge.warn{background:var(--ikt-warn-bg);color:var(--ikt-warn)} .ikt-badge.ok{background:var(--ikt-ok-bg);color:var(--ikt-ok)}
+.ikt-rhd .rs{font-family:var(--ikt-mono);font-size:8.5px;letter-spacing:.06em;color:var(--ikt-sec)}
+.ikt-rbd{padding:10px 11px;font-size:11.5px;line-height:1.5;color:var(--ikt-ink)}
+.ikt-rbd p{margin:0 0 8px} .ikt-rbd .lead{font-weight:500}
+.ikt-klist{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:5px}
+.ikt-klist li{position:relative;padding-left:14px;font-size:11px;line-height:1.45;color:#233}
+.ikt-klist li::before{content:"";position:absolute;left:0;top:6px;width:5px;height:5px;border-radius:50%;background:var(--ikt-teal)}
+.ikt-evi{display:inline-flex;align-items:center;margin-top:8px;font-family:var(--ikt-mono);font-size:8.5px;letter-spacing:.05em;color:var(--ikt-sec);background:#EEF3F1;border:1px solid var(--ikt-hair);padding:4px 8px;border-radius:999px}
+.ikt-setup{display:flex;flex-direction:column;gap:8px}
+.ikt-srow{display:flex;flex-direction:column;gap:5px}
+.ikt-srow .l{font-family:var(--ikt-mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ikt-sec)}
+.ikt-chips{display:flex;gap:5px;flex-wrap:wrap}
+.ikt-chip{font-size:10.5px;font-weight:500;padding:5px 10px;border-radius:999px;border:1px solid var(--ikt-hair);background:#fff;color:var(--ikt-sec)}
+.ikt-chip.on{background:var(--ikt-prim);color:#fff;border-color:var(--ikt-prim)}
+.ikt-drug{display:flex;align-items:center;gap:7px;padding:5px 0;font-size:11.5px}
+.ikt-drug .mk{font-family:var(--ikt-mono);font-size:8px;font-weight:700;padding:2px 5px;border-radius:3px}
+.ikt-drug.no .mk{background:var(--ikt-hi-bg);color:var(--ikt-hi)} .ikt-drug.no .nm{color:var(--ikt-hi);text-decoration:line-through}
+.ikt-drug.yes .mk{background:var(--ikt-ok-bg);color:var(--ikt-ok)} .ikt-drug.yes .nm{color:var(--ikt-ink);font-weight:500}
+.ikt-decision{margin-top:9px;background:var(--ikt-prim);color:#EAF3F2;border-radius:8px;padding:9px 11px;font-size:11.5px;line-height:1.45}
+.ikt-decision .dl{font-family:var(--ikt-mono);font-size:8px;letter-spacing:.12em;color:#7FD4CF;display:block;margin-bottom:3px}
+.ikt-letter{background:#fff;border:1px solid var(--ikt-hair);border-radius:9px;padding:13px;font-size:11px;line-height:1.55;color:var(--ikt-ink)}
+.ikt-letter .lh{font-family:var(--ikt-mono);font-size:8px;letter-spacing:.08em;color:var(--ikt-sec);text-transform:uppercase}
+.ikt-letter .subj{font-weight:600;color:var(--ikt-prim);margin:7px 0 9px;font-size:12px;line-height:1.35}
+.ikt-letter p{margin:0 0 8px}
+.ikt-letter .flag{color:var(--ikt-hi);font-weight:600}
+.ikt-letter .sign{margin-top:10px;padding-top:9px;border-top:1px solid var(--ikt-hair);font-family:var(--ikt-serif);font-size:13px;color:var(--ikt-prim)}
+.ikt-letter .sign small{display:block;font-family:var(--ikt-mono);font-size:8px;letter-spacing:.05em;color:var(--ikt-sec);margin-top:2px}
+.ikt-drow{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed var(--ikt-hair);font-size:11.5px}
+.ikt-drow:last-of-type{border-bottom:0}
+.ikt-drow .k{color:var(--ikt-sec)} .ikt-drow .v{font-family:var(--ikt-mono);font-weight:700;color:var(--ikt-prim)}
+/* footer nav */
+.ikt-foot{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-top:1px solid var(--ikt-hair);background:var(--ikt-card)}
+.ikt-prev{border:1px solid var(--ikt-hair);background:#fff;color:var(--ikt-sec);font-family:var(--ikt-sans);font-size:12px;font-weight:500;padding:9px 14px;border-radius:8px;cursor:pointer}
+.ikt-prev:disabled{opacity:.35;cursor:not-allowed}
+.ikt-next{border:0;background:var(--ikt-teal);color:#052a2c;font-family:var(--ikt-sans);font-size:13px;font-weight:600;padding:9px 20px;border-radius:8px;cursor:pointer}
+.ikt-next:hover{filter:brightness(1.06)}
+.ikt-dot:focus-visible,.ikt-close:focus-visible,.ikt-prev:focus-visible,.ikt-next:focus-visible,.ikt-trigger:focus-visible{outline:2px solid var(--ikt-teal);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.ikt-card,.ikt-step.on{animation:none}}
+</style>
+
+<button class="ikt-trigger" id="iktTrigger" onclick="IKMedsTour.show()" aria-label="Abrir guía rápida" title="Guía rápida">?</button>
+
+<div class="ikt-overlay ikt" id="iktOverlay" role="dialog" aria-modal="true" aria-label="Guía rápida de IKMeds">
+  <div class="ikt-card">
+    <div class="ikt-head">
+      <div class="ikt-htitle">Guía rápida · <b id="iktNum">1</b>/4</div>
+      <div class="ikt-dots" id="iktDots"></div>
+      <button class="ikt-close" onclick="IKMedsTour.hide()" aria-label="Cerrar">&times;</button>
+    </div>
+    <div class="ikt-body" id="iktBody">
+
+      <!-- STEP 1 -->
+      <div class="ikt-step" data-step="1">
+        <div class="ikt-eye">01 · CONSULTA RÁPIDA</div>
+        <h3 class="ikt-title">Pregunta libre, con verificación.</h3>
+        <p class="ikt-desc">Antes de responder, el <b>Modo de Verificación</b> confirma lo crítico — como que “Sintrom” es <b>acenocumarol</b>, no warfarina.</p>
+        <div class="ikt-mock">
+          <div class="ikt-lbl">Tú preguntas</div>
+          <div class="ikt-bub u">Paciente con Sintrom, va a exodoncia. ¿Qué debo considerar?</div>
+          <div class="ikt-verify">
+            <div class="ikt-vtag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B4600" stroke-width="2"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><polyline points="9 12 11.5 14.5 15.5 9.5"/></svg><span>Modo de Verificación</span></div>
+            <div class="ikt-vq"><b>“Sintrom”</b> corresponde a <b>acenocumarol</b>, no a warfarina. ¿Confirmas antes de generar el reporte?</div>
+            <div class="ikt-vchips"><span class="ikt-vchip pick">Sí, es acenocumarol</span><span class="ikt-vchip">No, corregir</span></div>
+          </div>
+          <div class="ikt-report">
+            <div class="ikt-rhd"><span class="ikt-badge hi">ALTO RIESGO</span><span class="rs">SANGRADO</span></div>
+            <div class="ikt-rbd">
+              <p class="lead">Anticoagulante cumarínico. No suspender si INR ≤ 3.5–4.0: el riesgo trombótico supera al hemorrágico.</p>
+              <ul class="ikt-klist"><li>Verificar INR reciente (&lt;72 h)</li><li>Hemostasia local: sutura + esponja de colágeno + ácido tranexámico 4.8%</li></ul>
+              <span class="ikt-evi">EVIDENCIA · guías de anticoagulación</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="ikt-step" data-step="2">
+        <div class="ikt-eye">02 · EXPEDIENTE</div>
+        <h3 class="ikt-title">El reporte integral del paciente.</h3>
+        <p class="ikt-desc">Cruza cada fármaco contra las alergias y te da la <b>alternativa segura</b>, con la decisión final lista para tu expediente.</p>
+        <div class="ikt-mock">
+          <div class="ikt-setup">
+            <div class="ikt-srow"><span class="l">Procedimiento</span><div class="ikt-chips"><span class="ikt-chip on">Exodoncia</span><span class="ikt-chip">Implante</span></div></div>
+            <div class="ikt-srow"><span class="l">Alergias</span><div class="ikt-chips"><span class="ikt-chip on">Penicilina</span><span class="ikt-chip">Ninguna</span></div></div>
+          </div>
+          <div class="ikt-report">
+            <div class="ikt-rhd"><span class="ikt-badge warn">PRECAUCIÓN</span><span class="rs">ALERGIA · ANTIBIÓTICO</span></div>
+            <div class="ikt-rbd">
+              <p class="lead">Alergia a penicilina documentada. Betalactámicos contraindicados.</p>
+              <div class="ikt-drug no"><span class="mk">NO USAR</span><span class="nm">Amoxicilina</span></div>
+              <div class="ikt-drug yes"><span class="mk">SÍ USAR</span><span class="nm">Clindamicina 300 mg c/8 h × 5 días</span></div>
+              <div class="ikt-decision"><span class="dl">DECISIÓN FINAL</span>Evitar betalactámicos. Prescribir clindamicina 300 mg cada 8 h por 5 días.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="ikt-step" data-step="3">
+        <div class="ikt-eye">03 · INTERCONSULTA</div>
+        <h3 class="ikt-title">Carta al médico, lista para firmar.</h3>
+        <p class="ikt-desc">Cuando el caso lo pide — un implante en paciente con <b>bifosfonatos</b> — genera la carta con los datos ya cargados.</p>
+        <div class="ikt-mock">
+          <div class="ikt-letter">
+            <div class="lh">Para: médico tratante</div>
+            <div class="subj">Valoración prequirúrgica — colocación de implante</div>
+            <p>El paciente será sometido a la colocación de un implante y está en tratamiento con <b>bifosfonatos</b>.</p>
+            <p>Solicito valorar el riesgo de <span class="flag">osteonecrosis maxilar (MRONJ)</span>: tiempo de tratamiento, posible suspensión temporal (<i>drug holiday</i>) y marcador <b>CTX sérico</b>.</p>
+            <div class="sign">Dr. Cirujano Dentista<small>IKMEDS · GENERADO DEL EXPEDIENTE</small></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="ikt-step" data-step="4">
+        <div class="ikt-eye">04 · CALCULADORA PBM</div>
+        <h3 class="ikt-title">Fotobiomodulación, resuelta.</h3>
+        <p class="ikt-desc">Eliges la indicación y tu equipo; la calculadora te da longitud de onda, dosis y sesiones para cerrar el caso.</p>
+        <div class="ikt-mock">
+          <div class="ikt-setup">
+            <div class="ikt-srow"><span class="l">Indicación</span><div class="ikt-chips"><span class="ikt-chip on">Bioestimulación post-implante</span></div></div>
+            <div class="ikt-srow"><span class="l">Equipo</span><div class="ikt-chips"><span class="ikt-chip on">Diodo 940 nm</span><span class="ikt-chip">810 nm</span></div></div>
+          </div>
+          <div class="ikt-report">
+            <div class="ikt-rhd"><span class="ikt-badge ok">PARÁMETROS</span><span class="rs">POST-IMPLANTE</span></div>
+            <div class="ikt-rbd">
+              <div class="ikt-drow"><span class="k">Longitud de onda</span><span class="v">940 nm</span></div>
+              <div class="ikt-drow"><span class="k">Dosis</span><span class="v">6.5 J/cm²</span></div>
+              <div class="ikt-drow"><span class="k">Sesiones</span><span class="v">3</span></div>
+              <p style="margin-top:9px">Acelera la cicatrización y favorece la osteointegración tras la colocación.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="ikt-foot">
+      <button class="ikt-prev" id="iktPrev" onclick="IKMedsTour.prev()">Anterior</button>
+      <button class="ikt-next" id="iktNext" onclick="IKMedsTour.next()">Siguiente</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY='ikmeds_tour_seen_v1', TOTAL=4, cur=1;
+  var ov=document.getElementById('iktOverlay'), body=document.getElementById('iktBody'),
+      numEl=document.getElementById('iktNum'), dotsEl=document.getElementById('iktDots'),
+      prev=document.getElementById('iktPrev'), next=document.getElementById('iktNext'),
+      trig=document.getElementById('iktTrigger');
+  for(var d=1; d<=TOTAL; d++){ var b=document.createElement('button'); b.className='ikt-dot'; b.setAttribute('data-step',d); b.setAttribute('aria-label','Paso '+d); (function(k){ b.onclick=function(){ setStep(k); }; })(d); dotsEl.appendChild(b); }
+  function setStep(n){
+    if(n<1||n>TOTAL) return; cur=n;
+    body.querySelectorAll('.ikt-step').forEach(function(s){ s.classList.toggle('on', parseInt(s.dataset.step)===n); });
+    dotsEl.querySelectorAll('.ikt-dot').forEach(function(dt){ var i=parseInt(dt.dataset.step); dt.classList.remove('on','done'); if(i===n) dt.classList.add('on'); else if(i<n) dt.classList.add('done'); });
+    numEl.textContent=n; body.scrollTop=0;
+    prev.disabled=(n===1); next.textContent=(n===TOTAL)?'Empezar':'Siguiente';
+  }
+  var IKMedsTour={
+    show:function(){ ov.classList.add('on'); document.body.style.overflow='hidden'; setStep(1); },
+    hide:function(){ ov.classList.remove('on'); document.body.style.overflow=''; try{localStorage.setItem(KEY,'1');}catch(e){} },
+    next:function(){ if(cur===TOTAL){ IKMedsTour.hide(); } else setStep(cur+1); },
+    prev:function(){ setStep(cur-1); },
+    reset:function(){ try{localStorage.removeItem(KEY);}catch(e){} },
+    isFirstVisit:function(){ try{return !localStorage.getItem(KEY);}catch(e){return false;} }
+  };
+  window.IKMedsTour=IKMedsTour;
+  document.addEventListener('keydown',function(e){ if(!ov.classList.contains('on')) return; if(e.key==='Escape') IKMedsTour.hide(); else if(e.key==='ArrowRight') IKMedsTour.next(); else if(e.key==='ArrowLeft') IKMedsTour.prev(); });
+  ov.addEventListener('click',function(e){ if(e.target===ov) IKMedsTour.hide(); });
+  var tsx=0; ov.addEventListener('touchstart',function(e){ tsx=e.changedTouches[0].screenX; },{passive:true});
+  ov.addEventListener('touchend',function(e){ var dx=e.changedTouches[0].screenX-tsx; if(Math.abs(dx)<50) return; if(dx<0) IKMedsTour.next(); else IKMedsTour.prev(); },{passive:true});
+  function init(){
+    var p=new URLSearchParams(location.search);
+    if(p.get('tourreset')==='1') IKMedsTour.reset();
+    if(trig) trig.classList.add('on');
+    if(p.get('tour')==='1'){ IKMedsTour.show(); }
+    else if(IKMedsTour.isFirstVisit()){ setTimeout(function(){ IKMedsTour.show(); }, 800); }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+<!-- ═══ IKMEDS TOUR — END ═══ -->
+
 </body>
 </html>
