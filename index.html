@@ -857,11 +857,11 @@ const N8N_PROFILE_URL = 'https://laserai.app.n8n.cloud/webhook/ikmeds-get-profil
 
 const STRIPE_LINKS = {
   initial_mxn: 'https://buy.stripe.com/dRmeV538XgHwfaq5YXdIA0x',
-  initial_usd: 'https://buy.stripe.com/6oU9AL10Pcrg8M2evtdIA0y',
-  topup10_mxn: 'https://buy.stripe.com/dRm28j7pd2QG7HYcnldIA0z',
-  topup10_usd: 'https://buy.stripe.com/28EfZ9bFt3UKgeu9b9dIA0A',
-  topup25_mxn: 'https://buy.stripe.com/8x24gr24T9f45zQ9b9dIA0B',
-  topup25_usd: 'https://buy.stripe.com/7sY28j10P1MC6DUevtdIA0C',
+  initial_usd: 'https://buy.stripe.com/bJe4gr6l90Iy6DU0EDdIA15',
+  topup10_mxn: 'https://buy.stripe.com/4gMaEP5h5gHw7HY731dIA16',
+  topup10_usd: 'https://buy.stripe.com/dRm14f6l9bncgeu2MLdIA17',
+  topup25_mxn: 'https://buy.stripe.com/3cI00b5h54YO0fw9b9dIA18',
+  topup25_usd: 'https://buy.stripe.com/6oU4gr8th4YO2nEdrpdIA19',
 };
 
 /* -------- i18n -------- */
@@ -877,7 +877,7 @@ const I18N = {
     followup_placeholder: 'Escribe tu pregunta...',
     out_of_credits_title: 'Consultas agotadas',
     out_of_credits_body: 'Para continuar, recarga tu cuenta:',
-    initial_label: 'Acceso inicial · 10 consultas',
+    initial_label: 'Acceso inicial · 5 consultas',
     topup10_label: 'Recarga · 10 consultas',
     topup25_label: 'Recarga · 25 consultas',
     region_mx: 'México',
@@ -1001,7 +1001,7 @@ const I18N = {
     followup_placeholder: 'Type your question...',
     out_of_credits_title: 'Out of consults',
     out_of_credits_body: 'To continue, top up your account:',
-    initial_label: 'Initial access · 10 consults',
+    initial_label: 'Initial access · 5 consults',
     topup10_label: 'Top-up · 10 consults',
     topup25_label: 'Top-up · 25 consults',
     region_mx: 'Mexico',
@@ -1110,7 +1110,7 @@ const I18N = {
     followup_placeholder: 'Digite sua pergunta...',
     out_of_credits_title: 'Consultas esgotadas',
     out_of_credits_body: 'Para continuar, recarregue sua conta:',
-    initial_label: 'Acesso inicial · 10 consultas',
+    initial_label: 'Acesso inicial · 5 consultas',
     topup10_label: 'Recarga · 10 consultas',
     topup25_label: 'Recarga · 25 consultas',
     region_mx: 'México', region_intl: 'Internacional',
@@ -1217,7 +1217,7 @@ const I18N = {
     followup_placeholder: '質問を入力...',
     out_of_credits_title: '相談回数がなくなりました',
     out_of_credits_body: '続けるにはチャージしてください:',
-    initial_label: '初回アクセス · 10相談',
+    initial_label: '初回アクセス · 5相談',
     topup10_label: 'チャージ · 10相談',
     topup25_label: 'チャージ · 25相談',
     region_mx: 'メキシコ', region_intl: '国際',
@@ -1324,7 +1324,7 @@ const I18N = {
     followup_placeholder: '질문을 입력하세요...',
     out_of_credits_title: '상담 횟수 소진',
     out_of_credits_body: '계속하려면 충전하세요:',
-    initial_label: '초기 접근 · 10 상담',
+    initial_label: '초기 접근 · 5 상담',
     topup10_label: '충전 · 10 상담',
     topup25_label: '충전 · 25 상담',
     region_mx: '멕시코', region_intl: '국제',
@@ -1718,13 +1718,13 @@ function renderUpgradeCard(containerId) {
       <p>${L.out_of_credits_body}</p>
       <div class="upgrade-grid">
         <a class="pay-btn" href="${STRIPE_LINKS.topup10_mxn}" target="_blank" rel="noopener">
-          <span class="region">${L.region_mx} · MXN</span><span class="price">$60</span><span class="label">${L.topup10_label}</span></a>
+          <span class="region">${L.region_mx} · MXN</span><span class="price">$180</span><span class="label">${L.topup10_label}</span></a>
         <a class="pay-btn" href="${STRIPE_LINKS.topup10_usd}" target="_blank" rel="noopener">
-          <span class="region">${L.region_intl} · USD</span><span class="price">$3</span><span class="label">${L.topup10_label}</span></a>
+          <span class="region">${L.region_intl} · USD</span><span class="price">$10.50</span><span class="label">${L.topup10_label}</span></a>
         <a class="pay-btn" href="${STRIPE_LINKS.topup25_mxn}" target="_blank" rel="noopener">
-          <span class="region">${L.region_mx} · MXN</span><span class="price">$125</span><span class="label">${L.topup25_label}</span></a>
+          <span class="region">${L.region_mx} · MXN</span><span class="price">$400</span><span class="label">${L.topup25_label}</span></a>
         <a class="pay-btn" href="${STRIPE_LINKS.topup25_usd}" target="_blank" rel="noopener">
-          <span class="region">${L.region_intl} · USD</span><span class="price">$6.25</span><span class="label">${L.topup25_label}</span></a>
+          <span class="region">${L.region_intl} · USD</span><span class="price">$23</span><span class="label">${L.topup25_label}</span></a>
       </div>
     </div>`;
   el.classList.remove('hidden');
