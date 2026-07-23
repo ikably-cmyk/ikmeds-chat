@@ -908,7 +908,6 @@ const I18N = {
       receta_ph: 'Ej: Amoxicilina 500mg c/8h x7d, Ibuprofeno 400mg c/8h, Clindamicina 300mg...',
       objetivo_PBM_ph: 'Ej: Analgesia postoperatoria, regeneración ósea, bioestimulación, cicatrización...',
       dispositivo_laser_ph: 'Ej: 980nm diodo, 650nm rojo, Epic X, Waterlase iPlus, Fotona LightWalker...',
-      area_tratamiento_ph: 'Ej: Encía marginal, zona periapical, mucosa, ATM, labio...',
       HistClin: 'Historia clínica relevante',
       procedimiento: 'Procedimiento',
       anestesia: 'Anestésico a usar',
@@ -919,8 +918,6 @@ const I18N = {
       dispositivo_laser: 'Dispositivo / longitud de onda',
       peso_paciente: 'Peso del paciente (kg)',
       medicamento: 'Medicamento a calcular',
-      condicion: 'Condición del paciente',
-      area_tratamiento: 'Área a tratar',
       yes: 'Sí', no: 'No',
     },
     exp: {
@@ -1037,7 +1034,6 @@ const I18N = {
       receta_ph: 'E.g.: Amoxicillin 500mg q8h x7d, Ibuprofen 400mg q8h, Clindamycin 300mg...',
       objetivo_PBM_ph: 'E.g.: Postoperative analgesia, bone regeneration, biostimulation, wound healing...',
       dispositivo_laser_ph: 'E.g.: 980nm diode, 650nm red, Epic X, Waterlase iPlus, Fotona LightWalker...',
-      area_tratamiento_ph: 'E.g.: Marginal gingiva, periapical area, mucosa, TMJ, lip...',
       HistClin: 'Relevant clinical history',
       procedimiento: 'Procedure',
       anestesia: 'Anesthetic to use',
@@ -1048,8 +1044,6 @@ const I18N = {
       dispositivo_laser: 'Device / wavelength',
       peso_paciente: 'Patient weight (kg)',
       medicamento: 'Medication to calculate',
-      condicion: 'Patient condition',
-      area_tratamiento: 'Treatment area',
       yes: 'Yes', no: 'No',
     },
     exp: {
@@ -1147,7 +1141,6 @@ const I18N = {
       receta_ph: 'Ex: Amoxicilina 500mg 8/8h x7d, Ibuprofeno 400mg 8/8h, Clindamicina 300mg...',
       objetivo_PBM_ph: 'Ex: Analgesia pós-operatória, regeneração óssea, bioestimulação, cicatrização...',
       dispositivo_laser_ph: 'Ex: 980nm diodo, 650nm vermelho, Epic X, Waterlase iPlus, Fotona LightWalker...',
-      area_tratamiento_ph: 'Ex: Gengiva marginal, zona periapical, mucosa, ATM, lábio...',
       HistClin: 'Histórico clínico relevante',
       procedimiento: 'Procedimento',
       anestesia: 'Anestésico a usar',
@@ -1158,8 +1151,6 @@ const I18N = {
       dispositivo_laser: 'Dispositivo / comprimento de onda',
       peso_paciente: 'Peso do paciente (kg)',
       medicamento: 'Medicamento a calcular',
-      condicion: 'Condição do paciente',
-      area_tratamiento: 'Área de tratamento',
       yes: 'Sim', no: 'Não',
     },
     exp: {
@@ -1256,7 +1247,6 @@ const I18N = {
       receta_ph: '例: アモキシシリン500mg 8時間毎7日、イブプロフェン400mg、クリンダマイシン300mg...',
       objetivo_PBM_ph: '例: 術後鎮痛、骨再生、バイオ刺激、創傷治癒...',
       dispositivo_laser_ph: '例: 980nmダイオード、650nm赤色、Epic X、Fotona LightWalker...',
-      area_tratamiento_ph: '例: 辺縁歯肉、根尖周囲、粘膜、顎関節、口唇...',
       HistClin: '関連する臨床歴',
       procedimiento: '処置',
       anestesia: '使用する麻酔',
@@ -1267,8 +1257,6 @@ const I18N = {
       dispositivo_laser: '機器 / 波長',
       peso_paciente: '患者の体重 (kg)',
       medicamento: '計算する薬剤',
-      condicion: '患者の状態',
-      area_tratamiento: '治療部位',
       yes: 'はい', no: 'いいえ',
     },
     exp: {
@@ -1365,7 +1353,6 @@ const I18N = {
       receta_ph: '예: 아목시실린 500mg 8시간마다 7일, 이부프로펜 400mg, 클린다마이신 300mg...',
       objetivo_PBM_ph: '예: 술후 진통, 골재생, 생체자극, 창상 치유...',
       dispositivo_laser_ph: '예: 980nm 다이오드, 650nm 적색, Epic X, Fotona LightWalker...',
-      area_tratamiento_ph: '예: 변연치은, 근단주위, 점막, 턱관절, 입술...',
       HistClin: '관련 임상 기록',
       procedimiento: '시술',
       anestesia: '사용할 마취제',
@@ -1376,8 +1363,6 @@ const I18N = {
       dispositivo_laser: '기기 / 파장',
       peso_paciente: '환자 체중 (kg)',
       medicamento: '계산할 약물',
-      condicion: '환자 상태',
-      area_tratamiento: '치료 부위',
       yes: '예', no: '아니오',
     },
     exp: {
@@ -1907,7 +1892,7 @@ function renderField(fieldName) {
     return wrap;
   }
 
-  const isTextarea = ['query', 'HistClin', 'medstomando', 'receta', 'condicion', 'objetivo_PBM'].includes(fieldName);
+  const isTextarea = ['query', 'HistClin', 'medstomando', 'receta', 'objetivo_PBM'].includes(fieldName);
   const isNumber = fieldName === 'peso_paciente';
   const input = document.createElement(isTextarea ? 'textarea' : 'input');
   if (!isTextarea) input.type = isNumber ? 'number' : 'text';
@@ -1916,7 +1901,6 @@ function renderField(fieldName) {
     query: L.query_ph, nombre_paciente: L.nombre_paciente_ph, HistClin: L.HistClin_ph,
     procedimiento: L.procedimiento_ph, anestesia: L.anestesia_ph, medstomando: L.medstomando_ph,
     receta: L.receta_ph, objetivo_PBM: L.objetivo_PBM_ph, dispositivo_laser: L.dispositivo_laser_ph,
-    area_tratamiento: L.area_tratamiento_ph,
   };
   if (phMap[fieldName]) input.placeholder = phMap[fieldName];
   input.addEventListener('input', () => { state.formData[fieldName] = input.value; });
@@ -3810,8 +3794,6 @@ async function submitQuery(userMessage, opts = {}) {
     dispositivo_laser: state.formData.dispositivo_laser || '',
     peso_paciente: state.formData.peso_paciente || '',
     medicamento: state.formData.medicamento || '',
-    condicion: state.formData.condicion || '',
-    area_tratamiento: state.formData.area_tratamiento || '',
     query: state.formData.query || '',
     // Campos específicos de Interconsulta
     especialidad_destino: state.formData.especialidad_destino || '',
@@ -4046,8 +4028,6 @@ function buildInitialMessage() {
   if (f.dispositivo_laser) lines.push(`Dispositivo: ${f.dispositivo_laser}`);
   if (f.peso_paciente) lines.push(`Peso: ${f.peso_paciente} kg`);
   if (f.medicamento) lines.push(`Medicamento: ${f.medicamento}`);
-  if (f.condicion) lines.push(`Condición: ${f.condicion}`);
-  if (f.area_tratamiento) lines.push(`Área: ${f.area_tratamiento}`);
   return lines.join('\n');
 }
 
