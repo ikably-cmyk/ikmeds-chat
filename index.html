@@ -673,6 +673,11 @@
   .review-caption strong { color: var(--ink); font-weight: 600; }
   .review-caption .review-cost { color: var(--warning); font-weight: 700; font-family: var(--font-mono); }
   .review-toggle-hidden { display: none; }
+  .review-toggle.is-disabled { opacity: .6; }
+  .review-toggle.is-disabled .review-toggle-row { cursor: not-allowed; }
+  .review-toggle.is-disabled .review-switch { background: var(--cream-dark); cursor: not-allowed; }
+  .review-toggle.is-disabled .review-pill { opacity: .5; }
+  .review-caption .review-need { color: var(--warning); font-weight: 600; }
 
   /* Chips de confirmación tras verificación */
   .review-chips {
@@ -851,7 +856,7 @@
  * Webhooks, payload, Stripe, I18N intactos.
  * ============================================================ */
 
-const N8N_CHAT_URL = 'https://laserai.app.n8n.cloud/webhook/ikmeds-chat-async';
+const N8N_CHAT_URL = 'https://laserai.app.n8n.cloud/webhook/ikmeds-chat-v3';
 const N8N_RESULT_URL = 'https://laserai.app.n8n.cloud/webhook/ikmeds-get-result';
 const N8N_PROFILE_URL = 'https://laserai.app.n8n.cloud/webhook/ikmeds-get-profile';
 
@@ -988,6 +993,7 @@ const I18N = {
       caption_strong: 'Reduce el riesgo de error:',
       caption_rest: ' IKMeds valida fármacos, dosis y datos clínicos contigo antes de generar el reporte.',
       caption_cost: '+1 crédito',
+      need_credits: 'Necesitas 2 créditos disponibles para usar la verificación.',
       chip_confirm: 'Confirmo, generar reporte',
       chip_correct: 'Corregir / añadir contexto',
       correct_placeholder: 'Aclara o corrige las interpretaciones del asistente...',
@@ -1100,6 +1106,7 @@ const I18N = {
       caption_strong: 'Reduce the risk of error:',
       caption_rest: ' IKMeds validates drugs, doses, and clinical data with you before generating the report.',
       caption_cost: '+1 credit',
+      need_credits: 'You need 2 available credits to use verification.',
       chip_confirm: 'Confirm, generate report',
       chip_correct: 'Correct / add context',
       correct_placeholder: "Clarify or correct the assistant's interpretations...",
@@ -1209,6 +1216,7 @@ const I18N = {
       caption_strong: 'Reduza o risco de erro:',
       caption_rest: ' o IKMeds valida fármacos, doses e dados clínicos com você antes de gerar o relatório.',
       caption_cost: '+1 crédito',
+      need_credits: 'Você precisa de 2 créditos disponíveis para usar a verificação.',
       chip_confirm: 'Confirmo, gerar relatório',
       chip_correct: 'Corrigir / adicionar contexto',
       correct_placeholder: 'Esclareça ou corrija as interpretações do assistente...',
@@ -1317,6 +1325,7 @@ const I18N = {
       caption_strong: 'エラーリスクを軽減:',
       caption_rest: ' IKMedsがレポート生成前に薬剤・用量・臨床データをあなたと一緒に確認します。',
       caption_cost: 'クレジット+1',
+      need_credits: '検証機能の利用には2クレジットが必要です。',
       chip_confirm: '確認、レポート生成',
       chip_correct: '修正・補足を追加',
       correct_placeholder: 'アシスタントの解釈を明確化または修正...',
@@ -1425,6 +1434,7 @@ const I18N = {
       caption_strong: '오류 위험 감소:',
       caption_rest: ' IKMeds가 보고서 생성 전 약물·용량·임상 데이터를 함께 확인합니다.',
       caption_cost: '+1 크레딧',
+      need_credits: '검증 기능을 사용하려면 2크레딧이 필요합니다.',
       chip_confirm: '확인, 보고서 생성',
       chip_correct: '수정·맥락 추가',
       correct_placeholder: '어시스턴트의 해석을 명확히 하거나 수정...',
@@ -1789,17 +1799,29 @@ function renderReviewToggle() {
   const R = t().review;
   if (!R) { container.className = 'review-toggle-hidden'; return; }
 
-  container.className = 'review-toggle' + (state.reviewMode ? ' is-on' : '');
+  // La verificación consume 2 créditos. Si no alcanzan, se muestra bloqueada
+  // para que el doctor lo sepa ANTES de llenar el formulario.
+  const enoughCredits = (state.credits === null) || (Number(state.credits) >= 2);
+  if (!enoughCredits && state.reviewMode) state.reviewMode = false;
+
+  container.className = 'review-toggle'
+    + (state.reviewMode ? ' is-on' : '')
+    + (enoughCredits ? '' : ' is-disabled');
   container.innerHTML = `
     <div class="review-toggle-row">
-      <div id="review-switch" class="review-switch" role="switch" aria-checked="${state.reviewMode}" tabindex="0"></div>
+      <div id="review-switch" class="review-switch" role="switch" aria-checked="${state.reviewMode}" aria-disabled="${!enoughCredits}" tabindex="${enoughCredits ? '0' : '-1'}"></div>
       <div class="review-label">${escapeHtml(R.label)}</div>
       <div class="review-pill">${escapeHtml(R.caption_cost)}</div>
     </div>
     <div class="review-caption">
-      <strong>${escapeHtml(R.caption_strong)}</strong>${escapeHtml(R.caption_rest)} <span class="review-cost">${escapeHtml(R.caption_cost)}</span>.
+      ${enoughCredits
+        ? `<strong>${escapeHtml(R.caption_strong)}</strong>${escapeHtml(R.caption_rest)} <span class="review-cost">${escapeHtml(R.caption_cost)}</span>.`
+        : `<span class="review-need">${escapeHtml(R.need_credits || '')}</span>`}
     </div>
   `;
+  // Sin créditos suficientes: no se enganchan listeners, el toggle no se puede activar
+  if (!enoughCredits) return;
+
   const sw = document.getElementById('review-switch');
   const toggle = () => {
     state.reviewMode = !state.reviewMode;
@@ -3839,7 +3861,9 @@ async function submitQuery(userMessage, opts = {}) {
     // 2) Descontar crédito local apenas el backend acepta (el backend ya lo cobró)
     if (isFirstMessage) {
       state.sessionCreditUsed = true;
-      if (state.credits !== null && state.credits > 0) state.credits -= 1;
+      // La verificación consume 2 créditos; el resto, 1
+      const creditCost = body.review_mode ? 2 : 1;
+      if (state.credits !== null) state.credits = Math.max(0, Number(state.credits) - creditCost);
       renderCreditsPill();
       renderReviewToggle(); // ahora se oculta porque sessionCreditUsed=true
     }
