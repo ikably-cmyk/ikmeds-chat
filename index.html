@@ -3697,7 +3697,8 @@ function toPlainText(md) {
 
 function renderShareAction(targetEl, texto) {
   if (!targetEl || !texto) return;
-  const L = t().fields || {};
+  // Los textos viven en el bloque 'inter' del i18n; fusionamos ambos por robustez
+  const L = Object.assign({}, t().fields || {}, t().inter || {});
   const etiqueta = L.share_button || 'Compartir';
 
   const wrap = document.createElement('div');
