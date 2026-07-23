@@ -1,0 +1,4307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#0F4C5C" />
+<title>IKMeds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  /* =====================================================
+   * IKMeds · Design Tokens (Teal Médico Profundo)
+   * ===================================================== */
+  :root {
+    --primary:     #0F4C5C;
+    --primary-90:  rgba(15, 76, 92, 0.90);
+    --primary-10:  rgba(15, 76, 92, 0.10);
+    --primary-5:   rgba(15, 76, 92, 0.05);
+
+    --secondary:   #5A8A8B;
+    --sec-30:      rgba(90, 138, 139, 0.30);
+    --sec-10:      rgba(90, 138, 139, 0.10);
+
+    --bg:          #F4F1EC;
+    --bg-soft:     #FAF7F2;
+    --bg-dark:     #E8E2D8;
+
+    --ink:         #0A1F26;
+    --ink-soft:    #3D5560;
+    --ink-mute:    #8A9499;
+
+    --warning:     #6B4600;
+    --warn-bg:     #FAE294;
+    --warn-border: #E8C77A;
+    --success:     #4A7C59;
+    --success-bg:  #E7F0E5;
+    --error:       #A53F2B;
+    --error-bg:    #FBEAE6;
+
+    --font-serif:  'Instrument Serif', Georgia, serif;
+    --font-sans:   'Instrument Sans', system-ui, -apple-system, sans-serif;
+    --font-mono:   'Space Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+
+    --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-pill: 999px;
+
+    --shadow-sm: 0 1px 2px rgba(15, 76, 92, 0.06);
+    --shadow-md: 0 4px 16px rgba(15, 76, 92, 0.10);
+    --shadow-lg: 0 12px 32px rgba(15, 76, 92, 0.14);
+
+    --transition: 220ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .mono { font-family: var(--font-mono); letter-spacing: -0.01em; }
+
+  .app {
+    max-width: 780px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px 32px;
+  }
+
+  /* Header */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 0 14px;
+    border-bottom: 1px solid var(--bg-dark);
+    margin-bottom: 22px; gap: 12px;
+  }
+  .logo {
+    font-family: var(--font-serif);
+    font-weight: 400; font-size: 24px;
+    color: var(--primary); letter-spacing: -0.015em; line-height: 1;
+  }
+  .logo-dot { color: var(--secondary); font-style: italic; }
+  .header-right { display: flex; align-items: center; gap: 8px; }
+
+  .credits-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: var(--radius-pill);
+    background: var(--primary-5);
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--primary); font-weight: 700; letter-spacing: 0.01em;
+  }
+  .credits-pill.low { background: var(--error-bg); color: var(--error); }
+
+  .lang-select {
+    font-family: var(--font-mono); font-size: 11px;
+    border: 1px solid var(--bg-dark);
+    background: var(--bg-soft); color: var(--ink-soft);
+    padding: 6px 10px; border-radius: var(--radius-sm);
+    cursor: pointer; font-weight: 600; letter-spacing: 0.02em;
+  }
+  .lang-select:focus { outline: none; border-color: var(--primary); }
+
+  /* Home */
+  .welcome { padding: 4px 0 22px; }
+  .welcome h1 {
+    font-family: var(--font-serif);
+    font-size: 30px; margin: 0 0 6px; font-weight: 400;
+    letter-spacing: -0.02em; line-height: 1.08; color: var(--primary);
+  }
+  .welcome p { margin: 0; color: var(--ink-soft); font-size: 14.5px; }
+
+  .modules {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-bottom: 16px;
+  }
+  @media (max-width: 520px) { .modules { grid-template-columns: 1fr; } }
+  .module-card {
+    border: 1px solid var(--bg-dark);
+    border-radius: var(--radius-lg); padding: 16px;
+    cursor: pointer; background: var(--bg-soft);
+    transition: all var(--transition);
+    text-align: left; font-family: inherit;
+  }
+  .module-card:hover {
+    border-color: var(--sec-30);
+    transform: translateY(-1px); box-shadow: var(--shadow-md);
+  }
+  .module-card .ico {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--secondary); margin-bottom: 8px;
+    letter-spacing: 0.10em; text-transform: uppercase; font-weight: 700;
+  }
+  .module-card h3 {
+    margin: 0 0 4px; font-size: 16px; font-weight: 600;
+    color: var(--primary); font-family: var(--font-sans);
+    letter-spacing: -0.01em;
+  }
+  .module-card p { margin: 0; font-size: 13px; color: var(--ink-soft); line-height: 1.4; }
+
+  /* Forms (módulos NO-expediente) */
+  .module-view { display: none; }
+  .module-view.active { display: block; }
+
+  .back-btn {
+    background: none; border: none; color: var(--secondary);
+    font-family: var(--font-mono); font-size: 11px;
+    cursor: pointer; padding: 4px 0; margin-bottom: 12px;
+    text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;
+  }
+  .back-btn:hover { color: var(--primary); }
+
+  .form-title {
+    font-family: var(--font-serif); font-size: 26px; font-weight: 400;
+    color: var(--primary); margin: 0 0 4px;
+    letter-spacing: -0.02em; line-height: 1.1;
+  }
+  .form-sub { color: var(--ink-soft); font-size: 13.5px; margin: 0 0 20px; }
+
+  .field { margin-bottom: 14px; }
+  .field label {
+    display: block; font-family: var(--font-mono);
+    font-size: 10.5px; color: var(--primary);
+    margin-bottom: 6px; letter-spacing: 0.08em;
+    text-transform: uppercase; font-weight: 700;
+  }
+  .field input, .field textarea, .field select {
+    width: 100%; padding: 11px 13px;
+    border: 1px solid var(--bg-dark); border-radius: var(--radius-sm);
+    font-family: var(--font-sans); font-size: 14px;
+    background: var(--bg-soft); color: var(--ink);
+    transition: border-color var(--transition), background var(--transition);
+  }
+  .field textarea { min-height: 92px; resize: vertical; line-height: 1.5; }
+  .field input::placeholder, .field textarea::placeholder { color: var(--ink-mute); }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    outline: none; border-color: var(--primary); background: #FFFFFF;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 8px; padding: 13px 18px; border-radius: var(--radius-sm);
+    background: var(--primary); color: var(--bg-soft);
+    border: none; font-weight: 600; font-size: 14px;
+    cursor: pointer; font-family: var(--font-sans);
+    transition: background var(--transition), opacity var(--transition);
+    width: 100%; letter-spacing: -0.01em;
+  }
+  .btn:hover { background: var(--primary-90); }
+  .btn:disabled { background: var(--secondary); cursor: not-allowed; opacity: 0.65; }
+
+  /* Response */
+  .response-wrap { margin-top: 24px; }
+  .response {
+    border: 1px solid var(--bg-dark);
+    border-radius: var(--radius-md); padding: 20px;
+    background: var(--bg-soft);
+  }
+  .response h1, .response h2, .response h3 {
+    color: var(--primary); margin: 18px 0 8px; font-weight: 600;
+    font-family: var(--font-sans); letter-spacing: -0.01em;
+  }
+  .response h1 { font-size: 19px; }
+  .response h2 { font-size: 16px; }
+  .response h3 { font-size: 14px; }
+  .response p { margin: 8px 0; }
+  .response ul, .response ol { margin: 8px 0; padding-left: 20px; }
+  .response li { margin: 4px 0; }
+  .response strong { color: var(--primary); font-weight: 600; }
+  .response code {
+    background: #FFFFFF; padding: 2px 6px; border-radius: 4px;
+    font-family: var(--font-mono); font-size: 12.5px;
+    border: 1px solid var(--bg-dark); color: var(--ink);
+  }
+  .response pre {
+    background: #FFFFFF; padding: 12px; border-radius: var(--radius-sm);
+    overflow-x: auto; border: 1px solid var(--bg-dark); font-size: 12.5px;
+  }
+  .response pre code { border: none; padding: 0; background: transparent; }
+  .response table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  .response th, .response td { padding: 9px 11px; border-bottom: 1px solid var(--bg-dark); text-align: left; }
+  .response th {
+    background: #FFFFFF; color: var(--primary); font-weight: 700;
+    font-family: var(--font-mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+
+  /* Loading */
+  .loading {
+    display: flex; align-items: center; gap: 10px; padding: 16px;
+    color: var(--ink-soft); font-family: var(--font-mono);
+    font-size: 12.5px; letter-spacing: 0.02em;
+  }
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid var(--bg-dark);
+    border-top-color: var(--primary);
+    border-radius: 50%; animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Followup */
+  .followup { margin-top: 22px; border-top: 1px solid var(--bg-dark); padding-top: 20px; }
+  .followup-title {
+    font-size: 14px; font-weight: 600; color: var(--primary);
+    margin: 0 0 14px; font-family: var(--font-sans); letter-spacing: -0.01em;
+  }
+  .chat-history {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 14px; max-height: 360px; overflow-y: auto; padding-right: 4px;
+  }
+  .chat-msg { padding: 11px 15px; border-radius: var(--radius-md); max-width: 90%; font-size: 14px; line-height: 1.5; }
+  .chat-msg.user { align-self: flex-end; background: var(--primary); color: var(--bg-soft); border-bottom-right-radius: 4px; }
+  .chat-msg.assistant {
+    align-self: flex-start; background: var(--bg-soft);
+    border: 1px solid var(--bg-dark); color: var(--ink); border-bottom-left-radius: 4px;
+  }
+  .chat-input-row { display: flex; gap: 8px; }
+  .chat-input-row textarea {
+    flex: 1; padding: 11px 13px; border: 1px solid var(--bg-dark);
+    border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 14px;
+    background: var(--bg-soft); color: var(--ink); resize: none;
+    min-height: 44px; max-height: 120px; line-height: 1.5;
+  }
+  .chat-input-row textarea::placeholder { color: var(--ink-mute); }
+  .chat-input-row textarea:focus { outline: none; border-color: var(--primary); background: #FFFFFF; }
+  .chat-input-row .btn { width: auto; padding: 0 18px; font-size: 13px; }
+
+  /* Upgrade */
+  .upgrade {
+    border: 1px solid var(--primary); border-radius: var(--radius-lg);
+    padding: 22px 20px; background: var(--bg-soft);
+    margin: 16px 0; box-shadow: var(--shadow-sm);
+  }
+  .upgrade h3 {
+    margin: 0 0 6px; color: var(--primary); font-size: 19px;
+    font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.015em;
+  }
+  .upgrade p { margin: 0 0 16px; color: var(--ink-soft); font-size: 13.5px; }
+  .upgrade-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 480px) { .upgrade-grid { grid-template-columns: 1fr; } }
+  .pay-btn {
+    display: flex; flex-direction: column; align-items: flex-start;
+    padding: 13px 14px; border: 1px solid var(--bg-dark);
+    border-radius: var(--radius-sm); background: #FFFFFF;
+    color: var(--primary); text-decoration: none;
+    transition: all var(--transition); gap: 2px;
+  }
+  .pay-btn:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+  .pay-btn .region {
+    font-family: var(--font-mono); font-size: 9.5px;
+    color: var(--secondary); text-transform: uppercase;
+    letter-spacing: 0.10em; font-weight: 700; margin-bottom: 2px;
+  }
+  .pay-btn .price {
+    font-family: var(--font-mono); font-weight: 700; font-size: 14.5px;
+    color: var(--primary); letter-spacing: -0.01em;
+  }
+  .pay-btn .label { color: var(--ink-soft); font-size: 12px; }
+
+  .error-banner {
+    background: var(--error-bg); color: var(--error);
+    padding: 11px 14px; border-radius: var(--radius-sm);
+    font-size: 13px; margin: 10px 0;
+    border: 1px solid rgba(165, 63, 43, 0.20);
+  }
+
+  /* Radio (laser_pbm en módulos no-expediente) */
+  .radio-group { display: flex; gap: 8px; }
+  .radio-group label {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    padding: 11px; border: 1px solid var(--bg-dark);
+    border-radius: var(--radius-sm); cursor: pointer;
+    font-family: var(--font-mono); font-size: 12px;
+    text-transform: none; letter-spacing: 0;
+    color: var(--ink); margin: 0;
+    background: var(--bg-soft); transition: all var(--transition);
+  }
+  .radio-group input[type="radio"] { display: none; }
+  .radio-group input[type="radio"]:checked + span { color: var(--primary); font-weight: 700; }
+  .radio-group label:has(input:checked) { border-color: var(--primary); background: var(--primary-5); }
+
+  .hidden { display: none !important; }
+
+  /* =====================================================
+   * FASE 2 · Sistema de chips + acordeones (EXPEDIENTE)
+   * ===================================================== */
+
+  /* Accordion */
+  .accordion {
+    background: var(--bg-soft);
+    border: 1px solid var(--bg-dark);
+    border-radius: var(--radius-md);
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: border-color var(--transition);
+  }
+  .accordion.expanded { border-color: var(--sec-30); }
+  .accordion-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; cursor: pointer; gap: 12px;
+    user-select: none;
+  }
+  .accordion-head-left {
+    display: flex; align-items: baseline; gap: 10px; flex: 0 0 auto; min-width: 0;
+  }
+  .accordion-num {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--secondary); font-weight: 700; letter-spacing: 0.05em;
+  }
+  .accordion-title {
+    font-size: 14px; font-weight: 600; color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .accordion-summary {
+    font-size: 12.5px; color: var(--ink-soft);
+    flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    text-align: right; min-width: 0;
+  }
+  .accordion-summary.empty { color: var(--ink-mute); }
+  .accordion-summary .edit {
+    color: var(--secondary); text-transform: uppercase;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.08em; margin-left: 8px; font-weight: 700;
+  }
+  .accordion.expanded .accordion-summary { display: none; }
+  .accordion-toggle {
+    font-family: var(--font-serif); font-size: 20px;
+    color: var(--secondary); line-height: 1;
+    transition: transform var(--transition);
+    flex-shrink: 0;
+  }
+  .accordion.expanded .accordion-toggle { transform: rotate(90deg); color: var(--primary); }
+  .accordion-body { padding: 0 16px 16px; display: none; }
+  .accordion.expanded .accordion-body { display: block; }
+  .accordion-divider { height: 1px; background: var(--bg-dark); margin: 4px 0 14px; }
+
+  /* Field group inside accordion */
+  .field-group { margin-bottom: 14px; }
+  .field-group:last-child { margin-bottom: 0; }
+  .field-group-label {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--ink-soft); text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 8px; font-weight: 700;
+  }
+
+  /* Chips base */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    padding: 7px 13px; border-radius: var(--radius-pill);
+    background: var(--bg); border: 1px solid var(--sec-30);
+    color: var(--ink); font-size: 12.5px; font-weight: 500;
+    cursor: pointer; transition: all 180ms ease;
+    line-height: 1.2; user-select: none;
+    font-family: var(--font-sans);
+  }
+  .chip:hover { background: var(--sec-10); border-color: var(--secondary); }
+  .chip.active { background: var(--primary); color: var(--bg-soft); border-color: var(--primary); }
+  .chip.compact { padding: 7px 11px; font-size: 12px; }
+
+  /* Chip con abreviatura + expansión (stack vertical) */
+  .chip-stack {
+    padding: 5px 11px 6px;
+    display: inline-flex; flex-direction: column; align-items: center;
+    line-height: 1.05; gap: 1px;
+  }
+  .chip-stack .abbr {
+    font-size: 12.5px; font-weight: 600; letter-spacing: -0.01em;
+  }
+  .chip-stack .full {
+    font-size: 9px; color: var(--ink-mute);
+    font-family: var(--font-mono); text-transform: lowercase;
+    letter-spacing: 0; font-weight: 400;
+  }
+  .chip-stack.active .full { color: rgba(250, 247, 242, 0.65); }
+
+  /* Chip de alerta (Bifosfonatos / ONJ) */
+  .chip-alert {
+    background: var(--warn-bg); border: 2px solid var(--warning);
+    color: var(--ink); padding: 4px 11px 5px;
+  }
+  .chip-alert:hover { background: #F8E5CC; border-color: var(--warning); }
+  .chip-alert.active { background: var(--warning); color: var(--bg-soft); border-color: var(--warning); }
+  .chip-alert.active .full { color: rgba(250, 247, 242, 0.85); }
+  .chip-alert .full { color: var(--warning); font-weight: 700; }
+  .chip-alert .alert-tag {
+    display: inline-block; font-family: var(--font-mono);
+    font-size: 8.5px; background: var(--warning); color: var(--bg-soft);
+    padding: 1px 5px; border-radius: 3px; margin-left: 4px;
+    font-weight: 700; letter-spacing: 0.04em;
+    vertical-align: middle; line-height: 1.1;
+  }
+  .chip-alert.active .alert-tag {
+    background: var(--bg-soft); color: var(--warning);
+  }
+
+  .chip-more {
+    background: transparent; border: 1px dashed var(--sec-30);
+    color: var(--secondary); font-family: var(--font-mono);
+    font-size: 11px; letter-spacing: 0.02em;
+  }
+  .chip-more:hover { border-color: var(--secondary); background: var(--sec-10); }
+
+  /* Chip "Exacto" con input */
+  .chip-exact {
+    background: var(--bg-soft); border: 1px solid var(--sec-30);
+    color: var(--secondary); font-family: var(--font-mono);
+    font-size: 11px; letter-spacing: 0.02em;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .chip-exact:hover { background: var(--sec-10); border-color: var(--secondary); }
+  .chip-exact.has-value {
+    background: var(--primary); color: var(--bg-soft); border-color: var(--primary);
+  }
+  .chip-exact input {
+    width: 44px; background: transparent; border: none;
+    border-bottom: 1px solid currentColor; color: inherit;
+    font-family: var(--font-mono); font-size: 12px;
+    text-align: center; padding: 0 2px; outline: none;
+  }
+  .chip-exact input::-webkit-inner-spin-button,
+  .chip-exact input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+  /* Chip "Otro" con input inline expandible debajo */
+  .otro-input-wrap {
+    margin-top: 8px; display: none;
+  }
+  .otro-input-wrap.show { display: flex; gap: 6px; }
+  .otro-input-wrap input {
+    flex: 1; padding: 8px 11px;
+    border: 1px solid var(--sec-30); border-radius: var(--radius-pill);
+    background: var(--bg-soft); color: var(--ink);
+    font-family: var(--font-sans); font-size: 12.5px;
+    outline: none;
+  }
+  .otro-input-wrap input:focus { border-color: var(--primary); background: #FFFFFF; }
+
+  /* IMC display */
+  .imc-hint {
+    font-size: 11.5px; color: var(--ink-mute);
+    margin-top: 10px; font-style: italic; line-height: 1.3;
+  }
+  .imc-display {
+    margin-top: 10px;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px; background: var(--sec-10);
+    border: 1px solid var(--sec-30); border-radius: var(--radius-md);
+  }
+  .imc-display .imc-label {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--secondary); text-transform: uppercase;
+    letter-spacing: 0.08em; font-weight: 700;
+  }
+  .imc-display .imc-value {
+    font-family: var(--font-mono); font-size: 16px;
+    color: var(--primary); font-weight: 700;
+  }
+  .imc-display .imc-cat { font-size: 11.5px; color: var(--ink-soft); }
+
+  /* Medicamentos seleccionados list */
+  .med-selected {
+    display: flex; flex-direction: column; gap: 6px;
+    margin-top: 6px;
+  }
+  .med-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px; background: var(--bg);
+    border: 1px solid var(--sec-30); border-radius: var(--radius-md);
+  }
+  .med-row-name {
+    flex: 1; font-size: 13px; color: var(--ink); font-weight: 500;
+  }
+  .med-row-cat {
+    font-family: var(--font-mono); font-size: 9.5px;
+    color: var(--ink-mute); text-transform: uppercase;
+    letter-spacing: 0.06em; margin-right: 8px;
+  }
+  .med-freq-btn {
+    font-family: var(--font-mono); font-size: 11px;
+    background: var(--primary-5); color: var(--primary);
+    border: 1px solid var(--sec-30); border-radius: var(--radius-pill);
+    padding: 4px 10px; cursor: pointer; font-weight: 700;
+    letter-spacing: 0.01em;
+    transition: all var(--transition);
+  }
+  .med-freq-btn:hover { background: var(--primary-10); }
+  .med-row-remove {
+    background: none; border: none;
+    color: var(--ink-mute); font-family: var(--font-mono);
+    font-size: 16px; cursor: pointer; line-height: 1;
+    padding: 0 4px;
+  }
+  .med-row-remove:hover { color: var(--error); }
+
+  /* Nota complementaria */
+  .nota-complementaria { margin-top: 18px; }
+  .nota-complementaria label {
+    display: block; font-family: var(--font-mono);
+    font-size: 10.5px; color: var(--primary);
+    margin-bottom: 6px; letter-spacing: 0.08em;
+    text-transform: uppercase; font-weight: 700;
+  }
+  .nota-complementaria textarea {
+    width: 100%; min-height: 100px; padding: 12px 14px;
+    border: 1px solid var(--bg-dark); border-radius: var(--radius-md);
+    background: var(--bg-soft); color: var(--ink);
+    font-family: var(--font-sans); font-size: 14px; line-height: 1.55;
+    resize: vertical; outline: none;
+    transition: border-color var(--transition), background var(--transition);
+  }
+  .nota-complementaria textarea::placeholder { color: var(--ink-mute); }
+  .nota-complementaria textarea:focus { border-color: var(--primary); background: #FFFFFF; }
+
+  /* =====================================================
+   * FASE 2.1 · Sistema de resaltado clínico
+   * (badges aplicados al output del agente vía
+   *  applyClinicalHighlights() después de mdToHtml)
+   * ===================================================== */
+
+  /* Badges de cabecera de riesgo */
+  .risk-high, .risk-warn, .risk-low {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.95em;
+    letter-spacing: 0.01em;
+  }
+  .risk-high { background: var(--error-bg);   color: var(--error); }
+  .risk-warn { background: var(--warn-bg);    color: var(--warning); }
+  .risk-low  { background: var(--success-bg); color: var(--success); }
+
+  /* Sub-labels de sección (texto coloreado, sin fondo) */
+  .label-avoid { color: var(--error);   font-weight: 700; }
+  .label-use   { color: var(--success); font-weight: 700; }
+  .label-warn  { color: var(--warning); font-weight: 700; }
+
+  /* Badges de decisión final (filled, fuertes) */
+  .decision-go, .decision-adjust, .decision-stop {
+    display: inline-block;
+    padding: 6px 13px;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 0.98em;
+    letter-spacing: 0.02em;
+  }
+  .decision-go     { background: var(--success-bg); color: var(--success); }
+  .decision-adjust { background: var(--warn-bg);    color: var(--warning); }
+  .decision-stop   { background: var(--error-bg);   color: var(--error); }
+
+  /* Riesgo inline (la palabra alto/moderado/bajo en bullets de alertas) */
+  .risk-inline-high { color: var(--error);   font-weight: 700; }
+  .risk-inline-warn { color: var(--warning); font-weight: 700; }
+  .risk-inline-low  { color: var(--success); font-weight: 700; }
+
+  /* ===== Modo Revisión (toggle + chips) ===== */
+  .review-toggle {
+    margin: var(--space-4) 0 var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-soft);
+    border: 1px solid var(--bg-dark);
+    border-radius: var(--radius-md);
+    transition: border-color 150ms ease, background 150ms ease;
+  }
+  .review-toggle.is-on {
+    background: var(--primary-5);
+    border-color: var(--sec-30);
+  }
+  .review-toggle-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .review-switch {
+    position: relative;
+    flex: 0 0 auto;
+    width: 38px;
+    height: 22px;
+    background: var(--bg-dark);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 150ms ease;
+  }
+  .review-switch::after {
+    content: '';
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 18px; height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: var(--shadow-sm);
+    transition: transform 150ms ease;
+  }
+  .review-toggle.is-on .review-switch { background: var(--primary); }
+  .review-toggle.is-on .review-switch::after { transform: translateX(16px); }
+  .review-label {
+    flex: 1 1 auto;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 0.95em;
+    user-select: none;
+  }
+  .review-pill {
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: 0.72em;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: var(--warn-bg);
+    color: var(--warning);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    border: 1px solid var(--warn-border);
+    opacity: 0;
+    transform: scale(0.92);
+    transition: opacity 150ms ease, transform 150ms ease;
+  }
+  .review-toggle.is-on .review-pill { opacity: 1; transform: scale(1); }
+  .review-caption {
+    margin-top: var(--space-2);
+    font-size: 0.82em;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+  .review-caption strong { color: var(--ink); font-weight: 600; }
+  .review-caption .review-cost { color: var(--warning); font-weight: 700; font-family: var(--font-mono); }
+  .review-toggle-hidden { display: none; }
+  .review-toggle.is-disabled { opacity: .6; }
+  .review-toggle.is-disabled .review-toggle-row { cursor: not-allowed; }
+  .review-toggle.is-disabled .review-switch { background: var(--cream-dark); cursor: not-allowed; }
+  .review-toggle.is-disabled .review-pill { opacity: .5; }
+  .review-caption .review-need { color: var(--warning); font-weight: 600; }
+
+  /* Chips de confirmación tras verificación */
+  .review-chips {
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px dashed var(--bg-dark);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .review-chip {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    font-family: var(--font-sans);
+    font-size: 0.92em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 150ms ease;
+    text-align: center;
+    border: 1px solid;
+  }
+  .review-chip-primary {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+  }
+  .review-chip-primary:hover { background: var(--ink); border-color: var(--ink); }
+  .review-chip-secondary {
+    background: transparent;
+    color: var(--primary);
+    border-color: var(--sec-30);
+  }
+  .review-chip-secondary:hover { background: var(--primary-5); border-color: var(--secondary); }
+
+  /* -------- Interconsulta: banner de herencia desde Expediente -------- */
+  .inter-heredado-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    margin-bottom: var(--space-4);
+    border-radius: var(--radius-sm);
+    background: var(--primary-5);
+    border-left: 3px solid var(--primary);
+    font-size: 0.88em;
+  }
+  .inter-heredado-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    font-weight: 600;
+  }
+  .inter-heredado-icon {
+    font-size: 1.1em;
+    line-height: 1;
+  }
+  .inter-heredado-edit {
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    text-decoration: underline;
+    font-family: var(--font-sans);
+    font-size: 0.85em;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px 8px;
+  }
+  .inter-heredado-edit:hover { color: var(--ink); }
+
+  /* -------- Next-step button (al final del reporte de Expediente) -------- */
+  .next-step-wrap {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px dashed var(--bg-dark);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .next-step-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    background: var(--primary-5);
+    border: 1px solid var(--sec-30);
+    color: var(--primary);
+    font-family: var(--font-sans);
+    font-size: 0.95em;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: all 150ms ease;
+    width: 100%;
+  }
+  .next-step-btn:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+  }
+  .next-step-icon {
+    font-size: 1.2em;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .next-step-text {
+    flex: 1 1 auto;
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <header class="header">
+    <div class="logo">IKMeds<span class="logo-dot">.</span></div>
+    <div class="header-right">
+      <span id="credits-pill" class="credits-pill">—</span>
+      <select id="lang-select" class="lang-select">
+        <option value="es">ES</option>
+        <option value="en">EN</option>
+        <option value="pt">PT</option>
+        <option value="ja">JA</option>
+        <option value="ko">KO</option>
+      </select>
+    </div>
+  </header>
+
+  <section id="view-home" class="view">
+    <div class="welcome">
+      <h1 id="welcome-title">Hola</h1>
+      <p id="welcome-sub">Elige un módulo para comenzar.</p>
+    </div>
+    <div id="upgrade-home" class="hidden"></div>
+    <div id="modules" class="modules"></div>
+  </section>
+
+  <section id="view-module" class="view hidden">
+    <button id="back-btn" class="back-btn">‹ <span id="back-label">Volver</span></button>
+    <h2 id="module-title" class="form-title"></h2>
+    <p id="module-sub" class="form-sub"></p>
+
+    <div id="form-container"></div>
+
+    <div id="review-toggle-container" class="review-toggle-hidden"></div>
+
+    <button id="submit-btn" class="btn"><span id="submit-label">Consultar</span></button>
+
+    <div id="error-box"></div>
+
+    <div id="response-wrap" class="response-wrap hidden">
+      <div id="response" class="response"></div>
+      <div id="followup" class="followup hidden">
+        <div class="followup-title" id="followup-title">¿Tienes alguna duda sobre este reporte?</div>
+        <div id="chat-history" class="chat-history"></div>
+        <div class="chat-input-row">
+          <textarea id="chat-input" placeholder="Escribe tu pregunta..."></textarea>
+          <button id="chat-send" class="btn"><span id="chat-send-label">Enviar</span></button>
+        </div>
+      </div>
+    </div>
+
+    <div id="upgrade-module" class="hidden"></div>
+  </section>
+
+</div>
+
+<script>
+/* ============================================================
+ * IKMeds v2 (chat) — GitHub Pages
+ * Fase 2: añadido sistema de chips/acordeones en EXPEDIENTE.
+ * Otros 4 módulos sin cambios respecto a Fase 1.
+ * Webhooks, payload, Stripe, I18N intactos.
+ * ============================================================ */
+
+const N8N_CHAT_URL = 'https://laserai.app.n8n.cloud/webhook/ikmeds-chat-v3';
+const N8N_RESULT_URL = 'https://laserai.app.n8n.cloud/webhook/ikmeds-get-result';
+const N8N_PROFILE_URL = 'https://laserai.app.n8n.cloud/webhook/ikmeds-get-profile';
+
+const STRIPE_LINKS = {
+  initial_mxn: 'https://buy.stripe.com/dRmeV538XgHwfaq5YXdIA0x',
+  initial_usd: 'https://buy.stripe.com/bJe4gr6l90Iy6DU0EDdIA15',
+  topup10_mxn: 'https://buy.stripe.com/4gMaEP5h5gHw7HY731dIA16',
+  topup10_usd: 'https://buy.stripe.com/dRm14f6l9bncgeu2MLdIA17',
+  topup25_mxn: 'https://buy.stripe.com/3cI00b5h54YO0fw9b9dIA18',
+  topup25_usd: 'https://buy.stripe.com/6oU4gr8th4YO2nEdrpdIA19',
+};
+
+/* -------- i18n -------- */
+const I18N = {
+  es: {
+    hello: 'Hola',
+    choose_module: 'Elige un módulo para comenzar.',
+    credits: 'consultas',
+    back: 'Volver',
+    consult: 'Consultar',
+    send: 'Enviar',
+    followup_title: '¿Tienes alguna duda sobre este reporte?',
+    followup_placeholder: 'Escribe tu pregunta...',
+    out_of_credits_title: 'Consultas agotadas',
+    out_of_credits_body: 'Para continuar, recarga tu cuenta:',
+    initial_label: 'Acceso inicial · 5 consultas',
+    topup10_label: 'Recarga · 10 consultas',
+    topup25_label: 'Recarga · 25 consultas',
+    region_mx: 'México',
+    region_intl: 'Internacional',
+    error_generic: 'Hubo un error. Intenta de nuevo.',
+    error_network: 'Error de conexión. Verifica tu internet.',
+    error_empty: 'Selecciona al menos una opción o describe el caso en la nota.',
+    loading: 'Analizando...',
+    modules: {
+      consulta: { title: 'Consulta Rápida', desc: 'Interacción farmacológica puntual', ico: 'QUICK' },
+      expediente: { title: 'Consulta Dedicada', desc: 'Reporte completo con historial clínico', ico: 'FULL' },
+      interconsulta: { title: 'Interconsulta', desc: 'Referencia a especialista', ico: 'REFER' },
+    },
+    fields: {
+      nombre_paciente: 'Nombre del paciente',
+      nombre_paciente_ph: 'Ej: Albert Einstein',
+      query: 'Consulta',
+      query_ph: 'Ej: ¿Puedo dar Augmentin si el paciente toma Lipitor?',
+      HistClin_ph: 'Ej: Mujer 45 años, 65kg, HTA controlada, alérgica a penicilina, toma metformina...',
+      procedimiento_ph: 'Ej: Extracción molar, endodoncia, implante, cirugía periodontal, restauración...',
+      anestesia_ph: 'Ej: Articaína 4% con epinefrina, Lidocaína 2%, Mepivacaína 3% sin vasoconstrictor...',
+      medstomando_ph: 'Ej: Losartán 50mg, Metformina 850mg, Lipitor, Aspirina 100mg...',
+      receta_ph: 'Ej: Amoxicilina 500mg c/8h x7d, Ibuprofeno 400mg c/8h, Clindamicina 300mg...',
+      objetivo_PBM_ph: 'Ej: Analgesia postoperatoria, regeneración ósea, bioestimulación, cicatrización...',
+      dispositivo_laser_ph: 'Ej: 980nm diodo, 650nm rojo, Epic X, Waterlase iPlus, Fotona LightWalker...',
+      area_tratamiento_ph: 'Ej: Encía marginal, zona periapical, mucosa, ATM, labio...',
+      HistClin: 'Historia clínica relevante',
+      procedimiento: 'Procedimiento',
+      anestesia: 'Anestésico a usar',
+      medstomando: 'Medicamentos que toma el paciente',
+      receta: 'Medicamentos a recetar',
+      laser_pbm: '¿Usa láser / PBM?',
+      objetivo_PBM: 'Objetivo del PBM',
+      dispositivo_laser: 'Dispositivo / longitud de onda',
+      peso_paciente: 'Peso del paciente (kg)',
+      medicamento: 'Medicamento a calcular',
+      condicion: 'Condición del paciente',
+      area_tratamiento: 'Área a tratar',
+      yes: 'Sí', no: 'No',
+    },
+    exp: {
+      nota_label: 'Nota clínica complementaria',
+      nota_ph: 'Continúa aquí, o si es más rápido, cuéntame el caso directamente y omite el formulario.',
+      acc_paciente: 'Paciente',
+      acc_antecedentes: 'Antecedentes',
+      acc_medicamentos: 'Medicamentos',
+      acc_procedimiento: 'Procedimiento',
+      acc_anestesia: 'Anestesia',
+      acc_pbm: 'Láser / PBM',
+      lbl_genero: 'Género',
+      lbl_edad: 'Edad',
+      lbl_peso: 'Peso',
+      lbl_talla: 'Talla',
+      lbl_categoria: 'Categoría',
+      lbl_especifico: 'Específico',
+      lbl_seleccionados: 'Seleccionados',
+      lbl_frecuencia: 'Frecuencia',
+      lbl_especialidad: 'Especialidad',
+      lbl_procedimiento: 'Procedimiento específico',
+      lbl_receta: 'Lo que piensas recetar (opcional)',
+      lbl_receta_ph: 'Ej: Amoxicilina 500mg c/8h x7d, Ibuprofeno 400mg c/8h SOS...',
+      lbl_anestesicos: 'Anestésico(s) a usar',
+      lbl_pbm: '¿Usará láser / PBM?',
+      lbl_obj_pbm: 'Objetivo del PBM',
+      lbl_obj_pbm_ph: 'Ej: Analgesia postoperatoria, regeneración ósea...',
+      lbl_disp_laser: 'Dispositivo / longitud de onda',
+      lbl_disp_laser_ph: 'Ej: 980nm diodo, Epic X...',
+      lbl_pbm_mecanismo: 'Objetivo (mecanismo de acción)',
+      lbl_pbm_indicacion: 'Indicación clínica',
+      lbl_pbm_indicacion_otro_ph: 'Especifica la indicación clínica...',
+      lbl_pbm_dispositivo: 'Dispositivo / longitud de onda',
+      lbl_pbm_dispositivo_otro_ph: 'Especifica el dispositivo o longitud de onda...',
+      imc_hint: 'Ingresa peso y talla exactos para calcular IMC automáticamente.',
+      imc_label: 'IMC',
+      otro: 'Otro',
+      otro_ph: 'Especifica...',
+      lbl_alergias: 'Alergias',
+      alergias_ninguna: 'Ninguna conocida',
+      lbl_med_libre: 'Otros',
+      med_libre_ph: 'Otros medicamentos que tome el paciente y no estén en la lista...',
+      otro_add: 'Agregar',
+      mas: 'más',
+      empty_summary: 'Sin definir',
+      btn_generar: 'Generar reporte',
+    },
+    inter: {
+      acc_destino: 'Destino de la interconsulta',
+      acc_caso: 'Caso clínico',
+      acc_pregunta: 'Pregunta al especialista',
+      lbl_especialidad: 'Especialidad destino',
+      lbl_motivo: 'Motivo específico',
+      lbl_motivo_otro_ph: 'Especifica el motivo...',
+      lbl_motivo_otro_label: 'Especialidad y motivo',
+      lbl_especialidad_libre_ph: 'Describe la especialidad destino y el motivo (ej: Geriatría — valoración pre-extracción en paciente frágil)',
+      lbl_tipo_pregunta: 'Tipo de pregunta (opcional)',
+      lbl_pregunta: 'Pregunta o duda específica',
+      lbl_pregunta_ph: 'Describa la pregunta o duda específica que motiva esta interconsulta. Ej: "El paciente requiere extracción molar mañana, ¿es seguro mantener el clopidogrel? ¿Cuál es el INR objetivo?"',
+      btn_generar: 'Generar carta de interconsulta',
+      btn_generar_expediente: 'Generar carta de interconsulta',
+      btn_paciente_version: 'Versión para paciente',
+      heredado_banner: 'Heredado de Consulta Dedicada',
+      heredado_editar: 'Editar caso clínico',
+      heredado_caso_resumen: 'Datos clínicos heredados',
+      empty_caso: 'Sin datos clínicos. Toca para completar.',
+    },
+    review: {
+      label: 'Modo Revisión',
+      caption_strong: 'Reduce el riesgo de error:',
+      caption_rest: ' IKMeds valida fármacos, dosis y datos clínicos contigo antes de generar el reporte.',
+      caption_cost: '+1 crédito',
+      need_credits: 'Necesitas 2 créditos disponibles para usar la verificación.',
+      chip_confirm: 'Confirmo, generar reporte',
+      chip_correct: 'Corregir / añadir contexto',
+      correct_placeholder: 'Aclara o corrige las interpretaciones del asistente...',
+      confirm_message: 'Confirmado. Procede a generar el reporte.',
+    },
+  },
+  en: {
+    hello: 'Hi',
+    choose_module: 'Pick a module to get started.',
+    credits: 'consults',
+    back: 'Back',
+    consult: 'Consult',
+    send: 'Send',
+    followup_title: 'Any follow-up questions about this report?',
+    followup_placeholder: 'Type your question...',
+    out_of_credits_title: 'Out of consults',
+    out_of_credits_body: 'To continue, top up your account:',
+    initial_label: 'Initial access · 5 consults',
+    topup10_label: 'Top-up · 10 consults',
+    topup25_label: 'Top-up · 25 consults',
+    region_mx: 'Mexico',
+    region_intl: 'International',
+    error_generic: 'Something went wrong. Please try again.',
+    error_network: 'Network error. Check your connection.',
+    error_empty: 'Select at least one option or describe the case in the note.',
+    loading: 'Analyzing...',
+    modules: {
+      consulta: { title: 'Quick Consult', desc: 'Point pharmacological check', ico: 'QUICK' },
+      expediente: { title: 'Dedicated Consult', desc: 'Complete report with clinical history', ico: 'FULL' },
+      interconsulta: { title: 'Referral', desc: 'Specialist referral', ico: 'REFER' },
+    },
+    fields: {
+      nombre_paciente: 'Patient name',
+      nombre_paciente_ph: 'E.g.: Albert Einstein',
+      query: 'Query',
+      query_ph: 'E.g.: Can I give Augmentin if patient takes Lipitor?',
+      HistClin_ph: 'E.g.: Female 45yo, 65kg, controlled hypertension, penicillin allergy, takes metformin...',
+      procedimiento_ph: 'E.g.: Molar extraction, root canal, implant, periodontal surgery, restoration...',
+      anestesia_ph: 'E.g.: Articaine 4% with epinephrine, Lidocaine 2%, Mepivacaine 3% without vasoconstrictor...',
+      medstomando_ph: 'E.g.: Losartan 50mg, Metformin 850mg, Lipitor, Aspirin 100mg...',
+      receta_ph: 'E.g.: Amoxicillin 500mg q8h x7d, Ibuprofen 400mg q8h, Clindamycin 300mg...',
+      objetivo_PBM_ph: 'E.g.: Postoperative analgesia, bone regeneration, biostimulation, wound healing...',
+      dispositivo_laser_ph: 'E.g.: 980nm diode, 650nm red, Epic X, Waterlase iPlus, Fotona LightWalker...',
+      area_tratamiento_ph: 'E.g.: Marginal gingiva, periapical area, mucosa, TMJ, lip...',
+      HistClin: 'Relevant clinical history',
+      procedimiento: 'Procedure',
+      anestesia: 'Anesthetic to use',
+      medstomando: 'Patient current medications',
+      receta: 'Medications to prescribe',
+      laser_pbm: 'Using laser / PBM?',
+      objetivo_PBM: 'PBM goal',
+      dispositivo_laser: 'Device / wavelength',
+      peso_paciente: 'Patient weight (kg)',
+      medicamento: 'Medication to calculate',
+      condicion: 'Patient condition',
+      area_tratamiento: 'Treatment area',
+      yes: 'Yes', no: 'No',
+    },
+    exp: {
+      nota_label: 'Additional clinical note',
+      nota_ph: 'Continue here, or if it\'s faster, just tell me the case directly and skip the form.',
+      acc_paciente: 'Patient', acc_antecedentes: 'History',
+      acc_medicamentos: 'Medications', acc_procedimiento: 'Procedure', acc_anestesia: 'Anesthesia', acc_pbm: 'Laser / PBM',
+      lbl_genero: 'Gender', lbl_edad: 'Age', lbl_peso: 'Weight', lbl_talla: 'Height',
+      lbl_categoria: 'Category', lbl_especifico: 'Specific',
+      lbl_seleccionados: 'Selected', lbl_frecuencia: 'Frequency',
+      lbl_especialidad: 'Specialty', lbl_procedimiento: 'Specific procedure',
+      lbl_receta: 'Planned prescription (optional)',
+      lbl_receta_ph: 'E.g.: Amoxicillin 500mg q8h x7d, Ibuprofen 400mg q8h PRN...',
+      lbl_anestesicos: 'Anesthetic(s) to use',
+      lbl_pbm: 'Using laser / PBM?',
+      lbl_obj_pbm: 'PBM goal',
+      lbl_obj_pbm_ph: 'E.g.: Postoperative analgesia, bone regeneration...',
+      lbl_disp_laser: 'Device / wavelength',
+      lbl_disp_laser_ph: 'E.g.: 980nm diode, Epic X...',
+      lbl_pbm_mecanismo: 'Goal (mechanism of action)',
+      lbl_pbm_indicacion: 'Clinical indication',
+      lbl_pbm_indicacion_otro_ph: 'Specify the clinical indication...',
+      lbl_pbm_dispositivo: 'Device / wavelength',
+      lbl_pbm_dispositivo_otro_ph: 'Specify the device or wavelength...',
+      imc_hint: 'Enter exact weight and height to compute BMI automatically.',
+      imc_label: 'BMI',
+      otro: 'Other', otro_ph: 'Specify...', otro_add: 'Add', mas: 'more',
+      lbl_alergias: 'Allergies', alergias_ninguna: 'None known', lbl_med_libre: 'Others', med_libre_ph: 'Other medications the patient takes not listed above...',
+      empty_summary: 'Not set',
+      btn_generar: 'Generate report',
+    },
+    inter: {
+      acc_destino: 'Referral destination',
+      acc_caso: 'Clinical case',
+      acc_pregunta: 'Question to specialist',
+      lbl_especialidad: 'Destination specialty',
+      lbl_motivo: 'Specific reason',
+      lbl_motivo_otro_ph: 'Specify the reason...',
+      lbl_motivo_otro_label: 'Specialty and reason',
+      lbl_especialidad_libre_ph: 'Describe the destination specialty and reason (e.g.: Geriatrics — pre-extraction assessment in frail patient)',
+      lbl_tipo_pregunta: 'Question type (optional)',
+      lbl_pregunta: 'Specific question or concern',
+      lbl_pregunta_ph: 'Describe the specific question or concern motivating this referral. Ex: "Patient needs molar extraction tomorrow, is it safe to continue clopidogrel? What INR target?"',
+      btn_generar: 'Generate referral letter',
+      btn_generar_expediente: 'Generate referral letter',
+      btn_paciente_version: 'Patient version',
+      heredado_banner: 'Inherited from Dedicated Consult',
+      heredado_editar: 'Edit clinical case',
+      heredado_caso_resumen: 'Inherited clinical data',
+      empty_caso: 'No clinical data. Tap to complete.',
+    },
+    review: {
+      label: 'Review Mode',
+      caption_strong: 'Reduce the risk of error:',
+      caption_rest: ' IKMeds validates drugs, doses, and clinical data with you before generating the report.',
+      caption_cost: '+1 credit',
+      need_credits: 'You need 2 available credits to use verification.',
+      chip_confirm: 'Confirm, generate report',
+      chip_correct: 'Correct / add context',
+      correct_placeholder: "Clarify or correct the assistant's interpretations...",
+      confirm_message: 'Confirmed. Please proceed to generate the report.',
+    },
+  },
+  pt: {
+    hello: 'Olá',
+    choose_module: 'Escolha um módulo para começar.',
+    credits: 'consultas',
+    back: 'Voltar', consult: 'Consultar', send: 'Enviar',
+    followup_title: 'Tem alguma dúvida sobre este relatório?',
+    followup_placeholder: 'Digite sua pergunta...',
+    out_of_credits_title: 'Consultas esgotadas',
+    out_of_credits_body: 'Para continuar, recarregue sua conta:',
+    initial_label: 'Acesso inicial · 5 consultas',
+    topup10_label: 'Recarga · 10 consultas',
+    topup25_label: 'Recarga · 25 consultas',
+    region_mx: 'México', region_intl: 'Internacional',
+    error_generic: 'Algo deu errado. Tente novamente.',
+    error_network: 'Erro de rede. Verifique sua conexão.',
+    error_empty: 'Selecione pelo menos uma opção ou descreva o caso na nota.',
+    loading: 'Analisando...',
+    modules: {
+      consulta: { title: 'Consulta Rápida', desc: 'Interação farmacológica pontual', ico: 'QUICK' },
+      expediente: { title: 'Consulta Dedicada', desc: 'Relatório com histórico clínico', ico: 'FULL' },
+      interconsulta: { title: 'Interconsulta', desc: 'Encaminhamento ao especialista', ico: 'REFER' },
+    },
+    fields: {
+      nombre_paciente: 'Nome do paciente',
+      nombre_paciente_ph: 'Ex: Albert Einstein',
+      query: 'Consulta',
+      query_ph: 'Ex: Posso dar Augmentin se o paciente toma Lipitor?',
+      HistClin_ph: 'Ex: Mulher 45 anos, 65kg, HAS controlada, alérgica a penicilina, toma metformina...',
+      procedimiento_ph: 'Ex: Extração molar, endodontia, implante, cirurgia periodontal, restauração...',
+      anestesia_ph: 'Ex: Articaína 4% com epinefrina, Lidocaína 2%, Mepivacaína 3% sem vasoconstritor...',
+      medstomando_ph: 'Ex: Losartana 50mg, Metformina 850mg, Lipitor, AAS 100mg...',
+      receta_ph: 'Ex: Amoxicilina 500mg 8/8h x7d, Ibuprofeno 400mg 8/8h, Clindamicina 300mg...',
+      objetivo_PBM_ph: 'Ex: Analgesia pós-operatória, regeneração óssea, bioestimulação, cicatrização...',
+      dispositivo_laser_ph: 'Ex: 980nm diodo, 650nm vermelho, Epic X, Waterlase iPlus, Fotona LightWalker...',
+      area_tratamiento_ph: 'Ex: Gengiva marginal, zona periapical, mucosa, ATM, lábio...',
+      HistClin: 'Histórico clínico relevante',
+      procedimiento: 'Procedimento',
+      anestesia: 'Anestésico a usar',
+      medstomando: 'Medicamentos em uso pelo paciente',
+      receta: 'Medicamentos a prescrever',
+      laser_pbm: 'Usa laser / PBM?',
+      objetivo_PBM: 'Objetivo do PBM',
+      dispositivo_laser: 'Dispositivo / comprimento de onda',
+      peso_paciente: 'Peso do paciente (kg)',
+      medicamento: 'Medicamento a calcular',
+      condicion: 'Condição do paciente',
+      area_tratamiento: 'Área de tratamento',
+      yes: 'Sim', no: 'Não',
+    },
+    exp: {
+      nota_label: 'Nota clínica complementar',
+      nota_ph: 'Continue aqui, ou se for mais rápido, conte-me o caso diretamente e ignore o formulário.',
+      acc_paciente: 'Paciente', acc_antecedentes: 'Antecedentes',
+      acc_medicamentos: 'Medicamentos', acc_procedimiento: 'Procedimento', acc_anestesia: 'Anestesia', acc_pbm: 'Laser / PBM',
+      lbl_genero: 'Gênero', lbl_edad: 'Idade', lbl_peso: 'Peso', lbl_talla: 'Altura',
+      lbl_categoria: 'Categoria', lbl_especifico: 'Específico',
+      lbl_seleccionados: 'Selecionados', lbl_frecuencia: 'Frequência',
+      lbl_especialidad: 'Especialidade', lbl_procedimiento: 'Procedimento específico',
+      lbl_receta: 'Plano de prescrição (opcional)',
+      lbl_receta_ph: 'Ex: Amoxicilina 500mg 8/8h x7d, Ibuprofeno 400mg 8/8h SOS...',
+      lbl_anestesicos: 'Anestésico(s) a usar',
+      lbl_pbm: 'Usará laser / PBM?',
+      lbl_obj_pbm: 'Objetivo do PBM',
+      lbl_obj_pbm_ph: 'Ex: Analgesia pós-operatória, regeneração óssea...',
+      lbl_disp_laser: 'Dispositivo / comprimento de onda',
+      lbl_disp_laser_ph: 'Ex: 980nm diodo, Epic X...',
+      lbl_pbm_mecanismo: 'Objetivo (mecanismo de ação)',
+      lbl_pbm_indicacion: 'Indicação clínica',
+      lbl_pbm_indicacion_otro_ph: 'Especifique a indicação clínica...',
+      lbl_pbm_dispositivo: 'Dispositivo / comprimento de onda',
+      lbl_pbm_dispositivo_otro_ph: 'Especifique o dispositivo ou comprimento de onda...',
+      imc_hint: 'Insira peso e altura exatos para calcular IMC automaticamente.',
+      imc_label: 'IMC',
+      otro: 'Outro', otro_ph: 'Especifique...', otro_add: 'Adicionar', mas: 'mais',
+      lbl_alergias: 'Alergias', alergias_ninguna: 'Nenhuma conhecida', lbl_med_libre: 'Outros', med_libre_ph: 'Outros medicamentos que o paciente tome e não estejam na lista...',
+      empty_summary: 'Não definido',
+      btn_generar: 'Gerar relatório',
+    },
+    inter: {
+      acc_destino: 'Destino do encaminhamento',
+      acc_caso: 'Caso clínico',
+      acc_pregunta: 'Pergunta ao especialista',
+      lbl_especialidad: 'Especialidade de destino',
+      lbl_motivo: 'Motivo específico',
+      lbl_motivo_otro_ph: 'Especifique o motivo...',
+      lbl_motivo_otro_label: 'Especialidade e motivo',
+      lbl_especialidad_libre_ph: 'Descreva a especialidade de destino e o motivo',
+      lbl_tipo_pregunta: 'Tipo de pergunta (opcional)',
+      lbl_pregunta: 'Pergunta ou dúvida específica',
+      lbl_pregunta_ph: 'Descreva a pergunta ou dúvida específica que motiva este encaminhamento.',
+      btn_generar: 'Gerar carta de encaminhamento',
+      btn_generar_expediente: 'Gerar carta de encaminhamento',
+      btn_paciente_version: 'Versão para paciente',
+      heredado_banner: 'Herdado da Consulta Dedicada',
+      heredado_editar: 'Editar caso clínico',
+      heredado_caso_resumen: 'Dados clínicos herdados',
+      empty_caso: 'Sem dados clínicos. Toque para preencher.',
+    },
+    review: {
+      label: 'Modo de Revisão',
+      caption_strong: 'Reduza o risco de erro:',
+      caption_rest: ' o IKMeds valida fármacos, doses e dados clínicos com você antes de gerar o relatório.',
+      caption_cost: '+1 crédito',
+      need_credits: 'Você precisa de 2 créditos disponíveis para usar a verificação.',
+      chip_confirm: 'Confirmo, gerar relatório',
+      chip_correct: 'Corrigir / adicionar contexto',
+      correct_placeholder: 'Esclareça ou corrija as interpretações do assistente...',
+      confirm_message: 'Confirmado. Por favor, prossiga para gerar o relatório.',
+    },
+  },
+  ja: {
+    hello: 'こんにちは',
+    choose_module: 'モジュールを選択してください。',
+    credits: '相談', back: '戻る', consult: '相談', send: '送信',
+    followup_title: 'このレポートについて質問はありますか？',
+    followup_placeholder: '質問を入力...',
+    out_of_credits_title: '相談回数がなくなりました',
+    out_of_credits_body: '続けるにはチャージしてください:',
+    initial_label: '初回アクセス · 5相談',
+    topup10_label: 'チャージ · 10相談',
+    topup25_label: 'チャージ · 25相談',
+    region_mx: 'メキシコ', region_intl: '国際',
+    error_generic: 'エラーが発生しました。もう一度お試しください。',
+    error_network: 'ネットワークエラー。接続を確認してください。',
+    error_empty: '少なくとも1つのオプションを選択するか、ノートで症例を説明してください。',
+    loading: '分析中...',
+    modules: {
+      consulta: { title: 'クイック相談', desc: '薬物相互作用の確認', ico: 'QUICK' },
+      expediente: { title: '詳細相談', desc: '病歴付きの完全レポート', ico: 'FULL' },
+      interconsulta: { title: '紹介', desc: '専門医への紹介', ico: 'REFER' },
+    },
+    fields: {
+      nombre_paciente: '患者名',
+      nombre_paciente_ph: '例: アルベルト・アインシュタイン',
+      query: '相談内容',
+      query_ph: '例: Lipitor服用中にAugmentinを投与できますか？',
+      HistClin_ph: '例: 女性45歳、65kg、高血圧管理中、ペニシリンアレルギー、メトホルミン服用中...',
+      procedimiento_ph: '例: 大臼歯抜歯、根管治療、インプラント、歯周外科、修復処置...',
+      anestesia_ph: '例: アルチカイン4%エピネフリン入り、リドカイン2%、メピバカイン3%...',
+      medstomando_ph: '例: ロサルタン50mg、メトホルミン850mg、リピトール、アスピリン100mg...',
+      receta_ph: '例: アモキシシリン500mg 8時間毎7日、イブプロフェン400mg、クリンダマイシン300mg...',
+      objetivo_PBM_ph: '例: 術後鎮痛、骨再生、バイオ刺激、創傷治癒...',
+      dispositivo_laser_ph: '例: 980nmダイオード、650nm赤色、Epic X、Fotona LightWalker...',
+      area_tratamiento_ph: '例: 辺縁歯肉、根尖周囲、粘膜、顎関節、口唇...',
+      HistClin: '関連する臨床歴',
+      procedimiento: '処置',
+      anestesia: '使用する麻酔',
+      medstomando: '現在服用中の薬',
+      receta: '処方する薬',
+      laser_pbm: 'レーザー / PBM使用？',
+      objetivo_PBM: 'PBMの目的',
+      dispositivo_laser: '機器 / 波長',
+      peso_paciente: '患者の体重 (kg)',
+      medicamento: '計算する薬剤',
+      condicion: '患者の状態',
+      area_tratamiento: '治療部位',
+      yes: 'はい', no: 'いいえ',
+    },
+    exp: {
+      nota_label: '臨床補足ノート',
+      nota_ph: '続けて入力してください。または、フォームを使わずに症例を直接お知らせいただいても構いません。',
+      acc_paciente: '患者', acc_antecedentes: '既往歴',
+      acc_medicamentos: '服用薬', acc_procedimiento: '処置', acc_anestesia: '麻酔', acc_pbm: 'レーザー / PBM',
+      lbl_genero: '性別', lbl_edad: '年齢', lbl_peso: '体重', lbl_talla: '身長',
+      lbl_categoria: 'カテゴリ', lbl_especifico: '具体的',
+      lbl_seleccionados: '選択済み', lbl_frecuencia: '頻度',
+      lbl_especialidad: '専門', lbl_procedimiento: '具体的な処置',
+      lbl_receta: '処方計画（任意）',
+      lbl_receta_ph: '例: アモキシシリン500mg 8時間毎7日...',
+      lbl_anestesicos: '使用する麻酔薬',
+      lbl_pbm: 'レーザー/PBMを使用しますか？',
+      lbl_obj_pbm: 'PBMの目的',
+      lbl_obj_pbm_ph: '例: 術後鎮痛、骨再生...',
+      lbl_disp_laser: '機器 / 波長',
+      lbl_disp_laser_ph: '例: 980nmダイオード、Epic X...',
+      lbl_pbm_mecanismo: '目的(作用機序)',
+      lbl_pbm_indicacion: '臨床的適応',
+      lbl_pbm_indicacion_otro_ph: '臨床的適応を入力...',
+      lbl_pbm_dispositivo: '機器 / 波長',
+      lbl_pbm_dispositivo_otro_ph: '機器または波長を入力...',
+      imc_hint: '正確な体重と身長を入力するとBMIが自動計算されます。',
+      imc_label: 'BMI',
+      otro: 'その他', otro_ph: '指定...', otro_add: '追加', mas: 'もっと',
+      lbl_alergias: 'アレルギー', alergias_ninguna: '既知のものなし', lbl_med_libre: 'その他', med_libre_ph: 'リストにない、患者が服用中の他の薬...',
+      empty_summary: '未設定',
+      btn_generar: 'レポート生成',
+    },
+    inter: {
+      acc_destino: '紹介先',
+      acc_caso: '臨床症例',
+      acc_pregunta: '専門医への質問',
+      lbl_especialidad: '紹介先専門科',
+      lbl_motivo: '具体的な理由',
+      lbl_motivo_otro_ph: '理由を入力...',
+      lbl_motivo_otro_label: '専門科と理由',
+      lbl_especialidad_libre_ph: '紹介先専門科と理由を記述してください',
+      lbl_tipo_pregunta: '質問の種類(任意)',
+      lbl_pregunta: '具体的な質問',
+      lbl_pregunta_ph: 'この紹介の動機となる具体的な質問または懸念を記述してください。',
+      btn_generar: '紹介状を生成',
+      btn_generar_expediente: '紹介状を生成',
+      btn_paciente_version: '患者向け版',
+      heredado_banner: '詳細相談から継承',
+      heredado_editar: '症例を編集',
+      heredado_caso_resumen: '継承された臨床データ',
+      empty_caso: '臨床データなし。タップして入力。',
+    },
+    review: {
+      label: 'レビューモード',
+      caption_strong: 'エラーリスクを軽減:',
+      caption_rest: ' IKMedsがレポート生成前に薬剤・用量・臨床データをあなたと一緒に確認します。',
+      caption_cost: 'クレジット+1',
+      need_credits: '検証機能の利用には2クレジットが必要です。',
+      chip_confirm: '確認、レポート生成',
+      chip_correct: '修正・補足を追加',
+      correct_placeholder: 'アシスタントの解釈を明確化または修正...',
+      confirm_message: '確認しました。レポートを生成してください。',
+    },
+  },
+  ko: {
+    hello: '안녕하세요',
+    choose_module: '시작할 모듈을 선택하세요.',
+    credits: '상담', back: '뒤로', consult: '상담', send: '보내기',
+    followup_title: '이 보고서에 대한 질문이 있나요?',
+    followup_placeholder: '질문을 입력하세요...',
+    out_of_credits_title: '상담 횟수 소진',
+    out_of_credits_body: '계속하려면 충전하세요:',
+    initial_label: '초기 접근 · 5 상담',
+    topup10_label: '충전 · 10 상담',
+    topup25_label: '충전 · 25 상담',
+    region_mx: '멕시코', region_intl: '국제',
+    error_generic: '문제가 발생했습니다. 다시 시도하세요.',
+    error_network: '네트워크 오류. 연결을 확인하세요.',
+    error_empty: '최소 하나의 옵션을 선택하거나 노트에 케이스를 설명하세요.',
+    loading: '분석 중...',
+    modules: {
+      consulta: { title: '빠른 상담', desc: '약물 상호작용 확인', ico: 'QUICK' },
+      expediente: { title: '정밀 상담', desc: '임상 기록 포함 완전 보고서', ico: 'FULL' },
+      interconsulta: { title: '의뢰', desc: '전문의 의뢰', ico: 'REFER' },
+    },
+    fields: {
+      nombre_paciente: '환자 이름',
+      nombre_paciente_ph: '예: 알베르트 아인슈타인',
+      query: '상담 내용',
+      query_ph: '예: Lipitor 복용 중 Augmentin 처방 가능한가요?',
+      HistClin_ph: '예: 여성 45세, 65kg, 고혈압 조절중, 페니실린 알레르기, 메트포르민 복용중...',
+      procedimiento_ph: '예: 대구치 발치, 근관치료, 임플란트, 치주수술, 수복치료...',
+      anestesia_ph: '예: 아르티카인 4% 에피네프린 포함, 리도카인 2%, 메피바카인 3%...',
+      medstomando_ph: '예: 로사르탄 50mg, 메트포르민 850mg, 리피토, 아스피린 100mg...',
+      receta_ph: '예: 아목시실린 500mg 8시간마다 7일, 이부프로펜 400mg, 클린다마이신 300mg...',
+      objetivo_PBM_ph: '예: 술후 진통, 골재생, 생체자극, 창상 치유...',
+      dispositivo_laser_ph: '예: 980nm 다이오드, 650nm 적색, Epic X, Fotona LightWalker...',
+      area_tratamiento_ph: '예: 변연치은, 근단주위, 점막, 턱관절, 입술...',
+      HistClin: '관련 임상 기록',
+      procedimiento: '시술',
+      anestesia: '사용할 마취제',
+      medstomando: '환자 현재 복용 약물',
+      receta: '처방할 약물',
+      laser_pbm: '레이저 / PBM 사용?',
+      objetivo_PBM: 'PBM 목표',
+      dispositivo_laser: '기기 / 파장',
+      peso_paciente: '환자 체중 (kg)',
+      medicamento: '계산할 약물',
+      condicion: '환자 상태',
+      area_tratamiento: '치료 부위',
+      yes: '예', no: '아니오',
+    },
+    exp: {
+      nota_label: '임상 보충 노트',
+      nota_ph: '여기서 계속하시거나, 더 빠르다면 양식 없이 케이스를 직접 알려주셔도 됩니다.',
+      acc_paciente: '환자', acc_antecedentes: '병력',
+      acc_medicamentos: '복용 약물', acc_procedimiento: '시술', acc_anestesia: '마취', acc_pbm: '레이저 / PBM',
+      lbl_genero: '성별', lbl_edad: '나이', lbl_peso: '체중', lbl_talla: '신장',
+      lbl_categoria: '범주', lbl_especifico: '구체적',
+      lbl_seleccionados: '선택됨', lbl_frecuencia: '빈도',
+      lbl_especialidad: '전문분야', lbl_procedimiento: '구체적 시술',
+      lbl_receta: '처방 계획 (선택)',
+      lbl_receta_ph: '예: 아목시실린 500mg 8시간마다 7일...',
+      lbl_anestesicos: '사용할 마취제',
+      lbl_pbm: '레이저/PBM 사용?',
+      lbl_obj_pbm: 'PBM 목표',
+      lbl_obj_pbm_ph: '예: 술후 진통, 골재생...',
+      lbl_disp_laser: '기기 / 파장',
+      lbl_disp_laser_ph: '예: 980nm 다이오드, Epic X...',
+      lbl_pbm_mecanismo: '목표(작용 기전)',
+      lbl_pbm_indicacion: '임상 적응증',
+      lbl_pbm_indicacion_otro_ph: '임상 적응증을 입력...',
+      lbl_pbm_dispositivo: '기기 / 파장',
+      lbl_pbm_dispositivo_otro_ph: '기기 또는 파장을 입력...',
+      imc_hint: '정확한 체중과 신장을 입력하면 BMI가 자동 계산됩니다.',
+      imc_label: 'BMI',
+      otro: '기타', otro_ph: '지정...', otro_add: '추가', mas: '더',
+      lbl_alergias: '알레르기', alergias_ninguna: '알려진 것 없음', lbl_med_libre: '기타', med_libre_ph: '목록에 없는, 환자가 복용 중인 기타 약물...',
+      empty_summary: '미설정',
+      btn_generar: '보고서 생성',
+    },
+    inter: {
+      acc_destino: '의뢰 대상',
+      acc_caso: '임상 사례',
+      acc_pregunta: '전문의에게 질문',
+      lbl_especialidad: '의뢰 전문과',
+      lbl_motivo: '구체적 사유',
+      lbl_motivo_otro_ph: '사유를 입력...',
+      lbl_motivo_otro_label: '전문과와 사유',
+      lbl_especialidad_libre_ph: '의뢰 전문과와 사유를 기술하십시오',
+      lbl_tipo_pregunta: '질문 유형(선택)',
+      lbl_pregunta: '구체적 질문',
+      lbl_pregunta_ph: '이 의뢰의 동기가 되는 구체적인 질문이나 우려사항을 기술하십시오.',
+      btn_generar: '의뢰서 생성',
+      btn_generar_expediente: '의뢰서 생성',
+      btn_paciente_version: '환자용 버전',
+      heredado_banner: '정밀 상담에서 상속',
+      heredado_editar: '사례 편집',
+      heredado_caso_resumen: '상속된 임상 데이터',
+      empty_caso: '임상 데이터 없음. 탭하여 작성.',
+    },
+    review: {
+      label: '검토 모드',
+      caption_strong: '오류 위험 감소:',
+      caption_rest: ' IKMeds가 보고서 생성 전 약물·용량·임상 데이터를 함께 확인합니다.',
+      caption_cost: '+1 크레딧',
+      need_credits: '검증 기능을 사용하려면 2크레딧이 필요합니다.',
+      chip_confirm: '확인, 보고서 생성',
+      chip_correct: '수정·맥락 추가',
+      correct_placeholder: '어시스턴트의 해석을 명확히 하거나 수정...',
+      confirm_message: '확인했습니다. 보고서를 생성해주세요.',
+    },
+  },
+};
+
+/* -------- Chip data (Spanish-only labels, drug DCI universal) -------- */
+const CHIPS_DATA = {
+  genero: ['Hombre', 'Mujer'],
+  edad: ['<12', '13-17', '18-30', '31-50', '51-65', '65+'],
+  peso: ['<40 kg', '40-60', '60-80', '80-100', '100+'],
+  talla: ['<150 cm', '150-160', '160-170', '170-180', '180-190', '190+'],
+
+  // 6 visibles + 9 más
+  condiciones: [
+    { abbr: 'HTA',          full: 'hipertensión arterial',  visible: true },
+    { abbr: 'DM2',          full: 'diabetes tipo 2',         visible: true },
+    { abbr: 'Anticoag.',    full: 'anticoagulación',         visible: true },
+    { abbr: 'Embarazo',     full: '',                         visible: true },
+    { abbr: 'Bifosfonatos', full: 'riesgo osteonecrosis',    visible: true, alert: 'ONJ' },
+    { abbr: 'Endocarditis', full: 'antecedente / riesgo' },
+    { abbr: 'Cardiopatía',  full: 'cardiopatía isquémica' },
+    { abbr: 'Marcapasos',   full: 'dispositivo cardíaco' },
+    { abbr: 'Asma',         full: '' },
+    { abbr: 'ERC',          full: 'enf. renal crónica' },
+    { abbr: 'Hepatopatía',  full: '' },
+    { abbr: 'Inmunosup.',   full: 'inmunosupresión' },
+    { abbr: 'Onco',         full: 'antecedente oncológico' },
+    { abbr: 'DM1',          full: 'diabetes tipo 1' },
+  ],
+
+  alergias: [
+    { abbr: 'Penicilinas',         full: '' },
+    { abbr: 'AINEs/Aspirina',      full: '' },
+    { abbr: 'Látex',               full: '' },
+    { abbr: 'Sulfas',              full: '' },
+    { abbr: 'Anestésicos locales', full: '' },
+  ],
+
+  medCategorias: ['Antihipertensivos', 'Antidiabéticos', 'Anticoag./antiagreg.', 'Analgésicos/AINEs',
+                   'Antibióticos', 'Psiquiátricos', 'Bifosfonatos', 'Corticoides'],
+
+  medSubs: {
+    'Antihipertensivos':     ['Losartán', 'Enalapril', 'Amlodipino', 'Metoprolol', 'Hidroclorotiazida', 'Telmisartán'],
+    'Antidiabéticos':        ['Metformina', 'Insulina', 'Glibenclamida', 'Empagliflozina', 'Sitagliptina', 'Semaglutida'],
+    'Anticoag./antiagreg.':  ['Warfarina/acenocumarol', 'Apixabán', 'Rivaroxabán', 'Dabigatrán', 'AAS', 'Clopidogrel'],
+    'Analgésicos/AINEs':     ['Ibuprofeno', 'Naproxeno', 'Paracetamol', 'Diclofenaco', 'Ketorolaco', 'Tramadol'],
+    'Antibióticos':          ['Amoxicilina', 'Amox+clavulánico', 'Clindamicina', 'Azitromicina', 'Metronidazol'],
+    'Psiquiátricos':         ['Sertralina', 'Escitalopram', 'Venlafaxina', 'Alprazolam', 'Clonazepam', 'Quetiapina', 'Litio'],
+    'Bifosfonatos':          ['Alendronato (semanal)', 'Risedronato', 'Ác. zoledrónico (IV)', 'Denosumab'],
+    'Corticoides':           ['Prednisona', 'Dexametasona'],
+  },
+
+  frecuencias: ['c/8h', 'c/12h', 'c/24h', 'Semanal', 'Mensual', 'SOS'],
+
+  procEspecialidades: ['Endodoncia', 'Periodoncia', 'Cirugía oral', 'Implantología',
+                       'Restauradora', 'Ortodoncia'],
+
+  procSubs: {
+    'Endodoncia':    ['Tratamiento convencional vital', 'Tratamiento convencional necrótico', 'Retratamiento', 'Apicectomía', 'Pulpotomía', 'Recubrimiento pulpar', 'Terapia pulpar vital'],
+    'Periodoncia':   ['Profilaxis', 'Raspado y alisado (SRP)', 'Colgajo', 'Alargamiento corona', 'Gingivectomía', 'Injerto gingival', 'Cirugía regenerativa periodontal', 'Periimplantitis', 'Mantenimiento'],
+    'Cirugía oral':  ['Extracción simple', 'Extracción quirúrgica', 'Exodoncia múltiple', 'Frenectomía', 'Cirugía preprotésica', 'Quistectomía', 'Biopsia', 'Drenaje absceso'],
+    'Implantología': ['Colocación de implante unitario', 'Colocación múltiple', 'Cirugía guiada / navegada', 'Elevación de seno', 'Regeneración ósea guiada (ROG)', 'Carga inmediata', 'Periimplantitis', 'Explante', 'Mantenimiento periimplantar'],
+    'Restauradora':  ['Profilaxis', 'Obturación resina', 'Incrustación (inlay/onlay)', 'Corona', 'Puente', 'Carillas', 'Poste y muñón', 'Blanqueamiento', 'Prótesis removible'],
+    'Ortodoncia':    ['Colocación de brackets', 'Activación', 'TADs (mini-implantes ortodóncicos)', 'Retiro de brackets', 'Alineadores', 'Disyunción / expansión palatina', 'Cirugía ortognática (planeación)'],
+  },
+
+  anestesicos: ['Lidocaína 2% c/epi', 'Lidocaína 2% sin epi', 'Mepivacaína 3% sin epi',
+                'Articaína 4% c/epi', 'Bupivacaína 0.5% c/epi', 'Prilocaína 4%'],
+
+  // PBM: objetivo (mecanismo) y sus indicaciones clínicas por mecanismo
+  pbmMecanismos: ['Analgesia', 'Antiinflamatorio', 'Regeneración', 'Bioestimulación', 'Antimicrobiano'],
+  pbmIndicacionesByMec: {
+    'Analgesia':        ['Dolor postop', 'Dolor TTM/bruxismo', 'Neuralgia trigémino', 'Parestesia/disestesia', 'Otro'],
+    'Antiinflamatorio': ['Postop quirúrgico', 'Mucositis', 'Periodontitis', 'Periimplantitis', 'Alveolitis', 'Otro'],
+    'Regeneración':     ['Cicatrización tejidos blandos', 'Estimulación ósea', 'Postextracción', 'Parálisis facial', 'Otro'],
+    'Bioestimulación':  ['ATM disfuncional', 'Trismus', 'Disestesia', 'Tinnitus', 'Otro'],
+    'Antimicrobiano':   ['Periodontitis', 'Periimplantitis', 'Endodoncia (coadyuvante)', 'Mucositis infecciosa', 'Otro'],
+  },
+  pbmDispositivos: [
+    '660 nm (diodo rojo)',
+    '810 nm (diodo IR)',
+    '940 nm (diodo IR)',
+    '980 nm (diodo IR)',
+    '1064 nm (Nd:YAG)',
+    '2780 nm (Er,Cr:YSGG)',
+    '2940 nm (Er:YAG)',
+    'Otro',
+  ],
+};
+
+/* -------- Datos de Interconsulta: especialidad destino + motivos por especialidad -------- */
+const INTER_DATA = {
+  especialidades: [
+    {
+      key: 'cardio', label: 'Cardiología',
+      motivos: ['Valoración pre-quirúrgica', 'Ajuste de anticoagulación/antiagregación',
+                'Profilaxis endocarditis infecciosa', 'HTA no controlada',
+                'Arritmia o palpitaciones', 'Otro']
+    },
+    {
+      key: 'endo', label: 'Endocrinología',
+      motivos: ['DM mal controlada', 'Manejo perioperatorio de antidiabéticos',
+                'Bifosfonatos / riesgo MRONJ', 'Hipo/hipertiroidismo',
+                'Corticoides crónicos', 'Otro']
+    },
+    {
+      key: 'hema', label: 'Hematología',
+      motivos: ['Verificar INR / manejo de anticoagulante', 'Trombocitopenia o sangrado',
+                'Anemia', 'Coagulopatía', 'Otro']
+    },
+    {
+      key: 'nefro', label: 'Nefrología',
+      motivos: ['ERC: ajuste de fármacos', 'Diálisis: programación del procedimiento',
+                'Trasplante renal', 'Otro']
+    },
+    {
+      key: 'neuro', label: 'Neurología',
+      motivos: ['Anticonvulsivantes: cambio o ajuste', 'Neuralgia del trigémino',
+                'ACV reciente / antiagregación', 'Hiperplasia gingival por fenitoína',
+                'Otro']
+    },
+    {
+      key: 'onco', label: 'Oncología',
+      motivos: ['Timing del procedimiento vs quimioterapia/radio',
+                'Bifosfonatos oncológicos / MRONJ', 'Inmunosupresión',
+                'Anticoagulación en cáncer', 'Otro']
+    },
+    {
+      key: 'reuma', label: 'Reumatología',
+      motivos: ['Inmunosupresores / biológicos', 'Esteroides crónicos',
+                'Artritis y manejo dental', 'Otro']
+    },
+    {
+      key: 'gineco', label: 'Ginecología/Obstetricia',
+      motivos: ['Embarazo: trimestre y manejo', 'Lactancia: fármacos compatibles',
+                'Anticoncepción + inductores enzimáticos', 'Otro']
+    },
+    {
+      key: 'psiq', label: 'Psiquiatría',
+      motivos: ['IMAO + anestesia con vasoconstrictor', 'Antidepresivos perioperatorio',
+                'Litio: ajuste', 'Benzodiazepinas / sedación', 'Otro']
+    },
+    {
+      key: 'general', label: 'Médico tratante (general)',
+      motivos: ['Confirmar diagnóstico actual', 'Solicitar laboratorios',
+                'Validar plan de tratamiento dental', 'Comunicar plan al médico',
+                'Otro']
+    },
+    {
+      key: 'otro', label: 'Otro',
+      motivos: ['Otro']
+    },
+  ],
+  tipoPregunta: [
+    'Valoración pre-procedimiento',
+    'Ajuste de medicación',
+    'Solicitud de laboratorios',
+    'Confirmación de diagnóstico',
+    'Recomendación de manejo',
+  ],
+};
+
+/* -------- Mapeo regex para detectar especialidad sugerida en reporte del Expediente -------- */
+const SPECIALTY_REGEX = [
+  { key: 'cardio',  rx: /cardi[óo]log[oa]|cardiolog[íi]a|cardiologist|cardiology|cardi[óo]lo[gj]o/i },
+  { key: 'endo',    rx: /endocrin[óo]log[oa]|endocrinolog[íi]a|endocrinologist|endocrinology|endocrino/i },
+  { key: 'hema',    rx: /hemat[óo]log[oa]|hematolog[íi]a|hematologist|hematology|anticoagulant\w* tratante/i },
+  { key: 'nefro',   rx: /nefr[óo]log[oa]|nefrolog[íi]a|nephrologist|nephrology|nefro/i },
+  { key: 'neuro',   rx: /neur[óo]log[oa]|neurolog[íi]a|neurologist|neurology/i },
+  { key: 'onco',    rx: /onc[óo]log[oa]|oncolog[íi]a|oncologist|oncology|oncolog/i },
+  { key: 'reuma',   rx: /reumat[óo]log[oa]|reumatolog[íi]a|rheumatologist|rheumatology/i },
+  { key: 'gineco',  rx: /ginec[óo]log[oa]|ginecolog[íi]a|obstetra|gynecologist|obstetrician|obstetri/i },
+  { key: 'psiq',    rx: /psiquiatra|psiquiatr[íi]a|psychiatrist|psychiatry/i },
+  { key: 'general', rx: /m[ée]dico tratante|m[ée]dico general|primary care|family doctor|treating physician/i },
+];
+
+/* -------- Module field definitions (módulos NO-expediente) -------- */
+const MODULE_FIELDS = {
+  consulta: ['nombre_paciente', 'query'],
+  expediente: [], /* Expediente usa su propio render con chips */
+  interconsulta: ['nombre_paciente', 'HistClin', 'procedimiento', 'anestesia', 'medstomando', 'receta', 'laser_pbm', 'objetivo_PBM', 'dispositivo_laser'],
+};
+
+const TIPO_DE_REPORTE_MAP = {
+  consulta: 'Consulta rápida / Quick consult',
+  expediente: 'Expediente / Full report',
+  interconsulta: 'Interconsulta / Referral',
+};
+
+/* -------- State -------- */
+const state = {
+  userEmail: '',
+  language: 'es',
+  module: null,
+  credits: null,
+  sessionCreditUsed: false,
+  conversationHistory: [],
+  formData: {},
+  expData: emptyExpData(),
+  interData: emptyInterData(),
+  reviewMode: false,     // Modo Revisión ON/OFF (off por default, siempre)
+  reviewTurn: 0,         // 0=sin uso, 1=verificación enviada, 2=reporte solicitado, 3=ciclo terminado
+};
+
+function emptyExpData() {
+  return {
+    nombre: '',
+    genero: '',
+    edadRango: '', edadExacto: '',
+    pesoRango: '', pesoExacto: '',
+    tallaRango: '', tallaExacto: '',
+    condiciones: [],
+    condicionesOtro: '',
+    antecedentesShowMore: false,
+    meds: [], // [{cat, name, freq}]
+    medActiveCat: '',
+    medOtro: '',
+    medLibre: '',
+    alergias: [],
+    alergiasNinguna: false,
+    alergiasOtro: '',
+    procSpec: '',
+    procSub: '',
+    procOtro: '',
+    receta: '',
+    anestesicos: [],
+    anestesiaOtro: '',
+    usaPBM: false,
+    // PBM nuevos campos multi-select
+    pbmMecanismos: [],          // ['Analgesia', 'Antiinflamatorio']
+    pbmIndicaciones: [],        // ['Dolor postop', 'Mucositis']
+    pbmIndicacionOtro: '',      // texto libre si alguna indicación es 'Otro'
+    pbmDispositivos: [],        // ['660 nm (diodo rojo)', '810 nm (diodo IR)']
+    pbmDispositivoOtro: '',     // texto libre si dispositivo 'Otro'
+    nota: '',
+    accordionOpen: 'paciente',
+  };
+}
+
+function emptyInterData() {
+  return {
+    especialidad: '',          // key del primario (cardio/endo/...)
+    motivo: '',                // motivo seleccionado del sub-chip
+    motivoOtro: '',            // texto libre si motivo='Otro'
+    tipoPregunta: '',          // chip de tipo de pregunta (opcional)
+    preguntaTexto: '',         // textarea pregunta específica
+    // Estado de herencia
+    heritedFromExp: false,
+    expedienteReport: '',      // texto del reporte original (para referencia futura)
+    accordionOpen: 'destino',  // qué acordeón está abierto inicialmente
+  };
+}
+
+function t() { return I18N[state.language] || I18N.es; }
+
+/* -------- URL params -------- */
+function parseURL() {
+  const url = new URL(window.location.href);
+  state.userEmail = url.searchParams.get('email') || '';
+  const mod = url.searchParams.get('module');
+  if (mod && MODULE_FIELDS[mod] !== undefined) state.module = mod;
+  const lang = url.searchParams.get('lang');
+  if (lang && I18N[lang]) state.language = lang;
+}
+
+/* -------- Rendering: home & module shell -------- */
+function setLang(lang) {
+  state.language = lang;
+  document.documentElement.lang = lang;
+  document.getElementById('lang-select').value = lang;
+  renderAll();
+}
+
+function renderCreditsPill() {
+  const pill = document.getElementById('credits-pill');
+  if (state.credits === null) { pill.textContent = '—'; pill.classList.remove('low'); return; }
+  pill.textContent = state.credits + ' ' + t().credits;
+  pill.classList.toggle('low', state.credits <= 0);
+}
+
+function renderWelcome() {
+  const name = state.userEmail ? state.userEmail.split('@')[0] : '';
+  document.getElementById('welcome-title').textContent = `${t().hello}${name ? ', ' + name : ''}`;
+  document.getElementById('welcome-sub').textContent = t().choose_module;
+}
+
+function renderModules() {
+  const wrap = document.getElementById('modules');
+  wrap.innerHTML = '';
+  const mods = t().modules;
+  ['consulta', 'expediente', 'interconsulta'].forEach(key => {
+    const m = mods[key];
+    const btn = document.createElement('button');
+    btn.className = 'module-card';
+    btn.innerHTML = `<div class="ico">${m.ico}</div><h3>${m.title}</h3><p>${m.desc}</p>`;
+    btn.addEventListener('click', () => openModule(key));
+    wrap.appendChild(btn);
+  });
+}
+
+function renderUpgradeCard(containerId) {
+  const el = document.getElementById(containerId);
+  const L = t();
+  el.innerHTML = `
+    <div class="upgrade">
+      <h3>${L.out_of_credits_title}</h3>
+      <p>${L.out_of_credits_body}</p>
+      <div class="upgrade-grid">
+        <a class="pay-btn" href="${STRIPE_LINKS.topup10_mxn}" target="_blank" rel="noopener">
+          <span class="region">${L.region_mx} · MXN</span><span class="price">$180</span><span class="label">${L.topup10_label}</span></a>
+        <a class="pay-btn" href="${STRIPE_LINKS.topup10_usd}" target="_blank" rel="noopener">
+          <span class="region">${L.region_intl} · USD</span><span class="price">$10.50</span><span class="label">${L.topup10_label}</span></a>
+        <a class="pay-btn" href="${STRIPE_LINKS.topup25_mxn}" target="_blank" rel="noopener">
+          <span class="region">${L.region_mx} · MXN</span><span class="price">$400</span><span class="label">${L.topup25_label}</span></a>
+        <a class="pay-btn" href="${STRIPE_LINKS.topup25_usd}" target="_blank" rel="noopener">
+          <span class="region">${L.region_intl} · USD</span><span class="price">$23</span><span class="label">${L.topup25_label}</span></a>
+      </div>
+    </div>`;
+  el.classList.remove('hidden');
+}
+
+function hide(id) { document.getElementById(id).classList.add('hidden'); }
+function show(id) { document.getElementById(id).classList.remove('hidden'); }
+
+function renderModuleForm() {
+  if (!state.module) return;
+  const L = t();
+  const m = L.modules[state.module];
+  document.getElementById('module-title').textContent = m.title;
+  document.getElementById('module-sub').textContent = m.desc;
+  document.getElementById('back-label').textContent = L.back;
+  document.getElementById('chat-send-label').textContent = L.send;
+  document.getElementById('followup-title').textContent = L.followup_title;
+  document.getElementById('chat-input').placeholder = L.followup_placeholder;
+
+  if (state.module === 'expediente') {
+    document.getElementById('submit-label').textContent = L.exp.btn_generar;
+    renderExpedienteForm();
+  } else if (state.module === 'interconsulta') {
+    document.getElementById('submit-label').textContent = L.inter.btn_generar;
+    renderInterconsultaForm();
+  } else {
+    document.getElementById('submit-label').textContent = L.consult;
+    renderClassicForm();
+  }
+  renderReviewToggle();
+}
+
+/* -------- Render: toggle Modo Revisión -------- */
+function renderReviewToggle() {
+  const container = document.getElementById('review-toggle-container');
+  if (!container) return;
+  // Solo en setup inicial (antes de que se use el primer crédito de la sesión)
+  if (state.sessionCreditUsed || !state.module) {
+    container.className = 'review-toggle-hidden';
+    container.innerHTML = '';
+    return;
+  }
+  const R = t().review;
+  if (!R) { container.className = 'review-toggle-hidden'; return; }
+
+  // La verificación consume 2 créditos. Si no alcanzan, se muestra bloqueada
+  // para que el doctor lo sepa ANTES de llenar el formulario.
+  const enoughCredits = (state.credits === null) || (Number(state.credits) >= 2);
+  if (!enoughCredits && state.reviewMode) state.reviewMode = false;
+
+  container.className = 'review-toggle'
+    + (state.reviewMode ? ' is-on' : '')
+    + (enoughCredits ? '' : ' is-disabled');
+  container.innerHTML = `
+    <div class="review-toggle-row">
+      <div id="review-switch" class="review-switch" role="switch" aria-checked="${state.reviewMode}" aria-disabled="${!enoughCredits}" tabindex="${enoughCredits ? '0' : '-1'}"></div>
+      <div class="review-label">${escapeHtml(R.label)}</div>
+      <div class="review-pill">${escapeHtml(R.caption_cost)}</div>
+    </div>
+    <div class="review-caption">
+      ${enoughCredits
+        ? `<strong>${escapeHtml(R.caption_strong)}</strong>${escapeHtml(R.caption_rest)} <span class="review-cost">${escapeHtml(R.caption_cost)}</span>.`
+        : `<span class="review-need">${escapeHtml(R.need_credits || '')}</span>`}
+    </div>
+  `;
+  // Sin créditos suficientes: no se enganchan listeners, el toggle no se puede activar
+  if (!enoughCredits) return;
+
+  const sw = document.getElementById('review-switch');
+  const toggle = () => {
+    state.reviewMode = !state.reviewMode;
+    renderReviewToggle();
+  };
+  sw.addEventListener('click', toggle);
+  sw.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+  });
+  // Click en el row también activa (UX más generosa)
+  container.querySelector('.review-toggle-row').addEventListener('click', e => {
+    if (e.target === sw || sw.contains(e.target)) return;
+    toggle();
+  });
+}
+
+/* -------- Render: chips de confirmación tras turno 1 -------- */
+function renderReviewChips(targetEl) {
+  if (!targetEl) return;
+  const R = t().review;
+  if (!R) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'review-chips';
+  wrap.innerHTML = `
+    <button type="button" class="review-chip review-chip-primary" id="review-chip-confirm">${escapeHtml(R.chip_confirm)}</button>
+    <button type="button" class="review-chip review-chip-secondary" id="review-chip-correct">${escapeHtml(R.chip_correct)}</button>
+  `;
+  targetEl.appendChild(wrap);
+
+  document.getElementById('review-chip-confirm').addEventListener('click', () => {
+    // Quitar chips para evitar doble click
+    wrap.remove();
+    state.reviewTurn = 2;
+    submitQuery(R.confirm_message, { isFollowup: true });
+  });
+  document.getElementById('review-chip-correct').addEventListener('click', () => {
+    // Quitar chips, mostrar área de follow-up con placeholder de corrección
+    wrap.remove();
+    state.reviewTurn = 2;
+    show('followup');
+    const input = document.getElementById('chat-input');
+    if (input) {
+      input.placeholder = R.correct_placeholder;
+      input.focus();
+      input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  });
+}
+
+/* -------- Render: módulos clásicos (NO-expediente) -------- */
+function renderClassicForm() {
+  const container = document.getElementById('form-container');
+  container.innerHTML = '';
+  const fields = MODULE_FIELDS[state.module] || [];
+  fields.forEach(f => container.appendChild(renderField(f)));
+}
+
+function renderField(fieldName) {
+  const L = t().fields;
+  const wrap = document.createElement('div');
+  wrap.className = 'field';
+  const label = document.createElement('label');
+  label.textContent = L[fieldName] || fieldName;
+  label.setAttribute('for', 'f-' + fieldName);
+  wrap.appendChild(label);
+
+  if (fieldName === 'laser_pbm') {
+    const group = document.createElement('div');
+    group.className = 'radio-group';
+    ['yes', 'no'].forEach((val, i) => {
+      const lbl = document.createElement('label');
+      const input = document.createElement('input');
+      input.type = 'radio'; input.name = 'laser_pbm';
+      input.value = val === 'yes' ? 'Sí' : 'No';
+      if (i === 1) input.checked = true;
+      input.addEventListener('change', () => { state.formData.laser_pbm = input.value; });
+      const sp = document.createElement('span');
+      sp.textContent = L[val];
+      lbl.appendChild(input); lbl.appendChild(sp); group.appendChild(lbl);
+    });
+    state.formData.laser_pbm = 'No';
+    wrap.appendChild(group);
+    return wrap;
+  }
+
+  const isTextarea = ['query', 'HistClin', 'medstomando', 'receta', 'condicion', 'objetivo_PBM'].includes(fieldName);
+  const isNumber = fieldName === 'peso_paciente';
+  const input = document.createElement(isTextarea ? 'textarea' : 'input');
+  if (!isTextarea) input.type = isNumber ? 'number' : 'text';
+  input.id = 'f-' + fieldName;
+  const phMap = {
+    query: L.query_ph, nombre_paciente: L.nombre_paciente_ph, HistClin: L.HistClin_ph,
+    procedimiento: L.procedimiento_ph, anestesia: L.anestesia_ph, medstomando: L.medstomando_ph,
+    receta: L.receta_ph, objetivo_PBM: L.objetivo_PBM_ph, dispositivo_laser: L.dispositivo_laser_ph,
+    area_tratamiento: L.area_tratamiento_ph,
+  };
+  if (phMap[fieldName]) input.placeholder = phMap[fieldName];
+  input.addEventListener('input', () => { state.formData[fieldName] = input.value; });
+  wrap.appendChild(input);
+  return wrap;
+}
+
+/* =============================================================
+ * EXPEDIENTE · render con chips/acordeones
+ * ============================================================= */
+
+function renderExpedienteForm() {
+  const L = t().exp;
+  const e = state.expData;
+  const container = document.getElementById('form-container');
+  container.innerHTML = `
+    <div class="field">
+      <label for="exp-nombre">${t().fields.nombre_paciente}</label>
+      <input type="text" id="exp-nombre" placeholder="${t().fields.nombre_paciente_ph}" />
+    </div>
+
+    <div class="accordion" data-acc="paciente">
+      <div class="accordion-head" data-acc-head="paciente">
+        <div class="accordion-head-left">
+          <span class="accordion-num">01</span>
+          <span class="accordion-title">${L.acc_paciente}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="paciente"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_genero}</div>
+          <div class="chips" id="chips-genero"></div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_edad}</div>
+          <div class="chips" id="chips-edad"></div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_peso}</div>
+          <div class="chips" id="chips-peso"></div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_talla}</div>
+          <div class="chips" id="chips-talla"></div>
+          <div class="imc-hint" id="imc-hint">${L.imc_hint}</div>
+          <div class="imc-display hidden" id="imc-display">
+            <span class="imc-label">${L.imc_label}</span>
+            <span class="imc-value" id="imc-value">—</span>
+            <span class="imc-cat" id="imc-cat">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="antecedentes">
+      <div class="accordion-head" data-acc-head="antecedentes">
+        <div class="accordion-head-left">
+          <span class="accordion-num">02</span>
+          <span class="accordion-title">${L.acc_antecedentes}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="antecedentes"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="chips" id="chips-antecedentes"></div>
+        <div class="otro-input-wrap" id="otro-antecedentes-wrap">
+          <input type="text" id="otro-antecedentes-input" placeholder="${L.otro_ph}" />
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="alergias">
+      <div class="accordion-head" data-acc-head="alergias">
+        <div class="accordion-head-left">
+          <span class="accordion-num">03</span>
+          <span class="accordion-title">${L.lbl_alergias}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="alergias"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="chips" id="chips-alergias"></div>
+        <div class="otro-input-wrap" id="otro-alergias-wrap">
+          <input type="text" id="otro-alergias-input" placeholder="${L.otro_ph}" />
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="medicamentos">
+      <div class="accordion-head" data-acc-head="medicamentos">
+        <div class="accordion-head-left">
+          <span class="accordion-num">04</span>
+          <span class="accordion-title">${L.acc_medicamentos}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="medicamentos"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_categoria}</div>
+          <div class="chips" id="chips-med-cats"></div>
+          <div class="otro-input-wrap" id="otro-medlibre-wrap">
+            <input type="text" id="med-libre-input" placeholder="${L.med_libre_ph}" />
+          </div>
+        </div>
+        <div class="field-group hidden" id="med-subs-wrap">
+          <div class="field-group-label" id="med-subs-label">${L.lbl_especifico}</div>
+          <div class="chips" id="chips-med-subs"></div>
+          <div class="otro-input-wrap" id="otro-med-wrap">
+            <input type="text" id="otro-med-input" placeholder="${L.otro_ph}" />
+          </div>
+        </div>
+        <div class="field-group hidden" id="med-selected-wrap">
+          <div class="field-group-label">${L.lbl_seleccionados}</div>
+          <div class="med-selected" id="med-selected"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="procedimiento">
+      <div class="accordion-head" data-acc-head="procedimiento">
+        <div class="accordion-head-left">
+          <span class="accordion-num">05</span>
+          <span class="accordion-title">${L.acc_procedimiento}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="procedimiento"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_especialidad}</div>
+          <div class="chips" id="chips-proc-specs"></div>
+        </div>
+        <div class="field-group hidden" id="proc-subs-wrap">
+          <div class="field-group-label">${L.lbl_procedimiento}</div>
+          <div class="chips" id="chips-proc-subs"></div>
+          <div class="otro-input-wrap" id="otro-proc-wrap">
+            <input type="text" id="otro-proc-input" placeholder="${L.otro_ph}" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="exp-receta">${L.lbl_receta}</label>
+          <textarea id="exp-receta" placeholder="${L.lbl_receta_ph}"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="anestesia">
+      <div class="accordion-head" data-acc-head="anestesia">
+        <div class="accordion-head-left">
+          <span class="accordion-num">06</span>
+          <span class="accordion-title">${L.acc_anestesia}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="anestesia"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_anestesicos}</div>
+          <div class="chips" id="chips-anestesia"></div>
+          <div class="otro-input-wrap" id="otro-anestesia-wrap">
+            <input type="text" id="otro-anestesia-input" placeholder="${L.otro_ph}" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="pbm">
+      <div class="accordion-head" data-acc-head="pbm">
+        <div class="accordion-head-left">
+          <span class="accordion-num">07</span>
+          <span class="accordion-title">${L.acc_pbm}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="pbm"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_pbm}</div>
+          <div class="radio-group" id="pbm-toggle">
+            <label><input type="radio" name="exp-pbm" value="No" ${!e.usaPBM?'checked':''} /><span>${t().fields.no}</span></label>
+            <label><input type="radio" name="exp-pbm" value="Sí" ${e.usaPBM?'checked':''} /><span>${t().fields.yes}</span></label>
+          </div>
+        </div>
+        <div id="pbm-details" class="${e.usaPBM?'':'hidden'}">
+          <div class="field-group">
+            <div class="field-group-label">${L.lbl_pbm_mecanismo}</div>
+            <div class="chips" id="chips-pbm-mecanismo"></div>
+          </div>
+          <div class="field-group hidden" id="pbm-indicacion-wrap">
+            <div class="field-group-label">${L.lbl_pbm_indicacion}</div>
+            <div class="chips" id="chips-pbm-indicacion"></div>
+            <div class="otro-input-wrap" id="otro-pbm-indicacion-wrap">
+              <input type="text" id="otro-pbm-indicacion-input" placeholder="${L.lbl_pbm_indicacion_otro_ph}" />
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field-group-label">${L.lbl_pbm_dispositivo}</div>
+            <div class="chips" id="chips-pbm-dispositivo"></div>
+            <div class="otro-input-wrap" id="otro-pbm-dispositivo-wrap">
+              <input type="text" id="otro-pbm-dispositivo-input" placeholder="${L.lbl_pbm_dispositivo_otro_ph}" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nota-complementaria">
+      <label for="exp-nota">${L.nota_label}</label>
+      <textarea id="exp-nota" placeholder="${L.nota_ph}"></textarea>
+    </div>
+  `;
+
+  bindExpedienteEvents();
+  renderAllExpedienteChips();
+  setAccordionOpen(state.expData.accordionOpen || 'paciente');
+  refreshAllSummaries();
+  restoreExpedienteValues();
+}
+
+function restoreExpedienteValues() {
+  const e = state.expData;
+  if (e.nombre) document.getElementById('exp-nombre').value = e.nombre;
+  if (e.receta) document.getElementById('exp-receta').value = e.receta;
+  if (e.nota)   document.getElementById('exp-nota').value = e.nota;
+  if (e.pbmIndicacionOtro) {
+    const inp = document.getElementById('otro-pbm-indicacion-input');
+    if (inp) inp.value = e.pbmIndicacionOtro;
+  }
+  if (e.pbmDispositivoOtro) {
+    const inp = document.getElementById('otro-pbm-dispositivo-input');
+    if (inp) inp.value = e.pbmDispositivoOtro;
+  }
+  if (e.alergiasOtro) {
+    const inp = document.getElementById('otro-alergias-input');
+    if (inp) inp.value = e.alergiasOtro;
+  }
+  if (e.medLibre) {
+    const inp = document.getElementById('med-libre-input');
+    if (inp) inp.value = e.medLibre;
+  }
+}
+
+function bindExpedienteEvents() {
+  document.getElementById('exp-nombre').addEventListener('input', ev => { state.expData.nombre = ev.target.value; });
+  document.getElementById('exp-receta').addEventListener('input', ev => { state.expData.receta = ev.target.value; });
+  document.getElementById('exp-nota').addEventListener('input', ev => { state.expData.nota = ev.target.value; });
+
+  document.querySelectorAll('[data-acc-head]').forEach(head => {
+    head.addEventListener('click', () => setAccordionOpen(head.dataset.accHead));
+  });
+
+  document.querySelectorAll('input[name="exp-pbm"]').forEach(r => {
+    r.addEventListener('change', ev => {
+      state.expData.usaPBM = ev.target.value === 'Sí';
+      document.getElementById('pbm-details').classList.toggle('hidden', !state.expData.usaPBM);
+      refreshAllSummaries();
+    });
+  });
+
+  /* Otro inputs PBM */
+  bindOtroInput('otro-pbm-indicacion-input', val => {
+    state.expData.pbmIndicacionOtro = val.trim();
+    refreshAllSummaries();
+  });
+  bindOtroInput('otro-pbm-dispositivo-input', val => {
+    state.expData.pbmDispositivoOtro = val.trim();
+    refreshAllSummaries();
+  });
+
+  /* Otro inputs */
+  bindOtroInput('otro-antecedentes-input', val => {
+    state.expData.condicionesOtro = val.trim();
+    refreshAllSummaries();
+  });
+  bindOtroInput('otro-med-input', val => {
+    state.expData.medOtro = val.trim();
+  });
+  bindOtroInput('otro-proc-input', val => {
+    state.expData.procOtro = val.trim();
+    refreshAllSummaries();
+  });
+  bindOtroInput('otro-anestesia-input', val => {
+    state.expData.anestesiaOtro = val.trim();
+    refreshAllSummaries();
+  });
+  bindOtroInput('otro-alergias-input', val => {
+    state.expData.alergiasOtro = val.trim();
+    refreshAllSummaries();
+  });
+  const medLibreEl = document.getElementById('med-libre-input');
+  if (medLibreEl) medLibreEl.addEventListener('input', ev => {
+    state.expData.medLibre = ev.target.value;
+    refreshAllSummaries();
+  });
+}
+
+function bindOtroInput(id, cb) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener('input', ev => cb(ev.target.value));
+}
+
+function setAccordionOpen(name) {
+  state.expData.accordionOpen = name;
+  document.querySelectorAll('[data-acc]').forEach(a => {
+    a.classList.toggle('expanded', a.dataset.acc === name);
+  });
+}
+
+/* -------- Render chips -------- */
+function renderAllExpedienteChips() {
+  renderRangeChips('chips-genero', CHIPS_DATA.genero, 'genero', false);
+  renderRangeWithExact('chips-edad', CHIPS_DATA.edad, 'edadRango', 'edadExacto', '');
+  renderRangeWithExact('chips-peso', CHIPS_DATA.peso, 'pesoRango', 'pesoExacto', 'kg');
+  renderRangeWithExact('chips-talla', CHIPS_DATA.talla, 'tallaRango', 'tallaExacto', 'cm');
+  renderAntecedentesChips();
+  renderAlergiasChips();
+  renderMedCategorias();
+  renderMedSubs();
+  renderMedSelected();
+  renderProcEspecialidades();
+  renderProcSubs();
+  renderAnestesiaChips();
+  renderPBMMecanismoChips();
+  renderPBMIndicacionChips();
+  renderPBMDispositivoChips();
+  refreshIMC();
+}
+
+function renderRangeChips(containerId, values, stateKey, withExact) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+  values.forEach(v => {
+    const chip = document.createElement('button');
+    chip.className = 'chip compact';
+    chip.textContent = v;
+    chip.dataset.value = v;
+    if (state.expData[stateKey] === v) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      state.expData[stateKey] = state.expData[stateKey] === v ? '' : v;
+      renderRangeChips(containerId, values, stateKey, withExact);
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+}
+
+function renderRangeWithExact(containerId, values, rangoKey, exactoKey, unit) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+  values.forEach(v => {
+    const chip = document.createElement('button');
+    chip.className = 'chip compact';
+    chip.textContent = v;
+    if (state.expData[rangoKey] === v && !state.expData[exactoKey]) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      state.expData[rangoKey] = state.expData[rangoKey] === v ? '' : v;
+      state.expData[exactoKey] = '';
+      renderRangeWithExact(containerId, values, rangoKey, exactoKey, unit);
+      refreshIMC();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+
+  // Exacto chip
+  const exact = document.createElement('button');
+  exact.className = 'chip-exact chip compact';
+  if (state.expData[exactoKey]) exact.classList.add('has-value');
+  const exactLabel = (state.language === 'es' || state.language === 'pt') ? 'Exacto'
+                   : (state.language === 'ja') ? '正確'
+                   : (state.language === 'ko') ? '정확'
+                   : 'Exact';
+  const unitSuffix = unit ? ` ${unit}` : '';
+  exact.innerHTML = `${exactLabel} <input type="number" min="0" />${unitSuffix}`;
+  const input = exact.querySelector('input');
+  input.value = state.expData[exactoKey] || '';
+  input.addEventListener('click', e => e.stopPropagation());
+  input.addEventListener('input', () => {
+    state.expData[exactoKey] = input.value;
+    if (input.value) state.expData[rangoKey] = '';
+    exact.classList.toggle('has-value', !!input.value);
+    document.querySelectorAll(`#${containerId} .chip`).forEach(c => {
+      if (!c.classList.contains('chip-exact')) c.classList.remove('active');
+    });
+    refreshIMC();
+    refreshAllSummaries();
+  });
+  exact.addEventListener('click', () => input.focus());
+  container.appendChild(exact);
+}
+
+function renderAntecedentesChips() {
+  const container = document.getElementById('chips-antecedentes');
+  if (!container) return;
+  container.innerHTML = '';
+  const e = state.expData;
+  const visibles = CHIPS_DATA.condiciones.filter(c => c.visible);
+  const hidden = CHIPS_DATA.condiciones.filter(c => !c.visible);
+  const items = e.antecedentesShowMore ? CHIPS_DATA.condiciones : visibles;
+
+  items.forEach(cond => {
+    const chip = document.createElement('button');
+    chip.className = 'chip chip-stack';
+    if (cond.alert) chip.classList.add('chip-alert');
+    if (e.condiciones.includes(cond.abbr)) chip.classList.add('active');
+    const fullSpan = cond.full ? `<span class="full">${cond.full}</span>` : '';
+    const alertTag = cond.alert ? `<span class="alert-tag">${cond.alert}</span>` : '';
+    chip.innerHTML = `<span class="abbr">${cond.abbr}${alertTag}</span>${fullSpan}`;
+    chip.addEventListener('click', () => {
+      const idx = e.condiciones.indexOf(cond.abbr);
+      if (idx >= 0) e.condiciones.splice(idx, 1);
+      else e.condiciones.push(cond.abbr);
+      renderAntecedentesChips();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+
+  if (!e.antecedentesShowMore && hidden.length > 0) {
+    const more = document.createElement('button');
+    more.className = 'chip chip-more';
+    more.textContent = `+ ${hidden.length} ${t().exp.mas}`;
+    more.addEventListener('click', () => {
+      e.antecedentesShowMore = true;
+      renderAntecedentesChips();
+    });
+    container.appendChild(more);
+  }
+
+  // Otro chip
+  const otroChip = document.createElement('button');
+  otroChip.className = 'chip chip-more';
+  otroChip.textContent = t().exp.otro;
+  if (e.condicionesOtro) otroChip.classList.add('active');
+  const otroWrap = document.getElementById('otro-antecedentes-wrap');
+  otroChip.addEventListener('click', () => {
+    otroWrap.classList.toggle('show');
+    if (otroWrap.classList.contains('show')) {
+      document.getElementById('otro-antecedentes-input').focus();
+    }
+  });
+  container.appendChild(otroChip);
+
+  // Set Otro input value if any
+  const otroInput = document.getElementById('otro-antecedentes-input');
+  if (otroInput && e.condicionesOtro && !otroInput.value) otroInput.value = e.condicionesOtro;
+  if (e.condicionesOtro) otroWrap.classList.add('show');
+}
+
+function renderAlergiasChips() {
+  const container = document.getElementById('chips-alergias');
+  if (!container) return;
+  container.innerHTML = '';
+  const e = state.expData;
+
+  CHIPS_DATA.alergias.forEach(al => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = al.abbr;
+    if (e.alergias.includes(al.abbr)) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      e.alergiasNinguna = false;
+      const idx = e.alergias.indexOf(al.abbr);
+      if (idx >= 0) e.alergias.splice(idx, 1);
+      else e.alergias.push(al.abbr);
+      renderAlergiasChips();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+
+  // "Ninguna conocida" — exclusivo
+  const ninguna = document.createElement('button');
+  ninguna.className = 'chip';
+  ninguna.textContent = t().exp.alergias_ninguna;
+  if (e.alergiasNinguna) ninguna.classList.add('active');
+  ninguna.addEventListener('click', () => {
+    e.alergiasNinguna = !e.alergiasNinguna;
+    if (e.alergiasNinguna) {
+      e.alergias = [];
+      e.alergiasOtro = '';
+      const oi = document.getElementById('otro-alergias-input');
+      if (oi) oi.value = '';
+      const ow = document.getElementById('otro-alergias-wrap');
+      if (ow) ow.classList.remove('show');
+    }
+    renderAlergiasChips();
+    refreshAllSummaries();
+  });
+  container.appendChild(ninguna);
+
+  // "Otra" → input libre
+  const otroChip = document.createElement('button');
+  otroChip.className = 'chip chip-more';
+  otroChip.textContent = t().exp.otro;
+  if (e.alergiasOtro) otroChip.classList.add('active');
+  const otroWrap = document.getElementById('otro-alergias-wrap');
+  otroChip.addEventListener('click', () => {
+    e.alergiasNinguna = false;
+    otroWrap.classList.toggle('show');
+    if (otroWrap.classList.contains('show')) {
+      document.getElementById('otro-alergias-input').focus();
+    }
+    renderAlergiasChips();
+  });
+  container.appendChild(otroChip);
+
+  const otroInput = document.getElementById('otro-alergias-input');
+  if (otroInput && e.alergiasOtro && !otroInput.value) otroInput.value = e.alergiasOtro;
+  if (e.alergiasOtro) otroWrap.classList.add('show');
+}
+
+function renderMedCategorias() {
+  const container = document.getElementById('chips-med-cats');
+  if (!container) return;
+  container.innerHTML = '';
+  const e = state.expData;
+  CHIPS_DATA.medCategorias.forEach(cat => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = cat;
+    if (e.medActiveCat === cat) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      e.medActiveCat = e.medActiveCat === cat ? '' : cat;
+      e.medOtro = '';
+      renderMedCategorias();
+      renderMedSubs();
+    });
+    container.appendChild(chip);
+  });
+
+  // "Otros" — campo libre de medicamentos (revela input al tocar, como Antecedentes)
+  const otroLibre = document.createElement('button');
+  otroLibre.className = 'chip chip-more';
+  otroLibre.textContent = t().exp.lbl_med_libre;
+  if (e.medLibre) otroLibre.classList.add('active');
+  const libreWrap = document.getElementById('otro-medlibre-wrap');
+  otroLibre.addEventListener('click', () => {
+    libreWrap.classList.toggle('show');
+    if (libreWrap.classList.contains('show')) {
+      document.getElementById('med-libre-input').focus();
+    }
+    renderMedCategorias();
+  });
+  container.appendChild(otroLibre);
+
+  const libreInput = document.getElementById('med-libre-input');
+  if (libreInput && e.medLibre && !libreInput.value) libreInput.value = e.medLibre;
+  if (e.medLibre) libreWrap.classList.add('show');
+}
+
+function renderMedSubs() {
+  const wrap = document.getElementById('med-subs-wrap');
+  const container = document.getElementById('chips-med-subs');
+  const label = document.getElementById('med-subs-label');
+  if (!wrap || !container) return;
+  const e = state.expData;
+  if (!e.medActiveCat) {
+    wrap.classList.add('hidden');
+    return;
+  }
+  wrap.classList.remove('hidden');
+  label.textContent = e.medActiveCat;
+  container.innerHTML = '';
+  const subs = CHIPS_DATA.medSubs[e.medActiveCat] || [];
+  subs.forEach(name => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = name;
+    // Already selected in this cat?
+    if (e.meds.find(m => m.cat === e.medActiveCat && m.name === name)) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      const existingIdx = e.meds.findIndex(m => m.cat === e.medActiveCat && m.name === name);
+      if (existingIdx >= 0) {
+        e.meds.splice(existingIdx, 1);
+      } else {
+        const defFreq = e.medActiveCat === 'Bifosfonatos' ? 'Semanal' : 'c/8h';
+        e.meds.push({ cat: e.medActiveCat, name, freq: defFreq });
+      }
+      renderMedSubs();
+      renderMedSelected();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+  // Otro
+  const otro = document.createElement('button');
+  otro.className = 'chip chip-more';
+  otro.textContent = t().exp.otro;
+  const otroWrap = document.getElementById('otro-med-wrap');
+  otro.addEventListener('click', () => {
+    otroWrap.classList.toggle('show');
+    if (otroWrap.classList.contains('show')) {
+      document.getElementById('otro-med-input').focus();
+    }
+  });
+  container.appendChild(otro);
+  // Add med via Enter on Otro input
+  const otroInput = document.getElementById('otro-med-input');
+  if (otroInput) {
+    otroInput.onkeydown = ev => {
+      if (ev.key === 'Enter') {
+        ev.preventDefault();
+        const v = otroInput.value.trim();
+        if (v && e.medActiveCat) {
+          const defFreq = e.medActiveCat === 'Bifosfonatos' ? 'Semanal' : 'c/8h';
+          e.meds.push({ cat: e.medActiveCat, name: v, freq: defFreq });
+          otroInput.value = '';
+          renderMedSelected();
+          refreshAllSummaries();
+        }
+      }
+    };
+  }
+}
+
+function renderMedSelected() {
+  const wrap = document.getElementById('med-selected-wrap');
+  const container = document.getElementById('med-selected');
+  if (!wrap || !container) return;
+  const e = state.expData;
+  if (e.meds.length === 0) {
+    wrap.classList.add('hidden');
+    return;
+  }
+  wrap.classList.remove('hidden');
+  container.innerHTML = '';
+  e.meds.forEach((m, idx) => {
+    const row = document.createElement('div');
+    row.className = 'med-row';
+    row.innerHTML = `
+      <span class="med-row-cat">${m.cat.split('/')[0].slice(0,12)}</span>
+      <span class="med-row-name">${m.name}</span>
+      <button class="med-freq-btn" type="button">${m.freq}</button>
+      <button class="med-row-remove" type="button" title="Quitar">×</button>
+    `;
+    const freqBtn = row.querySelector('.med-freq-btn');
+    freqBtn.addEventListener('click', () => {
+      const f = CHIPS_DATA.frecuencias;
+      const i = f.indexOf(m.freq);
+      m.freq = f[(i + 1) % f.length];
+      freqBtn.textContent = m.freq;
+      refreshAllSummaries();
+    });
+    row.querySelector('.med-row-remove').addEventListener('click', () => {
+      e.meds.splice(idx, 1);
+      renderMedSubs();
+      renderMedSelected();
+      refreshAllSummaries();
+    });
+    container.appendChild(row);
+  });
+}
+
+function renderProcEspecialidades() {
+  const container = document.getElementById('chips-proc-specs');
+  if (!container) return;
+  container.innerHTML = '';
+  const e = state.expData;
+  CHIPS_DATA.procEspecialidades.forEach(spec => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = spec;
+    if (e.procSpec === spec) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      if (e.procSpec === spec) {
+        e.procSpec = ''; e.procSub = '';
+      } else {
+        e.procSpec = spec; e.procSub = '';
+      }
+      e.procOtro = '';
+      renderProcEspecialidades();
+      renderProcSubs();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+}
+
+function renderProcSubs() {
+  const wrap = document.getElementById('proc-subs-wrap');
+  const container = document.getElementById('chips-proc-subs');
+  if (!wrap || !container) return;
+  const e = state.expData;
+  if (!e.procSpec) { wrap.classList.add('hidden'); return; }
+  wrap.classList.remove('hidden');
+  container.innerHTML = '';
+  const subs = CHIPS_DATA.procSubs[e.procSpec] || [];
+  subs.forEach(s => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = s;
+    if (e.procSub === s) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      e.procSub = e.procSub === s ? '' : s;
+      e.procOtro = '';
+      renderProcSubs();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+  const otro = document.createElement('button');
+  otro.className = 'chip chip-more';
+  otro.textContent = t().exp.otro;
+  if (e.procOtro) otro.classList.add('active');
+  const otroWrap = document.getElementById('otro-proc-wrap');
+  otro.addEventListener('click', () => {
+    otroWrap.classList.toggle('show');
+    if (otroWrap.classList.contains('show')) {
+      document.getElementById('otro-proc-input').focus();
+    }
+  });
+  container.appendChild(otro);
+  const otroInput = document.getElementById('otro-proc-input');
+  if (otroInput && e.procOtro && !otroInput.value) otroInput.value = e.procOtro;
+  if (e.procOtro) otroWrap.classList.add('show');
+}
+
+function renderAnestesiaChips() {
+  const container = document.getElementById('chips-anestesia');
+  if (!container) return;
+  container.innerHTML = '';
+  const e = state.expData;
+  CHIPS_DATA.anestesicos.forEach(a => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = a;
+    if (e.anestesicos.includes(a)) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      const idx = e.anestesicos.indexOf(a);
+      if (idx >= 0) e.anestesicos.splice(idx, 1);
+      else e.anestesicos.push(a);
+      renderAnestesiaChips();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+  const otro = document.createElement('button');
+  otro.className = 'chip chip-more';
+  otro.textContent = t().exp.otro;
+  if (e.anestesiaOtro) otro.classList.add('active');
+  const otroWrap = document.getElementById('otro-anestesia-wrap');
+  otro.addEventListener('click', () => {
+    otroWrap.classList.toggle('show');
+    if (otroWrap.classList.contains('show')) {
+      document.getElementById('otro-anestesia-input').focus();
+    }
+  });
+  container.appendChild(otro);
+  const otroInput = document.getElementById('otro-anestesia-input');
+  if (otroInput && e.anestesiaOtro && !otroInput.value) otroInput.value = e.anestesiaOtro;
+  if (e.anestesiaOtro) otroWrap.classList.add('show');
+}
+
+/* -------- PBM chips (multi-select) -------- */
+
+function renderPBMMecanismoChips() {
+  const container = document.getElementById('chips-pbm-mecanismo');
+  if (!container) return;
+  container.innerHTML = '';
+  const e = state.expData;
+  CHIPS_DATA.pbmMecanismos.forEach(mec => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = mec;
+    if (e.pbmMecanismos.includes(mec)) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      const idx = e.pbmMecanismos.indexOf(mec);
+      if (idx >= 0) {
+        e.pbmMecanismos.splice(idx, 1);
+        // Al deseleccionar un mecanismo, quitar indicaciones que ya no son válidas
+        const stillValid = new Set();
+        e.pbmMecanismos.forEach(m => (CHIPS_DATA.pbmIndicacionesByMec[m] || []).forEach(i => stillValid.add(i)));
+        e.pbmIndicaciones = e.pbmIndicaciones.filter(ind => stillValid.has(ind));
+      } else {
+        e.pbmMecanismos.push(mec);
+      }
+      renderPBMMecanismoChips();
+      renderPBMIndicacionChips();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+}
+
+function renderPBMIndicacionChips() {
+  const container = document.getElementById('chips-pbm-indicacion');
+  const wrap = document.getElementById('pbm-indicacion-wrap');
+  const otroWrap = document.getElementById('otro-pbm-indicacion-wrap');
+  if (!container || !wrap) return;
+  container.innerHTML = '';
+  const e = state.expData;
+
+  if (e.pbmMecanismos.length === 0) {
+    wrap.classList.add('hidden');
+    return;
+  }
+  wrap.classList.remove('hidden');
+
+  // Unir todas las indicaciones de los mecanismos seleccionados, deduplicando
+  // Sacar 'Otro' al final
+  const indicacionesSet = new Set();
+  e.pbmMecanismos.forEach(mec => {
+    (CHIPS_DATA.pbmIndicacionesByMec[mec] || []).forEach(ind => indicacionesSet.add(ind));
+  });
+  const indicaciones = [...indicacionesSet].filter(i => i !== 'Otro');
+  const hasOtro = indicacionesSet.has('Otro');
+
+  indicaciones.forEach(ind => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = ind;
+    if (e.pbmIndicaciones.includes(ind)) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      const idx = e.pbmIndicaciones.indexOf(ind);
+      if (idx >= 0) e.pbmIndicaciones.splice(idx, 1);
+      else e.pbmIndicaciones.push(ind);
+      renderPBMIndicacionChips();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+
+  if (hasOtro) {
+    const otro = document.createElement('button');
+    otro.className = 'chip chip-more';
+    otro.textContent = t().exp.otro;
+    if (e.pbmIndicacionOtro) otro.classList.add('active');
+    otro.addEventListener('click', () => {
+      otroWrap.classList.toggle('show');
+      if (otroWrap.classList.contains('show')) {
+        const inp = document.getElementById('otro-pbm-indicacion-input');
+        if (inp) inp.focus();
+      }
+    });
+    container.appendChild(otro);
+    const otroInput = document.getElementById('otro-pbm-indicacion-input');
+    if (otroInput && e.pbmIndicacionOtro && !otroInput.value) otroInput.value = e.pbmIndicacionOtro;
+    if (e.pbmIndicacionOtro) otroWrap.classList.add('show');
+  }
+}
+
+function renderPBMDispositivoChips() {
+  const container = document.getElementById('chips-pbm-dispositivo');
+  const otroWrap = document.getElementById('otro-pbm-dispositivo-wrap');
+  if (!container) return;
+  container.innerHTML = '';
+  const e = state.expData;
+
+  CHIPS_DATA.pbmDispositivos.forEach(disp => {
+    if (disp === 'Otro') return; // lo manejamos al final
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = disp;
+    if (e.pbmDispositivos.includes(disp)) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      const idx = e.pbmDispositivos.indexOf(disp);
+      if (idx >= 0) e.pbmDispositivos.splice(idx, 1);
+      else e.pbmDispositivos.push(disp);
+      renderPBMDispositivoChips();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+
+  // Chip "Otro" al final
+  const otro = document.createElement('button');
+  otro.className = 'chip chip-more';
+  otro.textContent = t().exp.otro;
+  if (e.pbmDispositivoOtro) otro.classList.add('active');
+  otro.addEventListener('click', () => {
+    otroWrap.classList.toggle('show');
+    if (otroWrap.classList.contains('show')) {
+      const inp = document.getElementById('otro-pbm-dispositivo-input');
+      if (inp) inp.focus();
+    }
+  });
+  container.appendChild(otro);
+  const otroInput = document.getElementById('otro-pbm-dispositivo-input');
+  if (otroInput && e.pbmDispositivoOtro && !otroInput.value) otroInput.value = e.pbmDispositivoOtro;
+  if (e.pbmDispositivoOtro) otroWrap.classList.add('show');
+}
+
+/* -------- IMC -------- */
+function imcCategory(imc) {
+  if (imc < 18.5) return 'bajo peso';
+  if (imc < 25) return 'normal';
+  if (imc < 30) return 'sobrepeso';
+  if (imc < 35) return 'obesidad grado I';
+  if (imc < 40) return 'obesidad grado II';
+  return 'obesidad grado III';
+}
+
+function refreshIMC() {
+  const e = state.expData;
+  const hint = document.getElementById('imc-hint');
+  const disp = document.getElementById('imc-display');
+  const val = document.getElementById('imc-value');
+  const cat = document.getElementById('imc-cat');
+  if (!hint || !disp) return;
+  const peso = parseFloat(e.pesoExacto);
+  const talla = parseFloat(e.tallaExacto);
+  if (!peso || !talla || talla < 50) {
+    disp.classList.add('hidden');
+    hint.classList.remove('hidden');
+    return;
+  }
+  const m = talla / 100;
+  const imc = peso / (m * m);
+  val.textContent = imc.toFixed(1);
+  cat.textContent = imcCategory(imc);
+  disp.classList.remove('hidden');
+  hint.classList.add('hidden');
+}
+
+/* -------- Summaries -------- */
+function refreshAllSummaries() {
+  setSummary('paciente', summaryPaciente());
+  setSummary('antecedentes', summaryAntecedentes());
+  setSummary('alergias', summaryAlergias());
+  setSummary('medicamentos', summaryMedicamentos());
+  setSummary('procedimiento', summaryProcedimiento());
+  setSummary('anestesia', summaryAnestesia());
+  setSummary('pbm', summaryPBM());
+}
+
+function setSummary(name, text) {
+  const el = document.querySelector(`[data-acc-summary="${name}"]`);
+  if (!el) return;
+  if (!text) {
+    el.textContent = t().exp.empty_summary;
+    el.classList.add('empty');
+  } else {
+    el.innerHTML = text;
+    el.classList.remove('empty');
+  }
+}
+
+function summaryPaciente() {
+  const e = state.expData;
+  const parts = [];
+  if (e.genero) parts.push(e.genero);
+  if (e.edadExacto) parts.push(`${e.edadExacto}a`);
+  else if (e.edadRango) parts.push(`${e.edadRango}a`);
+  if (e.pesoExacto) parts.push(`${e.pesoExacto}kg`);
+  else if (e.pesoRango) parts.push(e.pesoRango);
+  if (e.tallaExacto) parts.push(`${e.tallaExacto}cm`);
+  else if (e.tallaRango) parts.push(e.tallaRango);
+  return parts.join(' · ');
+}
+
+function summaryAntecedentes() {
+  const e = state.expData;
+  const items = [...e.condiciones];
+  if (e.condicionesOtro) items.push(e.condicionesOtro);
+  return items.length > 0 ? items.join(', ') : '';
+}
+
+function summaryAlergias() {
+  const e = state.expData;
+  if (e.alergiasNinguna) return t().exp.alergias_ninguna;
+  const al = [...e.alergias];
+  if (e.alergiasOtro) al.push(e.alergiasOtro);
+  return al.length > 0 ? al.join(', ') : '';
+}
+
+function summaryMedicamentos() {
+  const e = state.expData;
+  const _chips = e.meds.map(m => `${m.name} ${m.freq}`);
+  const _libre = (e.medLibre || '').trim();
+  const _all = [..._chips];
+  if (_libre) _all.push(_libre);
+  if (_all.length === 0) return '';
+  return _all.join(', ');
+}
+
+function summaryProcedimiento() {
+  const e = state.expData;
+  if (!e.procSpec) return '';
+  let s = e.procSpec;
+  if (e.procOtro) s += ` — ${e.procOtro}`;
+  else if (e.procSub) s += ` — ${e.procSub}`;
+  return s;
+}
+
+function summaryAnestesia() {
+  const e = state.expData;
+  const parts = [...e.anestesicos];
+  if (e.anestesiaOtro) parts.push(e.anestesiaOtro);
+  return parts.join(', ');
+}
+
+function summaryPBM() {
+  const e = state.expData;
+  if (!e.usaPBM) return '';
+  const parts = ['Sí'];
+
+  // Mecanismos seleccionados
+  if (e.pbmMecanismos.length > 0) {
+    parts.push(e.pbmMecanismos.join(', '));
+  }
+
+  // Indicaciones (incluye Otro si tiene texto)
+  const inds = [...e.pbmIndicaciones];
+  if (e.pbmIndicacionOtro) inds.push(e.pbmIndicacionOtro);
+  if (inds.length > 0) {
+    const joined = inds.join(', ');
+    parts.push(joined.length > 40 ? joined.slice(0, 40) + '…' : joined);
+  }
+
+  // Dispositivos (incluye Otro si tiene texto)
+  const disps = [...e.pbmDispositivos];
+  if (e.pbmDispositivoOtro) disps.push(e.pbmDispositivoOtro);
+  if (disps.length > 0) {
+    const joined = disps.join(', ');
+    parts.push(joined.length > 35 ? joined.slice(0, 35) + '…' : joined);
+  }
+
+  return parts.join(' · ');
+}
+
+/* -------- Build payload for Expediente -------- */
+function buildExpedienteFormData() {
+  const e = state.expData;
+
+  // Paciente
+  const patientParts = [];
+  if (e.genero) patientParts.push(e.genero);
+  if (e.edadExacto) patientParts.push(`${e.edadExacto} años`);
+  else if (e.edadRango) patientParts.push(`${e.edadRango} años`);
+  if (e.pesoExacto) patientParts.push(`${e.pesoExacto} kg`);
+  else if (e.pesoRango) patientParts.push(`peso ${e.pesoRango}`);
+  if (e.tallaExacto) patientParts.push(`${e.tallaExacto} cm`);
+  else if (e.tallaRango) patientParts.push(`talla ${e.tallaRango}`);
+
+  let pacienteLine = '';
+  if (patientParts.length > 0) pacienteLine = 'Paciente: ' + patientParts.join(', ') + '.';
+
+  // IMC
+  let imcSuffix = '';
+  const p = parseFloat(e.pesoExacto), tt = parseFloat(e.tallaExacto);
+  if (p && tt && tt >= 50) {
+    const m = tt / 100;
+    const imc = p / (m * m);
+    imcSuffix = ` IMC ${imc.toFixed(1)} (${imcCategory(imc)}).`;
+  }
+
+  // Antecedentes
+  const condItems = [...e.condiciones];
+  if (e.condicionesOtro) condItems.push(e.condicionesOtro);
+  let antLine = '';
+  if (condItems.length > 0) {
+    const formatted = condItems.map(c => c === 'Bifosfonatos' ? 'Bifosfonatos (riesgo ONJ)' : c);
+    antLine = 'Antecedentes: ' + formatted.join(', ') + '.';
+  }
+
+  // HistClin = paciente + IMC + antecedentes + nota
+  const histParts = [];
+  if (pacienteLine) histParts.push(pacienteLine + imcSuffix);
+  if (antLine) histParts.push(antLine);
+  if ((e.nota || '').trim()) histParts.push('Nota del doctor: ' + e.nota.trim());
+  state.formData.HistClin = histParts.join(' ');
+
+  // medstomando — limpia paréntesis de frecuencia para evitar duplicar ("Alendronato (semanal) Semanal")
+  const medChips = e.meds.map(m => {
+    const cleanName = m.name.replace(/\s*\((semanal|mensual|diario|c\/\d+h)\)\s*/i, '').trim();
+    return `${cleanName} ${m.freq}`;
+  });
+  const medLibreVal = (e.medLibre || '').trim();
+  state.formData.medstomando = [medChips.join(', '), medLibreVal].filter(Boolean).join(', ');
+
+  // alergias — clave dedicada; el prompt del Generador la cruza contra la receta
+  if (e.alergiasNinguna) {
+    state.formData.alergias = 'Ninguna conocida';
+  } else {
+    const alItems = [...e.alergias];
+    if (e.alergiasOtro) alItems.push(e.alergiasOtro);
+    state.formData.alergias = alItems.join(', ');
+  }
+
+  // procedimiento
+  let procStr = '';
+  if (e.procSpec) {
+    procStr = e.procSpec;
+    if (e.procOtro) procStr += ' — ' + e.procOtro;
+    else if (e.procSub) procStr += ' — ' + e.procSub;
+  }
+  state.formData.procedimiento = procStr;
+
+  // anestesia
+  const anestesicos = [...e.anestesicos];
+  if (e.anestesiaOtro) anestesicos.push(e.anestesiaOtro);
+  state.formData.anestesia = anestesicos.join(', ');
+
+  // receta
+  state.formData.receta = (e.receta || '').trim();
+
+  // PBM
+  // PBM: construir strings legibles desde arrays multi-select
+  state.formData.laser_pbm = e.usaPBM ? 'Sí' : 'No';
+  if (e.usaPBM) {
+    // objetivo_PBM = "Mecanismos: Analgesia, Antiinflamatorio. Indicaciones: Dolor postop, Mucositis, Periodontitis. Otro: <texto libre si aplica>"
+    const objParts = [];
+    if (e.pbmMecanismos.length > 0) {
+      objParts.push('Mecanismos: ' + e.pbmMecanismos.join(', '));
+    }
+    const inds = [...e.pbmIndicaciones];
+    if (e.pbmIndicacionOtro) inds.push(e.pbmIndicacionOtro.trim());
+    if (inds.length > 0) {
+      objParts.push('Indicaciones: ' + inds.join(', '));
+    }
+    state.formData.objetivo_PBM = objParts.join('. ');
+
+    // dispositivo_laser = "660 nm (diodo rojo), 810 nm (diodo IR). Otro: <texto libre>"
+    const disps = [...e.pbmDispositivos];
+    if (e.pbmDispositivoOtro) disps.push(e.pbmDispositivoOtro.trim());
+    state.formData.dispositivo_laser = disps.join(', ');
+  } else {
+    state.formData.objetivo_PBM = '';
+    state.formData.dispositivo_laser = '';
+  }
+
+  // Nombre
+  state.formData.nombre_paciente = (e.nombre || '').trim();
+}
+
+/* =============================================================
+ * INTERCONSULTA · render con chips/acordeones + herencia desde Expediente
+ * ============================================================= */
+
+function renderInterconsultaForm() {
+  const L = t().inter;
+  const Lexp = t().exp;
+  const i = state.interData;
+  const e = state.expData;
+  const container = document.getElementById('form-container');
+
+  const heredadoBanner = i.heritedFromExp ? `
+    <div class="inter-heredado-banner">
+      <div class="inter-heredado-left">
+        <span class="inter-heredado-icon">↻</span>
+        <span class="inter-heredado-text">${escapeHtml(L.heredado_banner)}</span>
+      </div>
+      <button type="button" class="inter-heredado-edit" id="inter-heredado-edit">${escapeHtml(L.heredado_editar)}</button>
+    </div>
+  ` : '';
+
+  container.innerHTML = `
+    ${heredadoBanner}
+
+    <div class="field">
+      <label for="exp-nombre">${t().fields.nombre_paciente}</label>
+      <input type="text" id="exp-nombre" placeholder="${t().fields.nombre_paciente_ph}" />
+    </div>
+
+    <div class="accordion" data-inter-acc="destino">
+      <div class="accordion-head" data-inter-acc-head="destino">
+        <div class="accordion-head-left">
+          <span class="accordion-num">01</span>
+          <span class="accordion-title">${L.acc_destino}</span>
+        </div>
+        <span class="accordion-summary" data-inter-acc-summary="destino"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_especialidad}</div>
+          <div class="chips" id="chips-inter-esp"></div>
+        </div>
+        <div class="field-group hidden" id="inter-motivo-wrap">
+          <div class="field-group-label">${L.lbl_motivo}</div>
+          <div class="chips" id="chips-inter-motivo"></div>
+          <div class="otro-input-wrap" id="otro-inter-motivo-wrap">
+            <input type="text" id="otro-inter-motivo-input" placeholder="${L.lbl_motivo_otro_ph}" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="paciente">
+      <div class="accordion-head" data-acc-head="paciente">
+        <div class="accordion-head-left">
+          <span class="accordion-num">02</span>
+          <span class="accordion-title">${Lexp.acc_paciente}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="paciente"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${Lexp.lbl_genero}</div>
+          <div class="chips" id="chips-genero"></div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-label">${Lexp.lbl_edad}</div>
+          <div class="chips" id="chips-edad"></div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-label">${Lexp.lbl_peso}</div>
+          <div class="chips" id="chips-peso"></div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-label">${Lexp.lbl_talla}</div>
+          <div class="chips" id="chips-talla"></div>
+          <div class="imc-hint" id="imc-hint">${Lexp.imc_hint}</div>
+          <div class="imc-display hidden" id="imc-display">
+            <span class="imc-label">${Lexp.imc_label}</span>
+            <span class="imc-value" id="imc-value">—</span>
+            <span class="imc-cat" id="imc-cat">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="antecedentes">
+      <div class="accordion-head" data-acc-head="antecedentes">
+        <div class="accordion-head-left">
+          <span class="accordion-num">03</span>
+          <span class="accordion-title">${Lexp.acc_antecedentes}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="antecedentes"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="chips" id="chips-antecedentes"></div>
+        <div class="otro-input-wrap" id="otro-antecedentes-wrap">
+          <input type="text" id="otro-antecedentes-input" placeholder="${Lexp.otro_ph}" />
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="medicamentos">
+      <div class="accordion-head" data-acc-head="medicamentos">
+        <div class="accordion-head-left">
+          <span class="accordion-num">04</span>
+          <span class="accordion-title">${Lexp.acc_medicamentos}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="medicamentos"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${Lexp.lbl_categoria}</div>
+          <div class="chips" id="chips-med-cats"></div>
+        </div>
+        <div class="field-group hidden" id="med-subs-wrap">
+          <div class="field-group-label" id="med-subs-label">${Lexp.lbl_especifico}</div>
+          <div class="chips" id="chips-med-subs"></div>
+          <div class="otro-input-wrap" id="otro-med-wrap">
+            <input type="text" id="otro-med-input" placeholder="${Lexp.otro_ph}" />
+          </div>
+        </div>
+        <div class="field-group hidden" id="med-selected-wrap">
+          <div class="field-group-label">${Lexp.lbl_seleccionados}</div>
+          <div class="med-selected" id="med-selected"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="procedimiento">
+      <div class="accordion-head" data-acc-head="procedimiento">
+        <div class="accordion-head-left">
+          <span class="accordion-num">05</span>
+          <span class="accordion-title">${Lexp.acc_procedimiento}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="procedimiento"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${Lexp.lbl_especialidad}</div>
+          <div class="chips" id="chips-proc-specs"></div>
+        </div>
+        <div class="field-group hidden" id="proc-subs-wrap">
+          <div class="field-group-label">${Lexp.lbl_procedimiento}</div>
+          <div class="chips" id="chips-proc-subs"></div>
+          <div class="otro-input-wrap" id="otro-proc-wrap">
+            <input type="text" id="otro-proc-input" placeholder="${Lexp.otro_ph}" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="exp-receta">${Lexp.lbl_receta}</label>
+          <textarea id="exp-receta" placeholder="${Lexp.lbl_receta_ph}"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="anestesia">
+      <div class="accordion-head" data-acc-head="anestesia">
+        <div class="accordion-head-left">
+          <span class="accordion-num">06</span>
+          <span class="accordion-title">${Lexp.acc_anestesia}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="anestesia"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${Lexp.lbl_anestesicos}</div>
+          <div class="chips" id="chips-anestesia"></div>
+          <div class="otro-input-wrap" id="otro-anestesia-wrap">
+            <input type="text" id="otro-anestesia-input" placeholder="${Lexp.otro_ph}" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" data-acc="pbm">
+      <div class="accordion-head" data-acc-head="pbm">
+        <div class="accordion-head-left">
+          <span class="accordion-num">07</span>
+          <span class="accordion-title">${Lexp.acc_pbm}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="pbm"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${Lexp.lbl_pbm}</div>
+          <div class="radio-group" id="pbm-toggle">
+            <label><input type="radio" name="exp-pbm" value="No" ${!e.usaPBM?'checked':''} /><span>${t().fields.no}</span></label>
+            <label><input type="radio" name="exp-pbm" value="Sí" ${e.usaPBM?'checked':''} /><span>${t().fields.yes}</span></label>
+          </div>
+        </div>
+        <div id="pbm-details" class="${e.usaPBM?'':'hidden'}">
+          <div class="field-group">
+            <div class="field-group-label">${Lexp.lbl_pbm_mecanismo}</div>
+            <div class="chips" id="chips-pbm-mecanismo"></div>
+          </div>
+          <div class="field-group hidden" id="pbm-indicacion-wrap">
+            <div class="field-group-label">${Lexp.lbl_pbm_indicacion}</div>
+            <div class="chips" id="chips-pbm-indicacion"></div>
+            <div class="otro-input-wrap" id="otro-pbm-indicacion-wrap">
+              <input type="text" id="otro-pbm-indicacion-input" placeholder="${Lexp.lbl_pbm_indicacion_otro_ph}" />
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field-group-label">${Lexp.lbl_pbm_dispositivo}</div>
+            <div class="chips" id="chips-pbm-dispositivo"></div>
+            <div class="otro-input-wrap" id="otro-pbm-dispositivo-wrap">
+              <input type="text" id="otro-pbm-dispositivo-input" placeholder="${Lexp.lbl_pbm_dispositivo_otro_ph}" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nota-complementaria">
+      <label for="exp-nota">${Lexp.nota_label}</label>
+      <textarea id="exp-nota" placeholder="${Lexp.nota_ph}"></textarea>
+    </div>
+
+    <div class="accordion" data-inter-acc="pregunta">
+      <div class="accordion-head" data-inter-acc-head="pregunta">
+        <div class="accordion-head-left">
+          <span class="accordion-num">08</span>
+          <span class="accordion-title">${L.acc_pregunta}</span>
+        </div>
+        <span class="accordion-summary" data-inter-acc-summary="pregunta"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="field-group">
+          <div class="field-group-label">${L.lbl_tipo_pregunta}</div>
+          <div class="chips" id="chips-inter-tipo-pregunta"></div>
+        </div>
+        <div class="field">
+          <label for="inter-pregunta">${L.lbl_pregunta}</label>
+          <textarea id="inter-pregunta" placeholder="${L.lbl_pregunta_ph}"></textarea>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // -- Wire eventos del Expediente (reutilizado) --
+  bindExpedienteEvents();          // inputs nombre/receta/nota/PBM + acordeones data-acc + "Otro"
+  renderAllExpedienteChips();      // pinta TODOS los chips del Expediente
+
+  // -- Wire eventos específicos de Interconsulta --
+  // Textarea pregunta
+  const preguntaEl = document.getElementById('inter-pregunta');
+  preguntaEl.value = i.preguntaTexto || '';
+  preguntaEl.addEventListener('input', ev => {
+    i.preguntaTexto = ev.target.value;
+    refreshInterAllSummaries();
+  });
+
+  // Otro motivo input
+  const otroMotivoInput = document.getElementById('otro-inter-motivo-input');
+  if (otroMotivoInput) {
+    otroMotivoInput.value = i.motivoOtro || '';
+    otroMotivoInput.addEventListener('input', ev => {
+      i.motivoOtro = ev.target.value.trim();
+      refreshInterAllSummaries();
+    });
+  }
+
+  // Botón "Editar caso clínico" del banner de herencia → abre acordeón paciente
+  const editBtn = document.getElementById('inter-heredado-edit');
+  if (editBtn) {
+    editBtn.addEventListener('click', () => {
+      setAccordionOpen('paciente');
+    });
+  }
+
+  // Pintar chips de Interconsulta
+  renderInterEspChips();
+  renderInterMotivoChips();
+  renderInterTipoPreguntaChips();
+
+  // Acordeones data-inter-acc (Destino y Pregunta)
+  document.querySelectorAll('[data-inter-acc-head]').forEach(head => {
+    head.addEventListener('click', () => {
+      const name = head.getAttribute('data-inter-acc-head');
+      setInterAccordionOpen(state.interData.accordionOpen === name ? '' : name);
+    });
+  });
+
+  // Abrir acordeones iniciales
+  // Si heredado: abrir el primer acordeón clínico (paciente) y dejar destino expandido también
+  if (i.heritedFromExp) {
+    setAccordionOpen('');                                   // ningún data-acc abierto por defecto si heredado
+    setInterAccordionOpen(i.accordionOpen || 'pregunta');   // pregunta abierta para que el doctor escriba
+  } else {
+    setAccordionOpen('');                                   // ningún data-acc abierto en flujo directo
+    setInterAccordionOpen(i.accordionOpen || 'destino');    // destino abierto en flujo directo
+  }
+
+  refreshAllSummaries();           // del Expediente
+  refreshInterAllSummaries();      // de Interconsulta
+}
+
+function setInterAccordionOpen(name) {
+  state.interData.accordionOpen = name;
+  document.querySelectorAll('[data-inter-acc]').forEach(acc => {
+    const n = acc.getAttribute('data-inter-acc');
+    acc.classList.toggle('expanded', n === name);
+  });
+}
+
+function renderInterEspChips() {
+  const container = document.getElementById('chips-inter-esp');
+  if (!container) return;
+  container.innerHTML = '';
+  const i = state.interData;
+  INTER_DATA.especialidades.forEach(esp => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = esp.label;
+    if (i.especialidad === esp.key) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      if (i.especialidad === esp.key) {
+        // Click sobre el chip activo: deseleccionar todo
+        i.especialidad = '';
+        i.motivo = '';
+        i.motivoOtro = '';
+      } else {
+        i.especialidad = esp.key;
+        i.motivo = '';
+        i.motivoOtro = '';
+      }
+      renderInterEspChips();
+      renderInterMotivoChips();
+      refreshInterAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+}
+
+function renderInterMotivoChips() {
+  const container = document.getElementById('chips-inter-motivo');
+  const wrap = document.getElementById('inter-motivo-wrap');
+  const otroWrap = document.getElementById('otro-inter-motivo-wrap');
+  if (!container || !wrap) return;
+  container.innerHTML = '';
+  const i = state.interData;
+
+  if (!i.especialidad) {
+    wrap.classList.add('hidden');
+    return;
+  }
+  wrap.classList.remove('hidden');
+
+  // Caso especial: si especialidad === 'otro', NO mostramos chips de motivo,
+  // mostramos directo el textarea para que el doctor escriba especialidad + motivo libre.
+  if (i.especialidad === 'otro') {
+    // Auto-marcamos motivo='Otro' internamente para que la validación pase con solo motivoOtro
+    i.motivo = 'Otro';
+    // Actualizar label del field-group y placeholder del input
+    const labelEl = wrap.querySelector('.field-group-label');
+    if (labelEl) labelEl.textContent = t().inter.lbl_motivo_otro_label;
+    const inp = document.getElementById('otro-inter-motivo-input');
+    if (inp) inp.placeholder = t().inter.lbl_especialidad_libre_ph;
+    otroWrap.classList.add('show');
+    setTimeout(() => {
+      if (inp && document.activeElement !== inp) inp.focus();
+    }, 50);
+    return;
+  }
+
+  // Caso normal: restaurar label y placeholder por defecto
+  const labelEl = wrap.querySelector('.field-group-label');
+  if (labelEl) labelEl.textContent = t().inter.lbl_motivo;
+  const inpRestore = document.getElementById('otro-inter-motivo-input');
+  if (inpRestore) inpRestore.placeholder = t().inter.lbl_motivo_otro_ph;
+
+  const esp = INTER_DATA.especialidades.find(e => e.key === i.especialidad);
+  if (!esp) return;
+
+  esp.motivos.forEach(motivo => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = motivo;
+    if (i.motivo === motivo) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      i.motivo = i.motivo === motivo ? '' : motivo;
+      // Si elige "Otro", mostrar input; si elige otro distinto, ocultar
+      if (i.motivo === 'Otro') {
+        otroWrap.classList.add('show');
+        setTimeout(() => {
+          const inp = document.getElementById('otro-inter-motivo-input');
+          if (inp) inp.focus();
+        }, 50);
+      } else {
+        otroWrap.classList.remove('show');
+        i.motivoOtro = '';
+        const inp = document.getElementById('otro-inter-motivo-input');
+        if (inp) inp.value = '';
+      }
+      renderInterMotivoChips();
+      refreshInterAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+
+  // Si ya estaba en "Otro", mostrar wrap
+  if (i.motivo === 'Otro') otroWrap.classList.add('show');
+  else otroWrap.classList.remove('show');
+}
+
+function renderInterTipoPreguntaChips() {
+  const container = document.getElementById('chips-inter-tipo-pregunta');
+  if (!container) return;
+  container.innerHTML = '';
+  const i = state.interData;
+  INTER_DATA.tipoPregunta.forEach(tp => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = tp;
+    if (i.tipoPregunta === tp) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      i.tipoPregunta = i.tipoPregunta === tp ? '' : tp;
+      renderInterTipoPreguntaChips();
+      refreshInterAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+}
+
+function refreshInterAllSummaries() {
+  const i = state.interData;
+
+  // Destino summary (01)
+  const destSum = document.querySelector('[data-inter-acc-summary="destino"]');
+  if (destSum) {
+    const parts = [];
+    if (i.especialidad === 'otro') {
+      // En el caso "Otro", lo que el doctor escribió es la especialidad libre completa
+      const libre = (i.motivoOtro || '').trim();
+      if (libre) {
+        parts.push(libre.length > 50 ? libre.slice(0, 50) + '…' : libre);
+      } else {
+        parts.push('Otro');
+      }
+    } else if (i.especialidad) {
+      const esp = INTER_DATA.especialidades.find(e => e.key === i.especialidad);
+      if (esp) parts.push(esp.label);
+      if (i.motivo) {
+        const motivoText = i.motivo === 'Otro' && i.motivoOtro ? i.motivoOtro : i.motivo;
+        parts.push(motivoText);
+      }
+    }
+    destSum.textContent = parts.length > 0 ? parts.join(' · ') : t().exp.empty_summary;
+    destSum.classList.toggle('empty', parts.length === 0);
+  }
+
+  // Pregunta summary (08)
+  const preguntaSum = document.querySelector('[data-inter-acc-summary="pregunta"]');
+  if (preguntaSum) {
+    const parts = [];
+    if (i.tipoPregunta) parts.push(i.tipoPregunta);
+    if ((i.preguntaTexto || '').trim()) {
+      const txt = i.preguntaTexto.trim();
+      parts.push(txt.length > 40 ? txt.slice(0, 40) + '…' : txt);
+    }
+    preguntaSum.textContent = parts.length > 0 ? parts.join(' · ') : t().exp.empty_summary;
+    preguntaSum.classList.toggle('empty', parts.length === 0);
+  }
+}
+
+function buildInterconsultaFormData() {
+  const i = state.interData;
+
+  // 1. Caso clínico viene del Expediente (única fuente de verdad).
+  buildExpedienteFormData();
+
+  // 2. Arma especialidad destino y motivo legibles.
+  //    Caso especial: si el usuario eligió "Otro" como especialidad, todo el texto
+  //    libre que escribió (motivoOtro) se interpreta como la ESPECIALIDAD destino,
+  //    y motivo_interconsulta queda vacío (el agente lo infiere del texto).
+  let especialidadLabel = '';
+  let motivoLabel = '';
+  if (i.especialidad === 'otro') {
+    especialidadLabel = (i.motivoOtro || '').trim() || 'Otro';
+    motivoLabel = '';
+  } else if (i.especialidad) {
+    const esp = INTER_DATA.especialidades.find(e => e.key === i.especialidad);
+    if (esp) especialidadLabel = esp.label;
+    if (i.motivo === 'Otro' && i.motivoOtro) motivoLabel = i.motivoOtro.trim();
+    else if (i.motivo) motivoLabel = i.motivo;
+  }
+
+  // 3. Campos específicos de Interconsulta
+  state.formData.especialidad_destino = especialidadLabel;
+  state.formData.motivo_interconsulta = motivoLabel;
+  state.formData.tipo_pregunta = i.tipoPregunta || '';
+  state.formData.pregunta_especifica = (i.preguntaTexto || '').trim();
+  state.formData.inherited_from_expediente = i.heritedFromExp ? 'Sí' : 'No';
+}
+
+/* -------- Herencia Expediente → Interconsulta -------- */
+
+function detectSuggestedSpecialty(reportText) {
+  if (!reportText) return '';
+  for (const entry of SPECIALTY_REGEX) {
+    if (entry.rx.test(reportText)) return entry.key;
+  }
+  return '';
+}
+
+function inheritExpedienteToInterconsulta(reportText) {
+  // Los datos clínicos viven en state.expData y permanecen intactos.
+  // Solo inicializamos los campos exclusivos de Interconsulta y marcamos herencia.
+
+  state.interData = emptyInterData();
+  const i = state.interData;
+  i.heritedFromExp = true;
+  i.expedienteReport = reportText || '';
+
+  // Detectar especialidad sugerida del reporte
+  const suggested = detectSuggestedSpecialty(reportText);
+  if (suggested) i.especialidad = suggested;
+
+  // Cambiar módulo a interconsulta
+  state.module = 'interconsulta';
+  state.sessionCreditUsed = false;       // la interconsulta cobra su propio crédito
+  state.conversationHistory = [];
+  state.reviewTurn = 0;
+
+  // Decidir acordeón inicial:
+  // - si detectamos especialidad, vamos directo a la pregunta (datos clínicos ya están)
+  // - si no, abrir destino para que el doctor elija especialidad
+  i.accordionOpen = suggested ? 'pregunta' : 'destino';
+
+  // Limpiar UI del reporte previo y re-renderizar módulo Interconsulta
+  document.getElementById('response').innerHTML = '';
+  hide('response-wrap');
+  hide('followup');
+  document.getElementById('chat-history').innerHTML = '';
+  show('module-view');
+  hide('home');
+
+  renderModuleForm();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* =============================================================
+ * Module open/close, profile, submit, validation
+ * ============================================================= */
+
+function openModule(key) {
+  state.module = key;
+  state.sessionCreditUsed = false;
+  state.conversationHistory = [];
+  state.formData = {};
+  state.reviewMode = false;  // off por default, siempre
+  state.reviewTurn = 0;
+  if (key === 'expediente') state.expData = emptyExpData();
+  if (key === 'interconsulta') {
+    // Entrada directa a Interconsulta (no herencia): expediente e interData limpios
+    state.expData = emptyExpData();
+    state.interData = emptyInterData();
+  }
+  hide('view-home'); show('view-module');
+  hide('response-wrap'); hide('followup'); hide('upgrade-module');
+  document.getElementById('error-box').innerHTML = '';
+  document.getElementById('chat-history').innerHTML = '';
+  renderModuleForm();
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  state.module = null;
+  hide('view-module'); show('view-home');
+  renderAll();
+  window.scrollTo(0, 0);
+}
+
+function renderAll() {
+  renderCreditsPill();
+  renderWelcome();
+  renderModules();
+  if (state.credits !== null && state.credits <= 0) renderUpgradeCard('upgrade-home');
+  else hide('upgrade-home');
+  if (state.module) renderModuleForm();
+}
+
+async function fetchProfile() {
+  if (!state.userEmail) { state.credits = null; return; }
+  try {
+    const url = N8N_PROFILE_URL + '?email=' + encodeURIComponent(state.userEmail);
+    const r = await fetch(url, { method: 'GET' });
+    if (!r.ok) throw new Error('profile fetch failed');
+    const data = await r.json();
+    state.credits = Number(data.credits_balance) || 0;
+  } catch (e) { console.warn('Profile error:', e); state.credits = null; }
+  renderCreditsPill();
+  if (state.credits !== null && state.credits <= 0 && !state.module) renderUpgradeCard('upgrade-home');
+}
+
+function mdToHtml(md) {
+  if (!md) return '';
+  let s = String(md);
+  s = s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  s = s.replace(/```([\s\S]*?)```/g, (_, c) => `<pre><code>${c}</code></pre>`);
+  s = s.replace(/`([^`\n]+)`/g, '<code>$1</code>');
+  s = s.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+  s = s.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+  s = s.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
+  s = s.replace(/((?:^\|.+\|\s*\n)+)/gm, block => {
+    const lines = block.trim().split('\n');
+    if (lines.length < 2) return block;
+    const headerCells = lines[0].slice(1, -1).split('|').map(x => x.trim());
+    const sep = lines[1];
+    if (!/^\|[\s\-:|]+\|$/.test(sep)) return block;
+    const rows = lines.slice(2).map(l => l.slice(1, -1).split('|').map(x => x.trim()));
+    let html = '<table><thead><tr>' + headerCells.map(c => `<th>${c}</th>`).join('') + '</tr></thead><tbody>';
+    rows.forEach(r => { html += '<tr>' + r.map(c => `<td>${c}</td>`).join('') + '</tr>'; });
+    html += '</tbody></table>';
+    return html;
+  });
+  s = s.replace(/^(?:-|\*) (.+)$/gm, '<li>$1</li>');
+  s = s.replace(/(<li>.*?<\/li>\s*)+/gs, m => `<ul>${m.trim()}</ul>`);
+  s = s.replace(/^(\d+)\. (.+)$/gm, '<oli>$2</oli>');
+  s = s.replace(/(<oli>.*?<\/oli>\s*)+/gs, m => `<ol>${m.replace(/<oli>/g, '<li>').replace(/<\/oli>/g, '</li>')}</ol>`);
+  // Asegurar que listas queden separadas del texto previo/siguiente
+  // para que el split por \n\n no las envuelva en <p>...</p>
+  s = s.replace(/([^\n])\n+(<ul>|<ol>)/g, '$1\n\n$2');
+  s = s.replace(/(<\/ul>|<\/ol>)\n*([^\n])/g, '$1\n\n$2');
+  s = s.split(/\n{2,}/).map(block => {
+    if (/^<(h\d|ul|ol|pre|table|blockquote)/.test(block.trim())) return block;
+    return '<p>' + block.replace(/\n/g, '<br>') + '</p>';
+  }).join('\n');
+  s = applyClinicalHighlights(s);
+  return s;
+}
+
+/* Aplica resaltado clínico al HTML ya renderizado por mdToHtml.
+ * Detecta tokens del agente MindStudio (en bold con marcadores específicos)
+ * y los envuelve en spans con clases coloreadas.
+ * Si el agente cambia su formato, esta función solo deja el bold normal
+ * (sin colores) — no se rompe nada. */
+function applyClinicalHighlights(html) {
+  if (!html) return '';
+  // Badges de cabecera de riesgo
+  html = html.replace(/<strong>\[ALTO RIESGO\]<\/strong>/g, '<span class="risk-high">[ALTO RIESGO]</span>');
+  html = html.replace(/<strong>\[PRECAUCIÓN\]<\/strong>/g, '<span class="risk-warn">[PRECAUCIÓN]</span>');
+  html = html.replace(/<strong>\[BAJO RIESGO\]<\/strong>/g, '<span class="risk-low">[BAJO RIESGO]</span>');
+  // Sub-labels de sección (con dos puntos al final)
+  html = html.replace(/<strong>No usar:<\/strong>/g, '<span class="label-avoid">No usar:</span>');
+  html = html.replace(/<strong>Evitar:<\/strong>/g, '<span class="label-avoid">Evitar:</span>');
+  html = html.replace(/<strong>Sí usar:<\/strong>/g, '<span class="label-use">Sí usar:</span>');
+  html = html.replace(/<strong>Si usar:<\/strong>/g, '<span class="label-use">Si usar:</span>');
+  html = html.replace(/<strong>Redundancias:<\/strong>/g, '<span class="label-warn">Redundancias:</span>');
+  // Badges de decisión final
+  html = html.replace(/<strong>DECISIÓN: PROCEDER<\/strong>/g, '<span class="decision-go">DECISIÓN: PROCEDER</span>');
+  html = html.replace(/<strong>DECISION: PROCEDER<\/strong>/g, '<span class="decision-go">DECISION: PROCEDER</span>');
+  html = html.replace(/<strong>DECISIÓN: AJUSTAR RECETA<\/strong>/g, '<span class="decision-adjust">DECISIÓN: AJUSTAR RECETA</span>');
+  html = html.replace(/<strong>DECISION: AJUSTAR RECETA<\/strong>/g, '<span class="decision-adjust">DECISION: AJUSTAR RECETA</span>');
+  html = html.replace(/<strong>DECISIÓN: CONSULTAR ESPECIALISTA<\/strong>/g, '<span class="decision-stop">DECISIÓN: CONSULTAR ESPECIALISTA</span>');
+  html = html.replace(/<strong>DECISION: CONSULTAR ESPECIALISTA<\/strong>/g, '<span class="decision-stop">DECISION: CONSULTAR ESPECIALISTA</span>');
+  // Riesgo inline en bullets de alertas
+  html = html.replace(/Riesgo: <strong>alto<\/strong>/g, 'Riesgo: <span class="risk-inline-high">alto</span>');
+  html = html.replace(/Riesgo: <strong>moderado<\/strong>/g, 'Riesgo: <span class="risk-inline-warn">moderado</span>');
+  html = html.replace(/Riesgo: <strong>bajo<\/strong>/g, 'Riesgo: <span class="risk-inline-low">bajo</span>');
+  return html;
+}
+
+/* -------- async polling helper -------- */
+const POLL_INTERVAL_MS = 3000;
+const POLL_TIMEOUT_MS  = 5 * 60 * 1000; // 5 min
+
+async function pollForResult(sessionId, { onTimeout } = {}) {
+  const start = Date.now();
+  // Grace period para 'not_found': Google Sheets tiene consistencia eventual,
+  // el primer poll puede llegar antes de que Sheets propague el APPEND inicial.
+  const NOT_FOUND_GRACE_MS = 30000;
+  while (true) {
+    if (Date.now() - start > POLL_TIMEOUT_MS) {
+      if (onTimeout) {
+        const keepWaiting = await onTimeout(sessionId);
+        if (keepWaiting) {
+          return pollForResult(sessionId, { onTimeout });
+        }
+      }
+      throw new Error('TIMEOUT');
+    }
+    await new Promise(res => setTimeout(res, POLL_INTERVAL_MS));
+    let r;
+    try {
+      r = await fetch(`${N8N_RESULT_URL}?session_id=${encodeURIComponent(sessionId)}`, { method: 'GET' });
+    } catch (e) {
+      continue; // error de red puntual: seguir intentando hasta timeout
+    }
+    if (!r.ok) continue;
+    let data;
+    try { data = await r.json(); } catch { continue; }
+    if (data.status === 'done')      return data.response || '';
+    if (data.status === 'error')     throw new Error(data.message || 'ERROR');
+    if (data.status === 'not_found') {
+      // Race condition con escritura de Sheets: tolerar durante grace period.
+      if (Date.now() - start < NOT_FOUND_GRACE_MS) continue;
+      throw new Error('NOT_FOUND');
+    }
+    // 'processing' → seguir el loop
+  }
+}
+
+async function submitQuery(userMessage, opts = {}) {
+  const isFollowup = !!opts.isFollowup;
+  const isFirstMessage = !state.sessionCreditUsed;
+  const L = t();
+  const errBox = document.getElementById('error-box');
+  errBox.innerHTML = '';
+
+  const historyText = state.conversationHistory.map(m => {
+    const role = m.role === 'user' ? 'Doctor' : 'Assistant';
+    return `${role}: ${m.content}`;
+  }).join('\n');
+
+  const body = {
+    user_email: state.userEmail,
+    last_message: userMessage,
+    history: historyText,
+    language: state.language,
+    is_first_message: isFirstMessage,
+    review_mode: state.reviewMode,
+    tipo_de_reporte: TIPO_DE_REPORTE_MAP[state.module] || '',
+    nombre_paciente: state.formData.nombre_paciente || '',
+    HistClin: state.formData.HistClin || '',
+    procedimiento: state.formData.procedimiento || '',
+    anestesia: state.formData.anestesia || '',
+    medstomando: state.formData.medstomando || '',
+    alergias: state.formData.alergias || '',
+    receta: state.formData.receta || '',
+    laser_pbm: state.formData.laser_pbm || '',
+    objetivo_PBM: state.formData.objetivo_PBM || '',
+    dispositivo_laser: state.formData.dispositivo_laser || '',
+    peso_paciente: state.formData.peso_paciente || '',
+    medicamento: state.formData.medicamento || '',
+    condicion: state.formData.condicion || '',
+    area_tratamiento: state.formData.area_tratamiento || '',
+    query: state.formData.query || '',
+    // Campos específicos de Interconsulta
+    especialidad_destino: state.formData.especialidad_destino || '',
+    motivo_interconsulta: state.formData.motivo_interconsulta || '',
+    tipo_pregunta: state.formData.tipo_pregunta || '',
+    pregunta_especifica: state.formData.pregunta_especifica || '',
+    inherited_from_expediente: state.formData.inherited_from_expediente || 'No',
+  };
+
+  if (!isFollowup) {
+    show('response-wrap');
+    document.getElementById('response').innerHTML = `<div class="loading"><div class="spinner"></div><span>${L.loading}</span></div>`;
+    document.getElementById('submit-btn').disabled = true;
+    // Si arrancamos en Modo Revisión, marcar turno 1
+    if (state.reviewMode && isFirstMessage) state.reviewTurn = 1;
+  } else {
+    appendChatMsg('user', userMessage);
+    const history = document.getElementById('chat-history');
+    const loadingMsg = document.createElement('div');
+    loadingMsg.className = 'chat-msg assistant';
+    loadingMsg.innerHTML = `<div class="loading"><div class="spinner"></div><span>${L.loading}</span></div>`;
+    loadingMsg.dataset.loading = '1';
+    history.appendChild(loadingMsg);
+    history.scrollTop = history.scrollHeight;
+    document.getElementById('chat-send').disabled = true;
+  }
+
+  try {
+    // 1) Iniciar generación async
+    const r = await fetch(N8N_CHAT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    if (r.status === 403) {
+      state.credits = 0; renderCreditsPill();
+      if (!isFollowup) { document.getElementById('response').innerHTML = ''; hide('response-wrap'); }
+      else removeLoadingChatMsg();
+      renderUpgradeCard('upgrade-module');
+      return;
+    }
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const initData = await r.json();
+    const sessionId = initData.session_id;
+    if (!sessionId) throw new Error('NO_SESSION_ID');
+
+    // 2) Descontar crédito local apenas el backend acepta (el backend ya lo cobró)
+    if (isFirstMessage) {
+      state.sessionCreditUsed = true;
+      // La verificación consume 2 créditos; el resto, 1
+      const creditCost = body.review_mode ? 2 : 1;
+      if (state.credits !== null) state.credits = Math.max(0, Number(state.credits) - creditCost);
+      renderCreditsPill();
+      renderReviewToggle(); // ahora se oculta porque sessionCreditUsed=true
+    }
+
+    // 3) Polling con opción de extender tras timeout
+    const answer = await pollForResult(sessionId, {
+      onTimeout: async () => {
+        return new Promise(resolve => {
+          const msg = state.language === 'es'
+            ? 'El reporte está tardando más de lo normal. ¿Seguir esperando?'
+            : 'The report is taking longer than usual. Keep waiting?';
+          resolve(window.confirm(msg));
+        });
+      }
+    });
+
+    // 4) Pintar respuesta
+    state.conversationHistory.push({ role: 'user', content: userMessage });
+    state.conversationHistory.push({ role: 'assistant', content: answer });
+    if (!isFollowup) {
+      const respEl = document.getElementById('response');
+      respEl.innerHTML = mdToHtml(answer);
+      show('followup');
+      // Si arrancamos en Modo Revisión, esta respuesta es la verificación → chips
+      if (state.reviewTurn === 1) {
+        renderReviewChips(respEl);
+      } else if (state.module === 'expediente') {
+        // Acción al final del reporte del Expediente: generar carta de interconsulta
+        renderExpedienteNextStep(respEl, answer);
+      }
+    } else {
+      removeLoadingChatMsg();
+      appendChatMsg('assistant', answer);
+      // Si esta respuesta corresponde al turno 2 del Modo Revisión, apagar
+      if (state.reviewTurn === 2) {
+        state.reviewMode = false;
+        state.reviewTurn = 3;
+        // Restaurar placeholder original del chat-input
+        const chatIn = document.getElementById('chat-input');
+        if (chatIn) chatIn.placeholder = t().followup_placeholder;
+      }
+    }
+  } catch (e) {
+    console.error(e);
+    if (!isFollowup) { document.getElementById('response').innerHTML = ''; hide('response-wrap'); }
+    else removeLoadingChatMsg();
+    errBox.innerHTML = `<div class="error-banner">${L.error_network}</div>`;
+  } finally {
+    document.getElementById('submit-btn').disabled = false;
+    document.getElementById('chat-send').disabled = false;
+  }
+}
+
+/* -------- Render: bloque "siguiente paso" tras reporte del Expediente -------- */
+function renderExpedienteNextStep(targetEl, reportText) {
+  if (!targetEl) return;
+  const L = t().inter;
+  const wrap = document.createElement('div');
+  wrap.className = 'next-step-wrap';
+
+  // Detectar especialidad sugerida para mostrarla en el botón
+  const suggested = detectSuggestedSpecialty(reportText);
+  let suggestedLabel = '';
+  if (suggested) {
+    const esp = INTER_DATA.especialidades.find(e => e.key === suggested);
+    if (esp) suggestedLabel = esp.label;
+  }
+
+  const btnInterLabel = suggestedLabel
+    ? `${L.btn_generar} → ${suggestedLabel}`
+    : L.btn_generar;
+
+  wrap.innerHTML = `
+    <button type="button" class="next-step-btn next-step-inter" id="ns-btn-inter">
+      <span class="next-step-icon">→</span>
+      <span class="next-step-text">${escapeHtml(btnInterLabel)}</span>
+    </button>
+  `;
+  targetEl.appendChild(wrap);
+
+  document.getElementById('ns-btn-inter').addEventListener('click', () => {
+    inheritExpedienteToInterconsulta(reportText);
+  });
+}
+
+function appendChatMsg(role, text) {
+  const history = document.getElementById('chat-history');
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + role;
+  div.innerHTML = role === 'assistant' ? mdToHtml(text) : escapeHtml(text);
+  history.appendChild(div);
+  history.scrollTop = history.scrollHeight;
+}
+function removeLoadingChatMsg() {
+  const history = document.getElementById('chat-history');
+  const loading = history.querySelector('[data-loading="1"]');
+  if (loading) loading.remove();
+}
+function escapeHtml(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+function validateForm() {
+  if (state.module === 'consulta') return (state.formData.query || '').trim().length > 0;
+  if (state.module === 'expediente') {
+    const e = state.expData;
+    // Permite enviar si hay AL MENOS: chips seleccionados, nota, nombre o cualquier dato
+    const anyChip = e.genero || e.edadRango || e.edadExacto || e.pesoRango || e.pesoExacto ||
+                    e.tallaRango || e.tallaExacto || e.condiciones.length > 0 || e.condicionesOtro ||
+                    e.meds.length > 0 || e.procSpec || e.anestesicos.length > 0 || e.anestesiaOtro ||
+                    (e.receta || '').trim() || e.usaPBM;
+    const anyText = (e.nota || '').trim() || (e.nombre || '').trim();
+    return !!(anyChip || anyText);
+  }
+  if (state.module === 'interconsulta') {
+    const i = state.interData;
+    const e = state.expData;
+    const hasEsp = !!i.especialidad;
+    const hasMotivo = !!i.motivo && (i.motivo !== 'Otro' || (i.motivoOtro || '').trim().length > 0);
+    const hasPregunta = (i.preguntaTexto || '').trim().length > 0;
+    // Caso clínico: mismo criterio del Expediente (al menos un chip o texto)
+    const anyChip = e.genero || e.edadRango || e.edadExacto || e.pesoRango || e.pesoExacto ||
+                    e.tallaRango || e.tallaExacto || e.condiciones.length > 0 || e.condicionesOtro ||
+                    e.meds.length > 0 || e.procSpec || e.anestesicos.length > 0 || e.anestesiaOtro ||
+                    (e.receta || '').trim() || e.usaPBM;
+    const anyText = (e.nota || '').trim() || (e.nombre || '').trim();
+    const hasCaso = !!(anyChip || anyText);
+    return hasEsp && hasMotivo && hasPregunta && hasCaso;
+  }
+  return true;
+}
+
+function bindEvents() {
+  document.getElementById('lang-select').addEventListener('change', e => setLang(e.target.value));
+  document.getElementById('back-btn').addEventListener('click', goHome);
+
+  document.getElementById('submit-btn').addEventListener('click', () => {
+    if (state.credits !== null && state.credits <= 0 && !state.sessionCreditUsed) {
+      renderUpgradeCard('upgrade-module');
+      return;
+    }
+    // For expediente, build formData from expData first
+    if (state.module === 'expediente') buildExpedienteFormData();
+    if (state.module === 'interconsulta') buildInterconsultaFormData();
+
+    if (!validateForm()) {
+      const msg = state.module === 'expediente' ? t().error_empty : t().error_generic;
+      document.getElementById('error-box').innerHTML = `<div class="error-banner">${msg}</div>`;
+      return;
+    }
+    const payloadSummary = buildInitialMessage();
+    submitQuery(payloadSummary, { isFollowup: false });
+  });
+
+  const chatInput = document.getElementById('chat-input');
+  const chatSend = document.getElementById('chat-send');
+  const sendChat = () => {
+    const val = chatInput.value.trim();
+    if (!val) return;
+    chatInput.value = '';
+    submitQuery(val, { isFollowup: true });
+  };
+  chatSend.addEventListener('click', sendChat);
+  chatInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); }
+  });
+}
+
+function buildInitialMessage() {
+  const mod = state.module;
+  const f = state.formData;
+  if (mod === 'consulta') return f.query || '';
+  const lines = [];
+  if (f.nombre_paciente) lines.push(`Paciente: ${f.nombre_paciente}`);
+  if (f.HistClin) lines.push(`Historia clínica: ${f.HistClin}`);
+  if (f.procedimiento) lines.push(`Procedimiento: ${f.procedimiento}`);
+  if (f.anestesia) lines.push(`Anestésico: ${f.anestesia}`);
+  if (f.medstomando) lines.push(`Medicamentos actuales: ${f.medstomando}`);
+  if (f.receta) lines.push(`A recetar: ${f.receta}`);
+  if (f.laser_pbm) lines.push(`Láser/PBM: ${f.laser_pbm}`);
+  if (f.objetivo_PBM) lines.push(`Objetivo PBM: ${f.objetivo_PBM}`);
+  if (f.dispositivo_laser) lines.push(`Dispositivo: ${f.dispositivo_laser}`);
+  if (f.peso_paciente) lines.push(`Peso: ${f.peso_paciente} kg`);
+  if (f.medicamento) lines.push(`Medicamento: ${f.medicamento}`);
+  if (f.condicion) lines.push(`Condición: ${f.condicion}`);
+  if (f.area_tratamiento) lines.push(`Área: ${f.area_tratamiento}`);
+  return lines.join('\n');
+}
+
+async function init() {
+  parseURL();
+  document.getElementById('lang-select').value = state.language;
+  document.documentElement.lang = state.language;
+  bindEvents();
+  renderAll();
+  await fetchProfile();
+  if (state.module) openModule(state.module);
+}
+
+init();
+</script>
+
+<!-- ═══ IKMEDS TOUR — START (bloque autocontenido, no tocar el resto del chat) ═══ -->
+<style id="ikt-style">
+.ikt *{box-sizing:border-box}
+:root{
+  --ikt-bg:#F4F1EC; --ikt-card:#FBF9F5; --ikt-ink:#0A1F26; --ikt-prim:#0F4C5C; --ikt-sec:#5A8A8B;
+  --ikt-hair:#E4DED2; --ikt-teal:#12A5A0; --ikt-teal-lt:#0F7C77;
+  --ikt-hi:#A53F2B; --ikt-hi-bg:#FBEAE6; --ikt-warn:#6B4600; --ikt-warn-bg:#FAE294; --ikt-ok:#4A7C59; --ikt-ok-bg:#E7F0E5;
+  --ikt-serif:'Instrument Serif',Georgia,serif; --ikt-sans:'Instrument Sans',system-ui,sans-serif; --ikt-mono:'Space Mono',ui-monospace,monospace;
+}
+/* trigger "?" */
+.ikt-trigger{position:fixed;right:14px;bottom:16px;z-index:9998;width:34px;height:34px;border-radius:50%;border:1px solid var(--ikt-hair);background:var(--ikt-card);color:var(--ikt-prim);font-family:var(--ikt-serif);font-size:19px;line-height:1;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 6px 16px -8px rgba(10,31,38,.4)}
+.ikt-trigger.on{display:flex}
+.ikt-trigger:hover{border-color:var(--ikt-teal);color:var(--ikt-teal-lt)}
+/* overlay */
+.ikt-overlay{position:fixed;inset:0;z-index:9999;background:rgba(8,30,36,.62);display:none;align-items:center;justify-content:center;padding:14px;font-family:var(--ikt-sans)}
+.ikt-overlay.on{display:flex}
+.ikt-card{position:relative;width:100%;max-width:380px;max-height:94%;background:var(--ikt-bg);border-radius:18px;border:1px solid var(--ikt-hair);box-shadow:0 24px 60px -20px rgba(0,0,0,.5);display:flex;flex-direction:column;overflow:hidden;animation:ikt-in .3s ease}
+@keyframes ikt-in{from{opacity:0;transform:translateY(10px) scale(.99)}to{opacity:1;transform:none}}
+/* head */
+.ikt-head{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;border-bottom:1px solid var(--ikt-hair);background:var(--ikt-card)}
+.ikt-htitle{font-family:var(--ikt-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ikt-sec)}
+.ikt-htitle b{color:var(--ikt-prim)}
+.ikt-dots{display:flex;gap:6px}
+.ikt-dot{width:7px;height:7px;border-radius:50%;border:0;padding:0;background:var(--ikt-hair);cursor:pointer;transition:all .25s}
+.ikt-dot.on{background:var(--ikt-teal);width:20px;border-radius:4px}
+.ikt-dot.done{background:var(--ikt-sec)}
+.ikt-close{border:0;background:none;color:var(--ikt-sec);cursor:pointer;font-size:20px;line-height:1;padding:2px 4px}
+.ikt-close:hover{color:var(--ikt-ink)}
+/* body / steps */
+.ikt-body{flex:1;overflow-y:auto;padding:16px 16px 4px}
+.ikt-step{display:none}
+.ikt-step.on{display:block;animation:ikt-fade .35s ease}
+@keyframes ikt-fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.ikt-eye{font-family:var(--ikt-mono);font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--ikt-teal-lt);display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.ikt-eye::before{content:"";width:20px;height:1px;background:var(--ikt-teal)}
+.ikt-title{font-family:var(--ikt-serif);font-size:25px;line-height:1.12;color:var(--ikt-ink);margin:0 0 8px}
+.ikt-desc{font-size:13px;line-height:1.55;color:var(--ikt-sec);margin:0 0 14px}
+.ikt-desc b{color:var(--ikt-prim);font-weight:600}
+/* mock frame */
+.ikt-mock{background:var(--ikt-card);border:1px solid var(--ikt-hair);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:10px}
+/* chat bits */
+.ikt-lbl{font-family:var(--ikt-mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ikt-sec);margin:0 2px -4px}
+.ikt-bub{max-width:90%;padding:9px 11px;border-radius:12px;font-size:12px;line-height:1.45}
+.ikt-bub.u{align-self:flex-end;background:var(--ikt-prim);color:#F2F8F7;border-bottom-right-radius:4px}
+.ikt-verify{background:#FFFDF6;border:1px solid #E7CE7A;border-left:3px solid var(--ikt-warn);border-radius:10px;padding:11px}
+.ikt-vtag{display:flex;align-items:center;gap:6px;margin-bottom:7px}
+.ikt-vtag span{font-family:var(--ikt-mono);font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ikt-warn)}
+.ikt-vq{font-size:12px;line-height:1.5;color:var(--ikt-ink)}
+.ikt-vq b{color:var(--ikt-prim)}
+.ikt-vchips{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
+.ikt-vchip{font-size:11px;font-weight:500;padding:6px 11px;border-radius:999px;border:1px solid var(--ikt-hair);background:#fff;color:var(--ikt-prim)}
+.ikt-vchip.pick{background:var(--ikt-prim);color:#fff;border-color:var(--ikt-prim)}
+.ikt-vchip.pick::before{content:"✓ ";font-family:var(--ikt-mono)}
+.ikt-report{background:#fff;border:1px solid var(--ikt-hair);border-radius:10px;overflow:hidden}
+.ikt-rhd{display:flex;align-items:center;gap:7px;padding:9px 11px;border-bottom:1px solid var(--ikt-hair)}
+.ikt-badge{font-family:var(--ikt-mono);font-size:8.5px;font-weight:700;letter-spacing:.08em;padding:3px 8px;border-radius:4px}
+.ikt-badge.hi{background:var(--ikt-hi-bg);color:var(--ikt-hi)} .ikt-badge.warn{background:var(--ikt-warn-bg);color:var(--ikt-warn)} .ikt-badge.ok{background:var(--ikt-ok-bg);color:var(--ikt-ok)}
+.ikt-rhd .rs{font-family:var(--ikt-mono);font-size:8.5px;letter-spacing:.06em;color:var(--ikt-sec)}
+.ikt-rbd{padding:10px 11px;font-size:11.5px;line-height:1.5;color:var(--ikt-ink)}
+.ikt-rbd p{margin:0 0 8px} .ikt-rbd .lead{font-weight:500}
+.ikt-klist{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:5px}
+.ikt-klist li{position:relative;padding-left:14px;font-size:11px;line-height:1.45;color:#233}
+.ikt-klist li::before{content:"";position:absolute;left:0;top:6px;width:5px;height:5px;border-radius:50%;background:var(--ikt-teal)}
+.ikt-evi{display:inline-flex;align-items:center;margin-top:8px;font-family:var(--ikt-mono);font-size:8.5px;letter-spacing:.05em;color:var(--ikt-sec);background:#EEF3F1;border:1px solid var(--ikt-hair);padding:4px 8px;border-radius:999px}
+.ikt-setup{display:flex;flex-direction:column;gap:8px}
+.ikt-srow{display:flex;flex-direction:column;gap:5px}
+.ikt-srow .l{font-family:var(--ikt-mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ikt-sec)}
+.ikt-chips{display:flex;gap:5px;flex-wrap:wrap}
+.ikt-chip{font-size:10.5px;font-weight:500;padding:5px 10px;border-radius:999px;border:1px solid var(--ikt-hair);background:#fff;color:var(--ikt-sec)}
+.ikt-chip.on{background:var(--ikt-prim);color:#fff;border-color:var(--ikt-prim)}
+.ikt-drug{display:flex;align-items:center;gap:7px;padding:5px 0;font-size:11.5px}
+.ikt-drug .mk{font-family:var(--ikt-mono);font-size:8px;font-weight:700;padding:2px 5px;border-radius:3px}
+.ikt-drug.no .mk{background:var(--ikt-hi-bg);color:var(--ikt-hi)} .ikt-drug.no .nm{color:var(--ikt-hi);text-decoration:line-through}
+.ikt-drug.yes .mk{background:var(--ikt-ok-bg);color:var(--ikt-ok)} .ikt-drug.yes .nm{color:var(--ikt-ink);font-weight:500}
+.ikt-decision{margin-top:9px;background:var(--ikt-prim);color:#EAF3F2;border-radius:8px;padding:9px 11px;font-size:11.5px;line-height:1.45}
+.ikt-decision .dl{font-family:var(--ikt-mono);font-size:8px;letter-spacing:.12em;color:#7FD4CF;display:block;margin-bottom:3px}
+.ikt-letter{background:#fff;border:1px solid var(--ikt-hair);border-radius:9px;padding:13px;font-size:11px;line-height:1.55;color:var(--ikt-ink)}
+.ikt-letter .lh{font-family:var(--ikt-mono);font-size:8px;letter-spacing:.08em;color:var(--ikt-sec);text-transform:uppercase}
+.ikt-letter .subj{font-weight:600;color:var(--ikt-prim);margin:7px 0 9px;font-size:12px;line-height:1.35}
+.ikt-letter p{margin:0 0 8px}
+.ikt-letter .flag{color:var(--ikt-hi);font-weight:600}
+.ikt-letter .sign{margin-top:10px;padding-top:9px;border-top:1px solid var(--ikt-hair);font-family:var(--ikt-serif);font-size:13px;color:var(--ikt-prim)}
+.ikt-letter .sign small{display:block;font-family:var(--ikt-mono);font-size:8px;letter-spacing:.05em;color:var(--ikt-sec);margin-top:2px}
+.ikt-drow{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed var(--ikt-hair);font-size:11.5px}
+.ikt-drow:last-of-type{border-bottom:0}
+.ikt-drow .k{color:var(--ikt-sec)} .ikt-drow .v{font-family:var(--ikt-mono);font-weight:700;color:var(--ikt-prim)}
+/* footer nav */
+.ikt-foot{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-top:1px solid var(--ikt-hair);background:var(--ikt-card)}
+.ikt-prev{border:1px solid var(--ikt-hair);background:#fff;color:var(--ikt-sec);font-family:var(--ikt-sans);font-size:12px;font-weight:500;padding:9px 14px;border-radius:8px;cursor:pointer}
+.ikt-prev:disabled{opacity:.35;cursor:not-allowed}
+.ikt-next{border:0;background:var(--ikt-teal);color:#052a2c;font-family:var(--ikt-sans);font-size:13px;font-weight:600;padding:9px 20px;border-radius:8px;cursor:pointer}
+.ikt-next:hover{filter:brightness(1.06)}
+.ikt-dot:focus-visible,.ikt-close:focus-visible,.ikt-prev:focus-visible,.ikt-next:focus-visible,.ikt-trigger:focus-visible{outline:2px solid var(--ikt-teal);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.ikt-card,.ikt-step.on{animation:none}}
+</style>
+
+<button class="ikt-trigger" id="iktTrigger" onclick="IKMedsTour.show()" aria-label="Abrir guía rápida" title="Guía rápida">?</button>
+
+<div class="ikt-overlay ikt" id="iktOverlay" role="dialog" aria-modal="true" aria-label="Guía rápida de IKMeds">
+  <div class="ikt-card">
+    <div class="ikt-head">
+      <div class="ikt-htitle">Guía rápida · <b id="iktNum">1</b>/4</div>
+      <div class="ikt-dots" id="iktDots"></div>
+      <button class="ikt-close" onclick="IKMedsTour.hide()" aria-label="Cerrar">&times;</button>
+    </div>
+    <div class="ikt-body" id="iktBody">
+
+      <!-- STEP 1 -->
+      <div class="ikt-step" data-step="1">
+        <div class="ikt-eye">01 · CONSULTA RÁPIDA</div>
+        <h3 class="ikt-title">Pregunta libre, con verificación.</h3>
+        <p class="ikt-desc">Antes de responder, el <b>Modo de Verificación</b> confirma lo crítico — como que “Sintrom” es <b>acenocumarol</b>, no warfarina.</p>
+        <div class="ikt-mock">
+          <div class="ikt-lbl">Tú preguntas</div>
+          <div class="ikt-bub u">Paciente con Sintrom, va a exodoncia. ¿Qué debo considerar?</div>
+          <div class="ikt-verify">
+            <div class="ikt-vtag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B4600" stroke-width="2"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><polyline points="9 12 11.5 14.5 15.5 9.5"/></svg><span>Modo de Verificación</span></div>
+            <div class="ikt-vq"><b>“Sintrom”</b> corresponde a <b>acenocumarol</b>, no a warfarina. ¿Confirmas antes de generar el reporte?</div>
+            <div class="ikt-vchips"><span class="ikt-vchip pick">Sí, es acenocumarol</span><span class="ikt-vchip">No, corregir</span></div>
+          </div>
+          <div class="ikt-report">
+            <div class="ikt-rhd"><span class="ikt-badge hi">ALTO RIESGO</span><span class="rs">SANGRADO</span></div>
+            <div class="ikt-rbd">
+              <p class="lead">Anticoagulante cumarínico. No suspender si INR ≤ 3.5–4.0: el riesgo trombótico supera al hemorrágico.</p>
+              <ul class="ikt-klist"><li>Verificar INR reciente (&lt;72 h)</li><li>Hemostasia local: sutura + esponja de colágeno + ácido tranexámico 4.8%</li></ul>
+              <span class="ikt-evi">EVIDENCIA · guías de anticoagulación</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="ikt-step" data-step="2">
+        <div class="ikt-eye">02 · EXPEDIENTE</div>
+        <h3 class="ikt-title">El reporte integral del paciente.</h3>
+        <p class="ikt-desc">Cruza cada fármaco contra las alergias y te da la <b>alternativa segura</b>, con la decisión final lista para tu expediente.</p>
+        <div class="ikt-mock">
+          <div class="ikt-setup">
+            <div class="ikt-srow"><span class="l">Procedimiento</span><div class="ikt-chips"><span class="ikt-chip on">Exodoncia</span><span class="ikt-chip">Implante</span></div></div>
+            <div class="ikt-srow"><span class="l">Alergias</span><div class="ikt-chips"><span class="ikt-chip on">Penicilina</span><span class="ikt-chip">Ninguna</span></div></div>
+          </div>
+          <div class="ikt-report">
+            <div class="ikt-rhd"><span class="ikt-badge warn">PRECAUCIÓN</span><span class="rs">ALERGIA · ANTIBIÓTICO</span></div>
+            <div class="ikt-rbd">
+              <p class="lead">Alergia a penicilina documentada. Betalactámicos contraindicados.</p>
+              <div class="ikt-drug no"><span class="mk">NO USAR</span><span class="nm">Amoxicilina</span></div>
+              <div class="ikt-drug yes"><span class="mk">SÍ USAR</span><span class="nm">Clindamicina 300 mg c/8 h × 5 días</span></div>
+              <div class="ikt-decision"><span class="dl">DECISIÓN FINAL</span>Evitar betalactámicos. Prescribir clindamicina 300 mg cada 8 h por 5 días.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="ikt-step" data-step="3">
+        <div class="ikt-eye">03 · INTERCONSULTA</div>
+        <h3 class="ikt-title">Carta al médico, lista para firmar.</h3>
+        <p class="ikt-desc">Cuando el caso lo pide — un implante en paciente con <b>bifosfonatos</b> — genera la carta con los datos ya cargados.</p>
+        <div class="ikt-mock">
+          <div class="ikt-letter">
+            <div class="lh">Para: médico tratante</div>
+            <div class="subj">Valoración prequirúrgica — colocación de implante</div>
+            <p>El paciente será sometido a la colocación de un implante y está en tratamiento con <b>bifosfonatos</b>.</p>
+            <p>Solicito valorar el riesgo de <span class="flag">osteonecrosis maxilar (MRONJ)</span>: tiempo de tratamiento, posible suspensión temporal (<i>drug holiday</i>) y marcador <b>CTX sérico</b>.</p>
+            <div class="sign">Dr. Cirujano Dentista<small>IKMEDS · GENERADO DEL EXPEDIENTE</small></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="ikt-step" data-step="4">
+        <div class="ikt-eye">04 · CALCULADORA PBM</div>
+        <h3 class="ikt-title">Fotobiomodulación, resuelta.</h3>
+        <p class="ikt-desc">Eliges la indicación y tu equipo; la calculadora te da longitud de onda, dosis y sesiones para cerrar el caso.</p>
+        <div class="ikt-mock">
+          <div class="ikt-setup">
+            <div class="ikt-srow"><span class="l">Indicación</span><div class="ikt-chips"><span class="ikt-chip on">Bioestimulación post-implante</span></div></div>
+            <div class="ikt-srow"><span class="l">Equipo</span><div class="ikt-chips"><span class="ikt-chip on">Diodo 940 nm</span><span class="ikt-chip">810 nm</span></div></div>
+          </div>
+          <div class="ikt-report">
+            <div class="ikt-rhd"><span class="ikt-badge ok">PARÁMETROS</span><span class="rs">POST-IMPLANTE</span></div>
+            <div class="ikt-rbd">
+              <div class="ikt-drow"><span class="k">Longitud de onda</span><span class="v">940 nm</span></div>
+              <div class="ikt-drow"><span class="k">Dosis</span><span class="v">6.5 J/cm²</span></div>
+              <div class="ikt-drow"><span class="k">Sesiones</span><span class="v">3</span></div>
+              <p style="margin-top:9px">Acelera la cicatrización y favorece la osteointegración tras la colocación.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="ikt-foot">
+      <button class="ikt-prev" id="iktPrev" onclick="IKMedsTour.prev()">Anterior</button>
+      <button class="ikt-next" id="iktNext" onclick="IKMedsTour.next()">Siguiente</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY='ikmeds_tour_seen_v1', TOTAL=4, cur=1;
+  var ov=document.getElementById('iktOverlay'), body=document.getElementById('iktBody'),
+      numEl=document.getElementById('iktNum'), dotsEl=document.getElementById('iktDots'),
+      prev=document.getElementById('iktPrev'), next=document.getElementById('iktNext'),
+      trig=document.getElementById('iktTrigger');
+  for(var d=1; d<=TOTAL; d++){ var b=document.createElement('button'); b.className='ikt-dot'; b.setAttribute('data-step',d); b.setAttribute('aria-label','Paso '+d); (function(k){ b.onclick=function(){ setStep(k); }; })(d); dotsEl.appendChild(b); }
+  function setStep(n){
+    if(n<1||n>TOTAL) return; cur=n;
+    body.querySelectorAll('.ikt-step').forEach(function(s){ s.classList.toggle('on', parseInt(s.dataset.step)===n); });
+    dotsEl.querySelectorAll('.ikt-dot').forEach(function(dt){ var i=parseInt(dt.dataset.step); dt.classList.remove('on','done'); if(i===n) dt.classList.add('on'); else if(i<n) dt.classList.add('done'); });
+    numEl.textContent=n; body.scrollTop=0;
+    prev.disabled=(n===1); next.textContent=(n===TOTAL)?'Empezar':'Siguiente';
+  }
+  var IKMedsTour={
+    show:function(){ ov.classList.add('on'); document.body.style.overflow='hidden'; setStep(1); },
+    hide:function(){ ov.classList.remove('on'); document.body.style.overflow=''; try{localStorage.setItem(KEY,'1');}catch(e){} },
+    next:function(){ if(cur===TOTAL){ IKMedsTour.hide(); } else setStep(cur+1); },
+    prev:function(){ setStep(cur-1); },
+    reset:function(){ try{localStorage.removeItem(KEY);}catch(e){} },
+    isFirstVisit:function(){ try{return !localStorage.getItem(KEY);}catch(e){return false;} }
+  };
+  window.IKMedsTour=IKMedsTour;
+  document.addEventListener('keydown',function(e){ if(!ov.classList.contains('on')) return; if(e.key==='Escape') IKMedsTour.hide(); else if(e.key==='ArrowRight') IKMedsTour.next(); else if(e.key==='ArrowLeft') IKMedsTour.prev(); });
+  ov.addEventListener('click',function(e){ if(e.target===ov) IKMedsTour.hide(); });
+  var tsx=0; ov.addEventListener('touchstart',function(e){ tsx=e.changedTouches[0].screenX; },{passive:true});
+  ov.addEventListener('touchend',function(e){ var dx=e.changedTouches[0].screenX-tsx; if(Math.abs(dx)<50) return; if(dx<0) IKMedsTour.next(); else IKMedsTour.prev(); },{passive:true});
+  function init(){
+    var p=new URLSearchParams(location.search);
+    if(p.get('tourreset')==='1') IKMedsTour.reset();
+    if(trig) trig.classList.add('on');
+    if(p.get('tour')==='1'){ IKMedsTour.show(); }
+    else if(IKMedsTour.isFirstVisit()){ setTimeout(function(){ IKMedsTour.show(); }, 800); }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+<!-- ═══ IKMEDS TOUR — END ═══ -->
+
+</body>
+</html>
