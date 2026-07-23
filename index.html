@@ -888,7 +888,7 @@ const I18N = {
     loading: 'Analizando...',
     modules: {
       consulta: { title: 'Consulta Rápida', desc: 'Interacción farmacológica puntual', ico: 'QUICK' },
-      expediente: { title: 'Expediente', desc: 'Reporte completo con historial clínico', ico: 'FULL' },
+      expediente: { title: 'Consulta Dedicada', desc: 'Reporte completo con historial clínico', ico: 'FULL' },
       interconsulta: { title: 'Interconsulta', desc: 'Referencia a especialista', ico: 'REFER' },
     },
     fields: {
@@ -954,10 +954,14 @@ const I18N = {
       imc_label: 'IMC',
       otro: 'Otro',
       otro_ph: 'Especifica...',
+      lbl_alergias: 'Alergias',
+      alergias_ninguna: 'Ninguna conocida',
+      lbl_med_libre: 'Otros',
+      med_libre_ph: 'Otros medicamentos que tome el paciente y no estén en la lista...',
       otro_add: 'Agregar',
       mas: 'más',
       empty_summary: 'Sin definir',
-      btn_generar: 'Generar expediente',
+      btn_generar: 'Generar reporte',
     },
     inter: {
       acc_destino: 'Destino de la interconsulta',
@@ -974,7 +978,7 @@ const I18N = {
       btn_generar: 'Generar carta de interconsulta',
       btn_generar_expediente: 'Generar carta de interconsulta',
       btn_paciente_version: 'Versión para paciente',
-      heredado_banner: 'Heredado del Expediente',
+      heredado_banner: 'Heredado de Consulta Dedicada',
       heredado_editar: 'Editar caso clínico',
       heredado_caso_resumen: 'Datos clínicos heredados',
       empty_caso: 'Sin datos clínicos. Toca para completar.',
@@ -1012,7 +1016,7 @@ const I18N = {
     loading: 'Analyzing...',
     modules: {
       consulta: { title: 'Quick Consult', desc: 'Point pharmacological check', ico: 'QUICK' },
-      expediente: { title: 'Full Report', desc: 'Complete report with clinical history', ico: 'FULL' },
+      expediente: { title: 'Dedicated Consult', desc: 'Complete report with clinical history', ico: 'FULL' },
       interconsulta: { title: 'Referral', desc: 'Specialist referral', ico: 'REFER' },
     },
     fields: {
@@ -1067,6 +1071,7 @@ const I18N = {
       imc_hint: 'Enter exact weight and height to compute BMI automatically.',
       imc_label: 'BMI',
       otro: 'Other', otro_ph: 'Specify...', otro_add: 'Add', mas: 'more',
+      lbl_alergias: 'Allergies', alergias_ninguna: 'None known', lbl_med_libre: 'Others', med_libre_ph: 'Other medications the patient takes not listed above...',
       empty_summary: 'Not set',
       btn_generar: 'Generate report',
     },
@@ -1085,7 +1090,7 @@ const I18N = {
       btn_generar: 'Generate referral letter',
       btn_generar_expediente: 'Generate referral letter',
       btn_paciente_version: 'Patient version',
-      heredado_banner: 'Inherited from Full Report',
+      heredado_banner: 'Inherited from Dedicated Consult',
       heredado_editar: 'Edit clinical case',
       heredado_caso_resumen: 'Inherited clinical data',
       empty_caso: 'No clinical data. Tap to complete.',
@@ -1120,7 +1125,7 @@ const I18N = {
     loading: 'Analisando...',
     modules: {
       consulta: { title: 'Consulta Rápida', desc: 'Interação farmacológica pontual', ico: 'QUICK' },
-      expediente: { title: 'Relatório Completo', desc: 'Relatório com histórico clínico', ico: 'FULL' },
+      expediente: { title: 'Consulta Dedicada', desc: 'Relatório com histórico clínico', ico: 'FULL' },
       interconsulta: { title: 'Interconsulta', desc: 'Encaminhamento ao especialista', ico: 'REFER' },
     },
     fields: {
@@ -1175,6 +1180,7 @@ const I18N = {
       imc_hint: 'Insira peso e altura exatos para calcular IMC automaticamente.',
       imc_label: 'IMC',
       otro: 'Outro', otro_ph: 'Especifique...', otro_add: 'Adicionar', mas: 'mais',
+      lbl_alergias: 'Alergias', alergias_ninguna: 'Nenhuma conhecida', lbl_med_libre: 'Outros', med_libre_ph: 'Outros medicamentos que o paciente tome e não estejam na lista...',
       empty_summary: 'Não definido',
       btn_generar: 'Gerar relatório',
     },
@@ -1193,7 +1199,7 @@ const I18N = {
       btn_generar: 'Gerar carta de encaminhamento',
       btn_generar_expediente: 'Gerar carta de encaminhamento',
       btn_paciente_version: 'Versão para paciente',
-      heredado_banner: 'Herdado do Relatório',
+      heredado_banner: 'Herdado da Consulta Dedicada',
       heredado_editar: 'Editar caso clínico',
       heredado_caso_resumen: 'Dados clínicos herdados',
       empty_caso: 'Sem dados clínicos. Toque para preencher.',
@@ -1227,7 +1233,7 @@ const I18N = {
     loading: '分析中...',
     modules: {
       consulta: { title: 'クイック相談', desc: '薬物相互作用の確認', ico: 'QUICK' },
-      expediente: { title: '詳細レポート', desc: '病歴付きの完全レポート', ico: 'FULL' },
+      expediente: { title: '詳細相談', desc: '病歴付きの完全レポート', ico: 'FULL' },
       interconsulta: { title: '紹介', desc: '専門医への紹介', ico: 'REFER' },
     },
     fields: {
@@ -1282,6 +1288,7 @@ const I18N = {
       imc_hint: '正確な体重と身長を入力するとBMIが自動計算されます。',
       imc_label: 'BMI',
       otro: 'その他', otro_ph: '指定...', otro_add: '追加', mas: 'もっと',
+      lbl_alergias: 'アレルギー', alergias_ninguna: '既知のものなし', lbl_med_libre: 'その他', med_libre_ph: 'リストにない、患者が服用中の他の薬...',
       empty_summary: '未設定',
       btn_generar: 'レポート生成',
     },
@@ -1300,7 +1307,7 @@ const I18N = {
       btn_generar: '紹介状を生成',
       btn_generar_expediente: '紹介状を生成',
       btn_paciente_version: '患者向け版',
-      heredado_banner: 'レポートから継承',
+      heredado_banner: '詳細相談から継承',
       heredado_editar: '症例を編集',
       heredado_caso_resumen: '継承された臨床データ',
       empty_caso: '臨床データなし。タップして入力。',
@@ -1334,7 +1341,7 @@ const I18N = {
     loading: '분석 중...',
     modules: {
       consulta: { title: '빠른 상담', desc: '약물 상호작용 확인', ico: 'QUICK' },
-      expediente: { title: '전체 보고서', desc: '임상 기록 포함 완전 보고서', ico: 'FULL' },
+      expediente: { title: '정밀 상담', desc: '임상 기록 포함 완전 보고서', ico: 'FULL' },
       interconsulta: { title: '의뢰', desc: '전문의 의뢰', ico: 'REFER' },
     },
     fields: {
@@ -1389,6 +1396,7 @@ const I18N = {
       imc_hint: '정확한 체중과 신장을 입력하면 BMI가 자동 계산됩니다.',
       imc_label: 'BMI',
       otro: '기타', otro_ph: '지정...', otro_add: '추가', mas: '더',
+      lbl_alergias: '알레르기', alergias_ninguna: '알려진 것 없음', lbl_med_libre: '기타', med_libre_ph: '목록에 없는, 환자가 복용 중인 기타 약물...',
       empty_summary: '미설정',
       btn_generar: '보고서 생성',
     },
@@ -1407,7 +1415,7 @@ const I18N = {
       btn_generar: '의뢰서 생성',
       btn_generar_expediente: '의뢰서 생성',
       btn_paciente_version: '환자용 버전',
-      heredado_banner: '보고서에서 상속',
+      heredado_banner: '정밀 상담에서 상속',
       heredado_editar: '사례 편집',
       heredado_caso_resumen: '상속된 임상 데이터',
       empty_caso: '임상 데이터 없음. 탭하여 작성.',
@@ -1438,7 +1446,6 @@ const CHIPS_DATA = {
     { abbr: 'DM2',          full: 'diabetes tipo 2',         visible: true },
     { abbr: 'Anticoag.',    full: 'anticoagulación',         visible: true },
     { abbr: 'Embarazo',     full: '',                         visible: true },
-    { abbr: 'Alergias',     full: 'a fármacos',              visible: true },
     { abbr: 'Bifosfonatos', full: 'riesgo osteonecrosis',    visible: true, alert: 'ONJ' },
     { abbr: 'Endocarditis', full: 'antecedente / riesgo' },
     { abbr: 'Cardiopatía',  full: 'cardiopatía isquémica' },
@@ -1449,6 +1456,14 @@ const CHIPS_DATA = {
     { abbr: 'Inmunosup.',   full: 'inmunosupresión' },
     { abbr: 'Onco',         full: 'antecedente oncológico' },
     { abbr: 'DM1',          full: 'diabetes tipo 1' },
+  ],
+
+  alergias: [
+    { abbr: 'Penicilinas',         full: '' },
+    { abbr: 'AINEs/Aspirina',      full: '' },
+    { abbr: 'Látex',               full: '' },
+    { abbr: 'Sulfas',              full: '' },
+    { abbr: 'Anestésicos locales', full: '' },
   ],
 
   medCategorias: ['Antihipertensivos', 'Antidiabéticos', 'Anticoag./antiagreg.', 'Analgésicos/AINEs',
@@ -1630,6 +1645,10 @@ function emptyExpData() {
     meds: [], // [{cat, name, freq}]
     medActiveCat: '',
     medOtro: '',
+    medLibre: '',
+    alergias: [],
+    alergiasNinguna: false,
+    alergiasOtro: '',
     procSpec: '',
     procSub: '',
     procOtro: '',
@@ -1951,10 +1970,28 @@ function renderExpedienteForm() {
       </div>
     </div>
 
+    <div class="accordion" data-acc="alergias">
+      <div class="accordion-head" data-acc-head="alergias">
+        <div class="accordion-head-left">
+          <span class="accordion-num">03</span>
+          <span class="accordion-title">${L.lbl_alergias}</span>
+        </div>
+        <span class="accordion-summary" data-acc-summary="alergias"></span>
+        <span class="accordion-toggle">›</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-divider"></div>
+        <div class="chips" id="chips-alergias"></div>
+        <div class="otro-input-wrap" id="otro-alergias-wrap">
+          <input type="text" id="otro-alergias-input" placeholder="${L.otro_ph}" />
+        </div>
+      </div>
+    </div>
+
     <div class="accordion" data-acc="medicamentos">
       <div class="accordion-head" data-acc-head="medicamentos">
         <div class="accordion-head-left">
-          <span class="accordion-num">03</span>
+          <span class="accordion-num">04</span>
           <span class="accordion-title">${L.acc_medicamentos}</span>
         </div>
         <span class="accordion-summary" data-acc-summary="medicamentos"></span>
@@ -1965,6 +2002,9 @@ function renderExpedienteForm() {
         <div class="field-group">
           <div class="field-group-label">${L.lbl_categoria}</div>
           <div class="chips" id="chips-med-cats"></div>
+          <div class="otro-input-wrap" id="otro-medlibre-wrap">
+            <input type="text" id="med-libre-input" placeholder="${L.med_libre_ph}" />
+          </div>
         </div>
         <div class="field-group hidden" id="med-subs-wrap">
           <div class="field-group-label" id="med-subs-label">${L.lbl_especifico}</div>
@@ -1983,7 +2023,7 @@ function renderExpedienteForm() {
     <div class="accordion" data-acc="procedimiento">
       <div class="accordion-head" data-acc-head="procedimiento">
         <div class="accordion-head-left">
-          <span class="accordion-num">04</span>
+          <span class="accordion-num">05</span>
           <span class="accordion-title">${L.acc_procedimiento}</span>
         </div>
         <span class="accordion-summary" data-acc-summary="procedimiento"></span>
@@ -2012,7 +2052,7 @@ function renderExpedienteForm() {
     <div class="accordion" data-acc="anestesia">
       <div class="accordion-head" data-acc-head="anestesia">
         <div class="accordion-head-left">
-          <span class="accordion-num">05</span>
+          <span class="accordion-num">06</span>
           <span class="accordion-title">${L.acc_anestesia}</span>
         </div>
         <span class="accordion-summary" data-acc-summary="anestesia"></span>
@@ -2033,7 +2073,7 @@ function renderExpedienteForm() {
     <div class="accordion" data-acc="pbm">
       <div class="accordion-head" data-acc-head="pbm">
         <div class="accordion-head-left">
-          <span class="accordion-num">06</span>
+          <span class="accordion-num">07</span>
           <span class="accordion-title">${L.acc_pbm}</span>
         </div>
         <span class="accordion-summary" data-acc-summary="pbm"></span>
@@ -2097,6 +2137,14 @@ function restoreExpedienteValues() {
     const inp = document.getElementById('otro-pbm-dispositivo-input');
     if (inp) inp.value = e.pbmDispositivoOtro;
   }
+  if (e.alergiasOtro) {
+    const inp = document.getElementById('otro-alergias-input');
+    if (inp) inp.value = e.alergiasOtro;
+  }
+  if (e.medLibre) {
+    const inp = document.getElementById('med-libre-input');
+    if (inp) inp.value = e.medLibre;
+  }
 }
 
 function bindExpedienteEvents() {
@@ -2142,6 +2190,15 @@ function bindExpedienteEvents() {
     state.expData.anestesiaOtro = val.trim();
     refreshAllSummaries();
   });
+  bindOtroInput('otro-alergias-input', val => {
+    state.expData.alergiasOtro = val.trim();
+    refreshAllSummaries();
+  });
+  const medLibreEl = document.getElementById('med-libre-input');
+  if (medLibreEl) medLibreEl.addEventListener('input', ev => {
+    state.expData.medLibre = ev.target.value;
+    refreshAllSummaries();
+  });
 }
 
 function bindOtroInput(id, cb) {
@@ -2164,6 +2221,7 @@ function renderAllExpedienteChips() {
   renderRangeWithExact('chips-peso', CHIPS_DATA.peso, 'pesoRango', 'pesoExacto', 'kg');
   renderRangeWithExact('chips-talla', CHIPS_DATA.talla, 'tallaRango', 'tallaExacto', 'cm');
   renderAntecedentesChips();
+  renderAlergiasChips();
   renderMedCategorias();
   renderMedSubs();
   renderMedSelected();
@@ -2299,6 +2357,69 @@ function renderAntecedentesChips() {
   if (e.condicionesOtro) otroWrap.classList.add('show');
 }
 
+function renderAlergiasChips() {
+  const container = document.getElementById('chips-alergias');
+  if (!container) return;
+  container.innerHTML = '';
+  const e = state.expData;
+
+  CHIPS_DATA.alergias.forEach(al => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = al.abbr;
+    if (e.alergias.includes(al.abbr)) chip.classList.add('active');
+    chip.addEventListener('click', () => {
+      e.alergiasNinguna = false;
+      const idx = e.alergias.indexOf(al.abbr);
+      if (idx >= 0) e.alergias.splice(idx, 1);
+      else e.alergias.push(al.abbr);
+      renderAlergiasChips();
+      refreshAllSummaries();
+    });
+    container.appendChild(chip);
+  });
+
+  // "Ninguna conocida" — exclusivo
+  const ninguna = document.createElement('button');
+  ninguna.className = 'chip';
+  ninguna.textContent = t().exp.alergias_ninguna;
+  if (e.alergiasNinguna) ninguna.classList.add('active');
+  ninguna.addEventListener('click', () => {
+    e.alergiasNinguna = !e.alergiasNinguna;
+    if (e.alergiasNinguna) {
+      e.alergias = [];
+      e.alergiasOtro = '';
+      const oi = document.getElementById('otro-alergias-input');
+      if (oi) oi.value = '';
+      const ow = document.getElementById('otro-alergias-wrap');
+      if (ow) ow.classList.remove('show');
+    }
+    renderAlergiasChips();
+    refreshAllSummaries();
+  });
+  container.appendChild(ninguna);
+
+  // "Otra" → input libre
+  const otroChip = document.createElement('button');
+  otroChip.className = 'chip chip-more';
+  otroChip.textContent = t().exp.otro;
+  if (e.alergiasOtro) otroChip.classList.add('active');
+  const otroWrap = document.getElementById('otro-alergias-wrap');
+  otroChip.addEventListener('click', () => {
+    e.alergiasNinguna = false;
+    otroWrap.classList.toggle('show');
+    if (otroWrap.classList.contains('show')) {
+      document.getElementById('otro-alergias-input').focus();
+    }
+    renderAlergiasChips();
+  });
+  container.appendChild(otroChip);
+
+  const otroInput = document.getElementById('otro-alergias-input');
+  if (otroInput && e.alergiasOtro && !otroInput.value) otroInput.value = e.alergiasOtro;
+  if (e.alergiasOtro) otroWrap.classList.add('show');
+}
+
 function renderMedCategorias() {
   const container = document.getElementById('chips-med-cats');
   if (!container) return;
@@ -2317,6 +2438,25 @@ function renderMedCategorias() {
     });
     container.appendChild(chip);
   });
+
+  // "Otros" — campo libre de medicamentos (revela input al tocar, como Antecedentes)
+  const otroLibre = document.createElement('button');
+  otroLibre.className = 'chip chip-more';
+  otroLibre.textContent = t().exp.lbl_med_libre;
+  if (e.medLibre) otroLibre.classList.add('active');
+  const libreWrap = document.getElementById('otro-medlibre-wrap');
+  otroLibre.addEventListener('click', () => {
+    libreWrap.classList.toggle('show');
+    if (libreWrap.classList.contains('show')) {
+      document.getElementById('med-libre-input').focus();
+    }
+    renderMedCategorias();
+  });
+  container.appendChild(otroLibre);
+
+  const libreInput = document.getElementById('med-libre-input');
+  if (libreInput && e.medLibre && !libreInput.value) libreInput.value = e.medLibre;
+  if (e.medLibre) libreWrap.classList.add('show');
 }
 
 function renderMedSubs() {
@@ -2687,6 +2827,7 @@ function refreshIMC() {
 function refreshAllSummaries() {
   setSummary('paciente', summaryPaciente());
   setSummary('antecedentes', summaryAntecedentes());
+  setSummary('alergias', summaryAlergias());
   setSummary('medicamentos', summaryMedicamentos());
   setSummary('procedimiento', summaryProcedimiento());
   setSummary('anestesia', summaryAnestesia());
@@ -2725,10 +2866,22 @@ function summaryAntecedentes() {
   return items.length > 0 ? items.join(', ') : '';
 }
 
+function summaryAlergias() {
+  const e = state.expData;
+  if (e.alergiasNinguna) return t().exp.alergias_ninguna;
+  const al = [...e.alergias];
+  if (e.alergiasOtro) al.push(e.alergiasOtro);
+  return al.length > 0 ? al.join(', ') : '';
+}
+
 function summaryMedicamentos() {
   const e = state.expData;
-  if (e.meds.length === 0) return '';
-  return e.meds.map(m => `${m.name} ${m.freq}`).join(', ');
+  const _chips = e.meds.map(m => `${m.name} ${m.freq}`);
+  const _libre = (e.medLibre || '').trim();
+  const _all = [..._chips];
+  if (_libre) _all.push(_libre);
+  if (_all.length === 0) return '';
+  return _all.join(', ');
 }
 
 function summaryProcedimiento() {
@@ -2819,10 +2972,21 @@ function buildExpedienteFormData() {
   state.formData.HistClin = histParts.join(' ');
 
   // medstomando — limpia paréntesis de frecuencia para evitar duplicar ("Alendronato (semanal) Semanal")
-  state.formData.medstomando = e.meds.map(m => {
+  const medChips = e.meds.map(m => {
     const cleanName = m.name.replace(/\s*\((semanal|mensual|diario|c\/\d+h)\)\s*/i, '').trim();
     return `${cleanName} ${m.freq}`;
-  }).join(', ');
+  });
+  const medLibreVal = (e.medLibre || '').trim();
+  state.formData.medstomando = [medChips.join(', '), medLibreVal].filter(Boolean).join(', ');
+
+  // alergias — clave dedicada; el prompt del Generador la cruza contra la receta
+  if (e.alergiasNinguna) {
+    state.formData.alergias = 'Ninguna conocida';
+  } else {
+    const alItems = [...e.alergias];
+    if (e.alergiasOtro) alItems.push(e.alergiasOtro);
+    state.formData.alergias = alItems.join(', ');
+  }
 
   // procedimiento
   let procStr = '';
@@ -3617,6 +3781,7 @@ async function submitQuery(userMessage, opts = {}) {
     procedimiento: state.formData.procedimiento || '',
     anestesia: state.formData.anestesia || '',
     medstomando: state.formData.medstomando || '',
+    alergias: state.formData.alergias || '',
     receta: state.formData.receta || '',
     laser_pbm: state.formData.laser_pbm || '',
     objetivo_PBM: state.formData.objetivo_PBM || '',
